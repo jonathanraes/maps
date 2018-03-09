@@ -2,7 +2,7 @@
   <nav class="navbar" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
       <a class="navbar-item" href="#">
-        <img src="../assets/img/logo.png">
+        <img src="../assets/img/logo_delft.svg">
       </a>
       <a class="navbar-item title" href="#">
         Delft Techniek Tour
@@ -28,9 +28,10 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+$navbarheight: 10vh
 
 nav.navbar
-  min-height: none
+  height: $navbarheight
   background-color: $nav-background
   border-bottom: solid 1px #dbdbdb
 
@@ -43,7 +44,7 @@ nav.navbar
   font-weight: normal
 
 .navbar-item img
-  max-height: 4rem
+  max-height: $navbarheight
 
 .navbar
   padding: 0

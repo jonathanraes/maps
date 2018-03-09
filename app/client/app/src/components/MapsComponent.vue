@@ -1,7 +1,16 @@
 <template>
-    <div>
+    <div class="page-container">
 
         <div id="map"></div>
+
+        <template v-if="selectedExhibit">
+            <div class="left-circles">
+                <div class="progress-display"></div>
+                <div class="distance-display">{{ selectedExhibit.distance.distance.text }}</div>
+                <div class="time-display">{{ selectedExhibit.distance.duration.text }}</div>
+            </div>
+        </template>
+
         <div class="wrapper">
             <template v-if="selectedExhibit">
                 <template v-if="atDestination">
@@ -18,29 +27,19 @@
                     </div>
                 </template>
 
-                <div class="row h-100">
-                    <div class="col-3">
-                        <div class="selected-location-title">{{ selectedExhibit.formatted_address }}</div>
+                <div class="exhibit-info">
+                    <div>
+                        <div class="exhibit-title">Naam object</div>
+                        <div class="selected-location-title">{{ selectedExhibit.formatted_address }} <em>{{ selectedExhibit.storeName }}</em></div>
                         <br>
-                        <div class="selected-location-name">{{ selectedExhibit.storeName }}</div>
-                        <br>
-                        <div class="selected-location-body">{{ selectedExhibit.infoText }}</div>
+                        <div class="selected-location-body">There are vocal qualities peculiar to men, and vocal qualities peculiar to beasts; and it is terrible to hear the one when the source should yield the other. Animal fury and orgiastic licence here whipped themselves to daemoniac heights by howls and squawking ecstasies that tore and reverberated through those nighted woods like pestilential tempests from the gulfs of hell. Now and then the less organised ululation would cease, and from what seemed a well-drilled chorus of hoarse voices would rise in sing-song chant that hideous phrase or ritual: “Ph’nglui mglw’nafh Cthulhu R’lyeh wgah’nagl fhtagn.”</div>
                     </div>
 
-                    <div class="col-3">
-                        <div class="selected-location-distance">
-                            Afstand:
-                            <br>
-                            {{ selectedExhibit.distance.duration.text }} lopen
-                            <br>
-                            {{ selectedExhibit.distance.distance.text }}
-                        </div>
-                    </div>
-
-                    <div class="col-3">
+                    <div>
                         <button class="btn btn-primary" v-on:click="routeTo(selectedExhibit)" v-if="selectedExhibit != destinationExhibit">Routebeschrijving</button>
                     </div>
                 </div>
+                <div class="expand-button"></div>
             </template>
         </div>
     </div>
@@ -139,12 +138,13 @@
         console.log('loading google maps')
         google = googlemaps
         initMap()
-        updateLocation(false)
-        addMapMarkers().then(() => {
-          activateClosestExhibitDistanceMatrix()
-          setInterval(function () {
-            updateLocation(false)
-          }, 1000)
+        updateLocation(false).then(() => {
+            addMapMarkers().then(() => {
+                activateClosestExhibitDistanceMatrix()
+                setInterval(function () {
+                    updateLocation(false)
+                }, 1000)
+            })
         })
       })
     }
@@ -219,73 +219,81 @@
   }
 
   function updateLocation (centre) {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(function (position) {
-        currentLocation = {
-          lat: parseFloat(position.coords.latitude),
-          lng: parseFloat(position.coords.longitude),
-          accuracy: parseFloat(position.coords.accuracy)
-        }
+      return new Promise(function(resolve, reject) {
+          // do a thing, possibly async, then…
+          if (navigator.geolocation) {
+              navigator.geolocation.getCurrentPosition(function (position) {
+                      currentLocation = {
+                          lat: parseFloat(position.coords.latitude),
+                          lng: parseFloat(position.coords.longitude),
+                          accuracy: parseFloat(position.coords.accuracy)
+                      }
 
-        if (!locationMarker) {
-          // Create marker
-          locationMarker = new google.maps.Marker({
-            clickable: false,
-            icon: new google.maps.MarkerImage('//maps.gstatic.com/mapfiles/mobile/mobileimgs2.png',
-              new google.maps.Size(22, 22),
-              new google.maps.Point(0, 18),
-              new google.maps.Point(11, 11)),
-            title: 'Huidige locatie',
-            zIndex: 999,
-            position: currentLocation,
-            map: map
-          })
-          accuracyCircle = new google.maps.Circle({
-            map: map,
-            radius: currentLocation.accuracy,
-            fillColor: '#dae8ff',
-            strokeColor: '#dae8ff',
-            strokeOpacity: 1,
-            strokeWeight: 1,
-            fillOpacity: 0.5
-          })
-          accuracyCircle.bindTo('center', locationMarker, 'position')
-        }
+                      if (!locationMarker) {
+                          // Create marker
+                          locationMarker = new google.maps.Marker({
+                              clickable: false,
+                              icon: new google.maps.MarkerImage('//maps.gstatic.com/mapfiles/mobile/mobileimgs2.png',
+                                  new google.maps.Size(22, 22),
+                                  new google.maps.Point(0, 18),
+                                  new google.maps.Point(11, 11)),
+                              title: 'Huidige locatie',
+                              zIndex: 999,
+                              position: currentLocation,
+                              map: map
+                          })
+                          accuracyCircle = new google.maps.Circle({
+                              map: map,
+                              radius: currentLocation.accuracy,
+                              fillColor: '#dae8ff',
+                              strokeColor: '#dae8ff',
+                              strokeOpacity: 1,
+                              strokeWeight: 1,
+                              fillOpacity: 0.5
+                          })
+                          accuracyCircle.bindTo('center', locationMarker, 'position')
+                      }
 
-        locationMarker.setPosition(currentLocation)
-        accuracyCircle.setRadius(currentLocation.accuracy)
-        if (!store.state.atDestination /* && selectedExhibit */ && destinationExhibit && getStraightDistance(store.state.destinationExhibit.location, currentLocation) < DestinationReachedDistance) {
-          // Destination Reached
-          console.log('reached destination ' + exhibits.length)
-          if (exhibits.indexOf(store.state.selectedExhibit) > -1) {
-            exhibits.splice(exhibits.indexOf(store.state.selectedExhibit), 1)
+                      locationMarker.setPosition(currentLocation)
+                      accuracyCircle.setRadius(currentLocation.accuracy)
+                      if (!store.state.atDestination /* && selectedExhibit */ && destinationExhibit && getStraightDistance(store.state.destinationExhibit.location, currentLocation) < DestinationReachedDistance) {
+                          // Destination Reached
+                          console.log('reached destination ' + exhibits.length)
+                          if (exhibits.indexOf(store.state.selectedExhibit) > -1) {
+                              exhibits.splice(exhibits.indexOf(store.state.selectedExhibit), 1)
+                          }
+                          console.log('reached destination ' + exhibits.length)
+                          // activateClosestExhibitDistanceMatrix()
+                          store.commit('setAtDestination', true)
+
+                          reachedDestination(store.state.selectedExhibit.location)
+                      }
+                      // if (vm.selectedExhibit)
+                      //   calculateRoute(directionsService, vm.selectedExhibit.location)
+                      if (centre) {
+                          map.setCenter(currentLocation)
+                      }
+
+                      resolve()
+                  },
+                  function () {
+                      // Location retrieval error
+                      if (!infoWindow) {
+                          infoWindow = new google.maps.InfoWindow()
+                          handleLocationError(true, infoWindow, map.getCenter())
+                          reject()
+                      }
+                  })
+          } else {
+              // Browser doesn't support Geolocation
+              if (!infoWindow) {
+                  infoWindow = new google.maps.InfoWindow()
+                  handleLocationError(false, infoWindow, map.getCenter())
+                  reject()
+              }
           }
-          console.log('reached destination ' + exhibits.length)
-          // activateClosestExhibitDistanceMatrix()
-          store.commit('setAtDestination', true)
-
-          reachedDestination(store.state.selectedExhibit.location)
-        }
-        // if (vm.selectedExhibit)
-        //   calculateRoute(directionsService, vm.selectedExhibit.location)
-        if (centre) {
-          map.setCenter(currentLocation)
-        }
-      },
-      function () {
-        // Location retrieval error
-        if (!infoWindow) {
-          infoWindow = new google.maps.InfoWindow()
-          handleLocationError(true, infoWindow, map.getCenter())
-        }
       })
-    } else {
-      // Browser doesn't support Geolocation
-      if (!infoWindow) {
-        infoWindow = new google.maps.InfoWindow()
-        handleLocationError(false, infoWindow, map.getCenter())
-      }
-    }
+
   }
 
   function activateClosestExhibitDistanceMatrix (skipamount = 0) {
@@ -389,7 +397,11 @@
 </script>
 
 <style lang="sass" scoped>
-    $menuheight: 150px
+    $menuheight: 30vh
+
+    .page-container
+        display: flex
+        flex-direction: row
 
     section
         padding: 0px
@@ -397,6 +409,7 @@
         width: 100%
 
         #map
+            z-index: 0
             display: flex
             flex-flow: column
             height: 90vh
@@ -404,23 +417,61 @@
             margin: 0
             padding: 0
             max-width: none
+            overflow: hidden
 
     .wrapper
-        padding-top: 20px
-        padding-bottom: 20px
-        padding-left: 10px
-        padding-right: 10px
+        padding: 10px 50px 20px 50px
         width: 80%
-        position: absolute
         left: 10%
-        bottom: 0
-        background-color: #00A6D6
-        color: white
-        height: $menuheight
-        justify-content: flex-end
+        bottom: -10px
+        background-color: #E6E6E6
+        color: black
+        //height: $menuheight
         display: flex
         flex-flow: column
         border-radius: 20px 20px 0px 0px
+        border-style: solid
+        position: fixed
+        font-size: 2vh
+        animation-name: slidein
+        animation-duration: 4s
+
+        .selected-location-body
+            font-size: 2vh
+            font-family: $family-primary
+
+        .expand-button
+            position: absolute
+            top: -25px
+            background-color: green
+            width: 50px
+            height: 50px
+            align-self: center
+            border-radius: 50%
+
+
+    .left-circles
+        color: black
+        z-index: 0
+        position: fixed
+        display: flex
+        flex-flow: column
+        align-self: center
+        margin-left: 50px
+        pointer-events: none
+
+        div
+            font-size: 2vh
+            display: flex
+            border-radius: 50%
+            border-style: solid
+            padding: 10px
+            width: 10vh
+            height: 10vh
+            align-items: center
+            justify-content: center
+            text-align: center
+            margin-bottom: 10px
 
 
     .left
@@ -431,5 +482,21 @@
     .right
         float: left
 
+    .exhibit-title
+        font-size: 1.3em
+        font-weight: bold
+
+    @keyframes slidein
+        0%
+            bottom: -$menuheight
+        100%
+            bottom: -10px
+
+
+    @keyframes slideout
+        0%
+            bottom: -10px
+        100%
+            bottom: -$menuheight
 
 </style>

@@ -37,7 +37,8 @@ export default {
   background-color: #A2D762
 
 img
-  position: absolute
   width: 100%
+  z-index: 0
+  position: fixed
 
 </style>
