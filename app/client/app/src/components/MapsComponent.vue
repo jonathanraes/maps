@@ -66,7 +66,7 @@
   // !!! Used to be loading block
 
   let $backend = axios.create({
-    baseURL: 'http://127.0.0.1:5000/api/',
+    baseURL: '/api/',
     timeout: 5000,
     headers: {'Content-Type': 'application/json'}
   })
@@ -429,7 +429,7 @@
         //height: $menuheight
         display: flex
         flex-flow: column
-        border-radius: 20px 20px 0px 0px
+        border-radius: 40px 40px 0px 0px
         border-style: solid
         position: fixed
         font-size: 2vh
