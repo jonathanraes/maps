@@ -135,10 +135,10 @@
         border-radius: 40px 40px 0px 0px
         border-style: solid
         position: fixed
-        font-size: 2vh
+        font-size: 1.2vmax
 
         .exhibit-title
-            font-size: 1.3em
+            font-size: 2vmax
             font-weight: bold
 
     .animation-enter

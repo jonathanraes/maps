@@ -464,13 +464,13 @@
         pointer-events: none
 
         div
-            font-size: 2vh
+            font-size: 1vmax
             display: flex
             border-radius: 50%
             border-style: solid
-            padding: 10px
-            width: 10vh
-            height: 10vh
+            padding: 10%
+            width: 5vmax
+            height: 5vmax
             align-items: center
             justify-content: center
             text-align: center
