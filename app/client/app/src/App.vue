@@ -3,7 +3,6 @@
 
     <nav>
         <router-view name="navbar"></router-view>
-        <router-view name="subnavbar"></router-view>
     </nav>
 
     <section class="section">
@@ -11,7 +10,14 @@
         <div class="container">
 
           <router-view name="main"></router-view>
+        </div>
+      </transition>
+    </section>
 
+    <section class="section">
+      <transition name="fade">
+        <div class="container">
+          <router-view name="menu"></router-view>
         </div>
       </transition>
     </section>

@@ -9,11 +9,14 @@
 </template>
 <script>
 import MapsComponent from '../components/MapsComponent'
+import MenuComponent from '../components/MenuComponent'
 
 export default {
   name: 'Property',
   components: {
-    'maps-component': MapsComponent
+      MenuComponent,
+      'maps-component': MapsComponent,
+    'menu-component': MenuComponent
   },
   data () {
     return {

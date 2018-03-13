@@ -1,8 +1,17 @@
 <template>
     <div class="page-container">
+        <div class="modal">
+            <div v-on:click="skipVideo()" class="skip-video"><p>Skip</p></div>
+            <div class="video">
+                <iframe  src="https://www.youtube.com/embed/g6iDZspbRMg"
+                        frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            </div>
+        </div>
 
+
+        <transition name="slide-fade">
         <div id="map"></div>
-
+        </transition>
         <template v-if="selectedExhibit">
             <div class="left-circles">
                 <div class="progress-display"></div>
@@ -10,40 +19,7 @@
                 <div class="time-display">{{ selectedExhibit.distance.duration.text }}</div>
             </div>
         </template>
-
-        <div class="wrapper">
-            <template v-if="selectedExhibit">
-                <template v-if="atDestination">
-                    <div class="destination-reached-text">Bestemming bereikt!</div>
-                    <div class="row h-100 destination-reached">
-                        <div class="col-4">
-                        </div>
-                        <div class="streetview-image col-3">
-                            <!--<img v-bind:src="imageURL" >-->
-                        </div>
-                        <div class="col-3">
-                            <button class="btn btn-primary" v-on:click="nextDestination()">Volgende bestemming</button>
-                        </div>
-                    </div>
-                </template>
-
-                <div class="exhibit-info">
-                    <div>
-                        <div class="exhibit-title">Naam object</div>
-                        <div class="selected-location-title">{{ selectedExhibit.formatted_address }} <em>{{ selectedExhibit.storeName }}</em></div>
-                        <br>
-                        <div class="selected-location-body">There are vocal qualities peculiar to men, and vocal qualities peculiar to beasts; and it is terrible to hear the one when the source should yield the other. Animal fury and orgiastic licence here whipped themselves to daemoniac heights by howls and squawking ecstasies that tore and reverberated through those nighted woods like pestilential tempests from the gulfs of hell. Now and then the less organised ululation would cease, and from what seemed a well-drilled chorus of hoarse voices would rise in sing-song chant that hideous phrase or ritual: “Ph’nglui mglw’nafh Cthulhu R’lyeh wgah’nagl fhtagn.”</div>
-                    </div>
-
-                    <div>
-                        <button class="btn btn-primary" v-on:click="routeTo(selectedExhibit)" v-if="selectedExhibit != destinationExhibit">Routebeschrijving</button>
-                    </div>
-                </div>
-                <div class="expand-button"></div>
-            </template>
-        </div>
     </div>
-
 </template>
 
 <script>
@@ -54,10 +30,6 @@
   // import Vuex from 'vuex'
   import store from '../store/index'
 
-  // var googleClient = require('@google/maps').createClient({
-  //   key: 'AIzaSyA7g2inijoh5NVHqaoKjE7dgpR6kRXI6Ls'
-  // })
-
   // import * as VueGoogleMaps from 'vue2-google-maps'
   var GoogleMapsLoader = require('google-maps') // only for common js environments
   GoogleMapsLoader.KEY = 'AIzaSyA7g2inijoh5NVHqaoKjE7dgpR6kRXI6Ls'
@@ -66,7 +38,7 @@
   // !!! Used to be loading block
 
   let $backend = axios.create({
-    baseURL: '/api/',
+    baseURL: 'http://127.0.0.1:5000/api/',
     timeout: 5000,
     headers: {'Content-Type': 'application/json'}
   })
@@ -97,7 +69,8 @@
   // })
 
   export default {
-    name: 'MapsComponent',
+      components: {},
+      name: 'MapsComponent',
     store: store,
     data () {
       return {
@@ -115,6 +88,9 @@
       },
       routeTo: function (exhibit) {
         routeTo(exhibit)
+      },
+      skipVideo: function () {
+          videoDone()
       }
     },
     computed: {
@@ -134,20 +110,31 @@
 
     },
     mounted () {
-      GoogleMapsLoader.load(function (googlemaps) {
-        console.log('loading google maps')
-        google = googlemaps
-        initMap()
-        updateLocation(false).then(() => {
-            addMapMarkers().then(() => {
-                activateClosestExhibitDistanceMatrix()
-                setInterval(function () {
-                    updateLocation(false)
-                }, 1000)
-            })
+      //  window.onload = function() { document.getElementById("menu").classList.add('animationenter'); }
+        this.$store.commit('showMenu', false)
+        GoogleMapsLoader.load(function (googlemaps) {
+            console.log('loading google maps')
+            google = googlemaps
+            initMap()
         })
-      })
     }
+  }
+
+  function videoDone () {
+      store.commit('showMenu', true)
+      updateLocation(false).then(() => {
+          addMapMarkers().then(() => {
+              activateClosestExhibitDistanceMatrix()
+              updateLocationrepeat()
+          })
+      })
+      document.getElementsByClassName("modal")[0].style.display = "none";
+  }
+
+  var updateLocationrepeat = function() {
+      setTimeout(function () {
+          updateLocation(false).then(() => updateLocationrepeat())
+      }, 1000)
   }
 
   var mapCenter = {lat: 52.011, lng: 4.3593}
@@ -215,7 +202,7 @@
         })
       })(exhibit)
     }
-      }).catch(error => console.log(error))
+      }).catch(error => console.log('AddMapMarkers error: ' + error))
   }
 
   function updateLocation (centre) {
@@ -399,6 +386,53 @@
 <style lang="sass" scoped>
     $menuheight: 30vh
 
+    .modal
+        display: block /* Hidden by default */
+        position: fixed /* Stay in place */
+        z-index: 1 /* Sit on top */
+        left: 0
+        top: 0
+        width: 100% /* Full width */
+        height: 100% /* Full height */
+        overflow: auto /* Enable scroll if needed */
+        background-color: rgb(0,0,0) /* Fallback color */
+        background-color: rgba(0,0,0,0.4) /* Black w/ opacity */
+
+    .skip-video
+        width: 10%
+        height: 5%
+        background-color: red
+        position: absolute
+        top: 30%
+        left: 90%
+        align-self: end
+        z-index: 9
+        color: #000
+        text-align: center
+
+        p
+            position: relative
+            top: 50%
+            transform: translateY(-50%)
+
+    .video-container
+        background-color: #fefefe
+        margin: auto
+        padding: 20px
+        border: 1px solid #888
+        width: 80%
+
+    .video
+        position: absolute
+        width:  90vw
+        height: 90vh
+        top: 5vh
+        left: 5vw
+
+        iframe
+            width: 100%
+            height: 100%
+
     .page-container
         display: flex
         flex-direction: row
@@ -418,37 +452,6 @@
             padding: 0
             max-width: none
             overflow: hidden
-
-    .wrapper
-        padding: 10px 50px 20px 50px
-        width: 80%
-        left: 10%
-        bottom: -10px
-        background-color: #E6E6E6
-        color: black
-        //height: $menuheight
-        display: flex
-        flex-flow: column
-        border-radius: 40px 40px 0px 0px
-        border-style: solid
-        position: fixed
-        font-size: 2vh
-        animation-name: slidein
-        animation-duration: 4s
-
-        .selected-location-body
-            font-size: 2vh
-            font-family: $family-primary
-
-        .expand-button
-            position: absolute
-            top: -25px
-            background-color: green
-            width: 50px
-            height: 50px
-            align-self: center
-            border-radius: 50%
-
 
     .left-circles
         color: black
@@ -482,21 +485,9 @@
     .right
         float: left
 
-    .exhibit-title
-        font-size: 1.3em
-        font-weight: bold
+    .slide-fade-enter-active
+        transition: all .3s ease
 
-    @keyframes slidein
-        0%
-            bottom: -$menuheight
-        100%
-            bottom: -10px
-
-
-    @keyframes slideout
-        0%
-            bottom: -10px
-        100%
-            bottom: -$menuheight
-
+    .slide-fade-leave-active
+        transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0)
 </style>

@@ -5,13 +5,8 @@
         <img src="../assets/img/logo_delft.svg">
       </a>
       <a class="navbar-item title" href="#">
-        Delft Techniek Tour
+           Delft Techniek Tour
       </a>
-    </div>
-    <div class="navbar-menu">
-      <div class="navbar-end">
-        <span class="navbar-item is-size-7 is-dark">{{version}}</span>
-      </div>
     </div>
   </nav>
 </template>
@@ -21,8 +16,13 @@ export default {
   name: 'Navbar',
   data () {
     return {
-      version: 1
+      isShowing: false
     }
+  },
+  methods: {
+      toggleShow() {
+          this.isShowing = !this.isShowing;
+      }
   }
 }
 </script>
@@ -48,6 +48,5 @@ nav.navbar
 
 .navbar
   padding: 0
-
 
 </style>

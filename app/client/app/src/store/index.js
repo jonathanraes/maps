@@ -21,7 +21,8 @@ export default new Vuex.Store({
     isLoading: false,
     atDestination: false,
     selectedExhibit: null,
-    destinationExhibit: null
+    destinationExhibit: null,
+    showMenu: true
   }
 })
 

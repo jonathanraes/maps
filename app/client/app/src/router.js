@@ -2,7 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 import Navbar from './components/Navbar'
-import SubNavbar from './components/SubNavbar'
+import MenuComponent from './components/MenuComponent'
+import BottomBar from './components/BottomBar'
 
 import PageOne from './views/PageOne'
 import PageTwo from './views/PageTwo'
@@ -16,23 +17,25 @@ export default new Router({
       path: '/',
       components: {
         navbar: Navbar,
-        main: Login
+        main: Login,
+        bottombar: BottomBar,
+          menu: MenuComponent
       }
     },
     {
-      path: '/one',
+      path: '/map',
       components: {
         navbar: Navbar,
-        subnavbar: SubNavbar,
-        main: PageOne
+        main: PageOne,
+          menu: MenuComponent
       }
     },
     {
-      path: '/two',
+      path: '/video',
       components: {
         navbar: Navbar,
-        subnavbar: SubNavbar,
-        main: PageTwo
+        main: PageTwo,
+          menu: MenuComponent
       }
     }
   ]
