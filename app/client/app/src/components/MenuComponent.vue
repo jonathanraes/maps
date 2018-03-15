@@ -1,53 +1,55 @@
 <template>
     <section>
-    <transition name="slide" >
-        <div id="menu" class="wrapper" v-if="getMenu">
-            <template v-if="selectedExhibit && !atMainRoute">
-                <div class="text-wrapper">
-                    <template v-if="atDestination">
-                        <div class="destination-reached-text">Bestemming bereikt!</div>
-                        <div class="row h-100 destination-reached">
-                            <div class="col-4">
-                            </div>
-                            <div class="streetview-image col-3">
-                                <!--<img v-bind:src="imageURL" >-->
-                            </div>
-                            <div class="col-3">
-                                <button class="btn btn-primary" v-on:click="nextDestination()">Volgende bestemming</button>
-                            </div>
-                        </div>
-                    </template>
-                    <div class="exhibit-info">
-                    <div>
-                        <div class="exhibit-title">Naam object</div>
-                        <div class="selected-location-title">{{ selectedExhibit.formatted_address }} <em>  {{ selectedExhibit.storeName }}</em></div>
-                        <br>
-                        <div class="selected-location-body">
-                            <!--<details>-->
-                            Lorem ipsum hac malesuada facilisis volutpat posuere, felis erat inceptos fermentum morbi pellentesque, vehicula proin sodales sociosqu aptent nibh ac ornare nunc dapibus hendrerit congue dolor curabitur quisque, cras ultrices conubia massa ipsum varius nam commodo duis, donec varius primis imperdiet nisi lacus imperdiet nostra mi interdum dictumst fusce curabitur id habitasse id mi lacinia non netus dolor velit mattis, ad duis mattis posuere mi vehicula mattis justo tristique taciti eros sem urna cubilia pellentesque semper justo vehicula feugiat malesuada suscipit vel, mauris luctus pretium eleifend tempus velit pretium cras quisque accumsan, convallis fames nisi lacus nisl per velit blandit.
-                            <!--</details>-->
-                        </div>
-                    </div>
-
-                    <div>
-                        <button class="btn btn-primary" v-on:click="routeTo(selectedExhibit)" v-if="selectedExhibit != destinationExhibit">Routebeschrijving</button>
-                    </div>
-                </div>
-                </div>
+        <div>
             <div class="expand-button"></div>
-            </template>
-            <template v-else>
-                <div class="main-menu">
-                    <a class="" href="#">
-                        <img src="../assets/img/logo_delft.svg">
-                    </a>
-                    <a href="#">
-                        <img src="../assets/img/logo-tudelft.svg">
-                    </a>
-                </div>
-            </template>
+            <transition name="slide" >
+            <div id="menu" class="wrapper" v-if="getMenu">
+                <template v-if="selectedExhibit && !atMainRoute">
+                    <div class="text-wrapper">
+                        <template v-if="atDestination">
+                            <div class="destination-reached-text">Bestemming bereikt!</div>
+                            <div class="row h-100 destination-reached">
+                                <div class="col-4">
+                                </div>
+                                <div class="streetview-image col-3">
+                                    <!--<img v-bind:src="imageURL" >-->
+                                </div>
+                                <div class="col-3">
+                                    <button class="btn btn-primary" v-on:click="nextDestination()">Volgende bestemming</button>
+                                </div>
+                            </div>
+                        </template>
+                        <div class="exhibit-info">
+                        <div>
+                            <div class="exhibit-title">Naam object</div>
+                            <div class="selected-location-title">{{ selectedExhibit.formatted_address }} <em>  {{ selectedExhibit.storeName }}</em></div>
+                            <br>
+                            <div class="selected-location-body">
+                                <!--<details>-->
+                                Lorem ipsum hac malesuada facilisis volutpat posuere, felis erat inceptos fermentum morbi pellentesque, vehicula proin sodales sociosqu aptent nibh ac ornare nunc dapibus hendrerit congue dolor curabitur quisque, cras ultrices conubia massa ipsum varius nam commodo duis, donec varius primis imperdiet nisi lacus imperdiet nostra mi interdum dictumst fusce curabitur id habitasse id mi lacinia non netus dolor velit mattis, ad duis mattis posuere mi vehicula mattis justo tristique taciti eros sem urna cubilia pellentesque semper justo vehicula feugiat malesuada suscipit vel, mauris luctus pretium eleifend tempus velit pretium cras quisque accumsan, convallis fames nisi lacus nisl per velit blandit.
+                                <!--</details>-->
+                            </div>
+                        </div>
+
+                        <div>
+                            <button class="btn btn-primary" v-on:click="routeTo(selectedExhibit)" v-if="selectedExhibit != destinationExhibit">Routebeschrijving</button>
+                        </div>
+                    </div>
+                    </div>
+                </template>
+                <template v-else>
+                    <div class="main-menu">
+                        <a class="" href="#">
+                            <img src="../assets/img/logo_delft.svg">
+                        </a>
+                        <a href="#">
+                            <img src="../assets/img/logo-tudelft.svg">
+                        </a>
+                    </div>
+                </template>
+            </div>
+        </transition>
         </div>
-    </transition>
     </section>
 </template>
 
@@ -143,6 +145,7 @@
             font-family: $family-primary
 
     .expand-button
+        left: 50%
         position: absolute
         top: -25px
         background-color: green

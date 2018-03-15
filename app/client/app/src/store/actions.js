@@ -1,4 +1,3 @@
-import Vue from 'vue'
 import backend from './backend'
 
 export default {
@@ -14,6 +13,8 @@ export default {
   		context.commit('setResource', responseData)
   	})
   },
-
+  setLang: function (context, payload) {
+    context.commit('setLang', payload)
+  }
 
 }

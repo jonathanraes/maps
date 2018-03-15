@@ -3,7 +3,7 @@
     <img src="../assets/img/plattegrond_delft.png">
     <div class="level">
       <div class="level-item has-text-centered">
-        <h1 class="title">Selecteer een tour</h1>
+        <h1 class="title">{{ $t("message.select_tour") }}</h1>
       </div>
     </div>
     <div class="level">

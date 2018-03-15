@@ -1,4 +1,6 @@
 import Vue from 'vue'
+import { app } from '../main'
+import types from 'vue'
 
 export default {
 
@@ -18,7 +20,15 @@ export default {
     state.atDestination = atDestination
   },
   showMenu: function (state, showMenu) {
-      state.showMenu = showMenu
+    state.showMenu = showMenu
+  },
+  setLang: function (state, lang) {
+      app.$i18n.locale = lang
   }
 }
 
+export const mutations = {
+    [types.SET_LANG] (state, payload) {
+        app.$i18n.locale = payload
+    }
+}

@@ -1,0 +1,31 @@
+import VueI18n from 'vue-i18n'
+import Vue from 'vue'
+
+
+Vue.use(VueI18n)
+
+const locale = 'nl'
+
+const messages = {
+    en: {
+        message: {
+            hello: 'hello world',
+            visit_store_info: 'Enter the store to get more information on this exhibit',
+            select_tour: 'Select a tour'
+        }
+    },
+    nl: {
+        message: {
+            hello: 'hallo wereld',
+            visit_store_info: 'Bezoek de winkel voor meer informatie over de tentoonstelling',
+            select_tour: 'Selecteer een tour'
+        }
+    }
+}
+const i18n = new VueI18n({
+    /** 默认值 */
+    locale,
+    messages
+})
+
+export default i18n

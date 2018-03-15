@@ -19,7 +19,7 @@
         </transition>
         <transition name="slide-in-right">
             <div class="right-panel" v-if="selectedExhibit">
-                Bezoek de winkel voor meer informatie over de tentoonstelling
+                <p >{{ $t("message.visit_store_info") }}</p>
             </div>
         </transition>
     </div>
@@ -67,7 +67,8 @@
       },
       skipVideo: function () {
         videoDone()
-      }
+      },
+
     },
     computed: {
       resource () {
@@ -260,7 +261,6 @@
     var locations = []
     var distances = []
     for (let exhibit of exhibits) {
-        console.log(exhibit.formatted_address)
       locations.push(exhibit.formatted_address)
     }
     for (var i = 0; i < locations.length; i + 25) {
@@ -273,14 +273,10 @@
           travelMode: 'WALKING'
         }, function (response, status) {
           if (response) {
-              console.log(response)
             distances = distances.concat(response.rows[0].elements)
             for (var j = 0; j < response.destinationAddresses.length; j++) {
               for (let exhibit of exhibits) {
-                  console.log(exhibit.formatted_address)
-                  console.log(response.destinationAddresses[j])
                 if (response.destinationAddresses[j].indexOf(exhibit.formatted_address) !== -1) {
-                    console.log(response.rows[0].elements[j])
                   exhibit['distance'] = response.rows[0].elements[j]
                 }
               }

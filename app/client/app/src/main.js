@@ -1,5 +1,4 @@
 import Vue from 'vue'
-import Vuex from 'vuex'
 import router from './router.js'
 import store from './store'
 
@@ -8,11 +7,13 @@ import Mixins from './mixins.js'
 Vue.mixin(Mixins)
 
 import App from './App.vue'
+import i18n from "./lang/lang.js";
 
-var vue = new Vue({
+export const app = new Vue({
   el: '#vue-app',
   router,
   store,
+  i18n,
   template: '<App/>',
   mixins: [Mixins],
   components: { App }
