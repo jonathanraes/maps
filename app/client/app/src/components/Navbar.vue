@@ -20,9 +20,7 @@ export default {
     }
   },
   methods: {
-      toggleShow() {
-          this.isShowing = !this.isShowing;
-      }
+
   }
 }
 </script>

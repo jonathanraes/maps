@@ -20,10 +20,12 @@
                     <div class="exhibit-info">
                     <div>
                         <div class="exhibit-title">Naam object</div>
-                        <div class="selected-location-title">{{ selectedExhibit.formatted_address }} <em>{{ selectedExhibit.storeName }}</em></div>
+                        <div class="selected-location-title">{{ selectedExhibit.formatted_address }} <em>  {{ selectedExhibit.storeName }}</em></div>
                         <br>
                         <div class="selected-location-body">
+                            <!--<details>-->
                             Lorem ipsum hac malesuada facilisis volutpat posuere, felis erat inceptos fermentum morbi pellentesque, vehicula proin sodales sociosqu aptent nibh ac ornare nunc dapibus hendrerit congue dolor curabitur quisque, cras ultrices conubia massa ipsum varius nam commodo duis, donec varius primis imperdiet nisi lacus imperdiet nostra mi interdum dictumst fusce curabitur id habitasse id mi lacinia non netus dolor velit mattis, ad duis mattis posuere mi vehicula mattis justo tristique taciti eros sem urna cubilia pellentesque semper justo vehicula feugiat malesuada suscipit vel, mauris luctus pretium eleifend tempus velit pretium cras quisque accumsan, convallis fames nisi lacus nisl per velit blandit.
+                            <!--</details>-->
                         </div>
                     </div>
 
@@ -92,16 +94,6 @@
 
     }
 
-    // store.subscribe((mutation, state) => {
-    //     if (mutation.type === 'showMenu') {
-    //         if (mutation.payload) {
-    //             enterAnimation()
-    //         } else {
-    //             exitAnimation()
-    //         }
-    //     }
-    // })
-    //
 </script>
 
 <style lang="sass" scoped>

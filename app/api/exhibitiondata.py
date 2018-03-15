@@ -28,7 +28,7 @@ def geocode_locations():
     for exhibition in exhibitions:
         geocode_result = gmaps.geocode(exhibition['address'] + ', Delft, Nederland')
         exhibition['location'] = geocode_result[0]['geometry']['location']
-        exhibition['formatted_address'] = geocode_result[0]['formatted_address'].rsplit(',', 1)
+        exhibition['formatted_address'] = geocode_result[0]['formatted_address'].rsplit(',', 1)[0]
     print("Done")
 
 read_locationdata()

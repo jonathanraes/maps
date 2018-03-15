@@ -9,16 +9,19 @@
         </div>
 
 
-        <transition name="slide-fade">
         <div id="map"></div>
-        </transition>
-        <template v-if="selectedExhibit">
-            <div class="left-circles">
+        <transition name="slide-in-left">
+            <div class="left-circles" v-if="selectedExhibit">
                 <div class="progress-display"></div>
                 <div class="distance-display">{{ selectedExhibit.distance.distance.text }}</div>
                 <div class="time-display">{{ selectedExhibit.distance.duration.text }}</div>
             </div>
-        </template>
+        </transition>
+        <transition name="slide-in-right">
+            <div class="right-panel" v-if="selectedExhibit">
+                Bezoek de winkel voor meer informatie over de tentoonstelling
+            </div>
+        </transition>
     </div>
 </template>
 
@@ -26,51 +29,24 @@
   /*jslint white: true */
 
   import axios from 'axios'
-  // import Vue from 'vue'
-  // import Vuex from 'vuex'
   import store from '../store/index'
 
-  // import * as VueGoogleMaps from 'vue2-google-maps'
+  var google // Google api variable
   var GoogleMapsLoader = require('google-maps') // only for common js environments
   GoogleMapsLoader.KEY = 'AIzaSyA7g2inijoh5NVHqaoKjE7dgpR6kRXI6Ls'
-  var google
+  GoogleMapsLoader.LANGUAGE = 'nl';
+  GoogleMapsLoader.REGION = 'NL';
 
-  // !!! Used to be loading block
 
   let $backend = axios.create({
     baseURL: 'http://127.0.0.1:5000/api/',
     timeout: 5000,
     headers: {'Content-Type': 'application/json'}
   })
-  //
-
-  // Vue.use(Vuex)
-  // const store = new Vuex.Store({
-  //   strict: true,
-  //   state: {
-  //     selectedExhibit: null,
-  //     destinationExhibit: null,
-  //     atDestination: false
-  //   },
-  //   mutations: {
-  //     setExhibit: function (state, exhibit) {
-  //       state.selectedExhibit = exhibit
-  //     },
-  //     setDestination: function (state, exhibit) {
-  //       state.destinationExhibit = exhibit
-  //     },
-  //     setAtDestination: function (state, atDestination) {
-  //       state.atDestination = atDestination
-  //     }
-  //   },
-  //   actions: {
-  //
-  //   }
-  // })
 
   export default {
-      components: {},
-      name: 'MapsComponent',
+    components: {},
+    name: 'MapsComponent',
     store: store,
     data () {
       return {
@@ -90,7 +66,7 @@
         routeTo(exhibit)
       },
       skipVideo: function () {
-          videoDone()
+        videoDone()
       }
     },
     computed: {
@@ -110,23 +86,20 @@
 
     },
     mounted () {
-      //  window.onload = function() { document.getElementById("menu").classList.add('animationenter'); }
         this.$store.commit('showMenu', false)
         GoogleMapsLoader.load(function (googlemaps) {
-            console.log('loading google maps')
             google = googlemaps
             initMap()
+            addMapMarkers()
         })
     }
   }
 
   function videoDone () {
-      store.commit('showMenu', true)
       updateLocation(false).then(() => {
-          addMapMarkers().then(() => {
-              activateClosestExhibitDistanceMatrix()
-              updateLocationrepeat()
-          })
+          activateClosestExhibitDistanceMatrix()
+          updateLocationrepeat()
+          store.commit('showMenu', true)
       })
       document.getElementsByClassName("modal")[0].style.display = "none";
   }
@@ -287,6 +260,7 @@
     var locations = []
     var distances = []
     for (let exhibit of exhibits) {
+        console.log(exhibit.formatted_address)
       locations.push(exhibit.formatted_address)
     }
     for (var i = 0; i < locations.length; i + 25) {
@@ -299,10 +273,14 @@
           travelMode: 'WALKING'
         }, function (response, status) {
           if (response) {
+              console.log(response)
             distances = distances.concat(response.rows[0].elements)
             for (var j = 0; j < response.destinationAddresses.length; j++) {
               for (let exhibit of exhibits) {
-                if (exhibit.formatted_address === response.destinationAddresses[j]) {
+                  console.log(exhibit.formatted_address)
+                  console.log(response.destinationAddresses[j])
+                if (response.destinationAddresses[j].indexOf(exhibit.formatted_address) !== -1) {
+                    console.log(response.rows[0].elements[j])
                   exhibit['distance'] = response.rows[0].elements[j]
                 }
               }
@@ -398,6 +376,15 @@
         background-color: rgb(0,0,0) /* Fallback color */
         background-color: rgba(0,0,0,0.4) /* Black w/ opacity */
 
+    .right-panel
+        position: absolute
+        background-color: red
+        color: black
+        right: 0px
+        max-width: 10vw
+        top: 30%
+        padding: 10px
+
     .skip-video
         width: 10%
         height: 5%
@@ -459,7 +446,7 @@
         position: fixed
         display: flex
         flex-flow: column
-        align-self: center
+        top: 30%
         margin-left: 50px
         pointer-events: none
 
@@ -485,9 +472,22 @@
     .right
         float: left
 
-    .slide-fade-enter-active
-        transition: all .3s ease
+    .slide-in-right-enter-active,
+    .slide-in-right-leave-active
+        transition: all 2s
+        transform: translateX(0%)
 
-    .slide-fade-leave-active
-        transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0)
+    .slide-in-right-enter,
+    .slide-in-right-leave-to
+        transform: translateX(100%)
+
+
+    .slide-in-left-enter-active,
+    .slide-in-left-leave-active
+        transition: all 2s
+        transform: translateX(0%)
+
+    .slide-in-left-enter,
+    .slide-in-left-leave-to
+        transform: translateX(-100%)
 </style>
