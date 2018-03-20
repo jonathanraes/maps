@@ -1,13 +1,29 @@
 <template>
-  <nav class="navbar navbar-default" role="navigation" aria-label="main navigation">
-      <a class="nav-item" href="#">
-        <img src="../assets/img/logo_delft.svg">
-      </a>
-      <a class="nav-item page-title navbar-brand" href="#">
-           Delft Techniek Tour
-      </a>
-      <div v-on:click="changeLanguage" class="lang-setting">{{ language }}</div>
-  </nav>
+  <!--<nav class="navbar navbar-default" role="navigation" aria-label="main navigation">-->
+      <!--<div class="container-fluid">-->
+              <!--<a class="navbar-left navbar-logo" href="#">-->
+                <!--&lt;!&ndash;<img class="navbar-logo" src="../assets/img/logo_delft.svg">&ndash;&gt;-->
+              <!--</a>-->
+              <!--<a class="navbar-brand" href="#">-->
+                   <!--Delft Techniek Tour-->
+              <!--</a>-->
+          <!--<ul class="nav navbar-nav navbar-right">-->
+              <!--<li><div v-on:click="changeLanguage" class="lang-setting">{{ language }}</div></li>-->
+          <!--</ul>-->
+
+      <!--</div>-->
+  <!--</nav>-->
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#"></a>
+            </div>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li><div v-on:click="changeLanguage" class="lang-setting">{{ language }}</div></li>
+            </ul>
+        </div>
+    </nav>
 </template>
 <script>
 
@@ -46,16 +62,26 @@ export default {
 <style lang="sass" scoped>
 $navbarheight: 10vh
 
-nav.navbar
-  height: $navbarheight
+.navbar
   background-color: $nav-background
   border-bottom: solid 1px #dbdbdb
+  height: 100px
+
+.navbar-header
+    height: 100%
 
 .page-title
   font-weight: normal
   position: relative
   top: 50%
   transform: translateY(-50%)
+
+.navbar-brand
+    background: url(../assets/img/logo_delft.svg) center / contain no-repeat
+    height: 100%
+    width: 200px
+    padding-top: 0
+    padding-bottom: 0
 
 .lang-setting
     position: relative

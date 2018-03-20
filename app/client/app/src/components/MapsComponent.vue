@@ -3,8 +3,9 @@
         <div class="modal">
             <div v-on:click="skipVideo()" class="skip-video"><p>Skip</p></div>
             <div class="video">
-                <iframe  src="https://www.youtube.com/embed/g6iDZspbRMg"
-                        frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                <!--<iframe  src="https://www.youtube.com/embed/g6iDZspbRMg"-->
+                        <!--frameborder="0" allowfullscreen></iframe>-->
+                <div id="ytplayer"></div>
             </div>
         </div>
 
@@ -26,6 +27,22 @@
 </template>
 
 <script>
+
+    var YouTubeIframeLoader = require('youtube-iframe')
+
+    var player;
+    YouTubeIframeLoader.load(function(YT) {
+        player = new YT.Player('ytplayer', {
+            height: '100%',
+            width: '100%',
+            videoId: '668nUCeBHyY'
+        });
+        player.addEventListener("onStateChange", function(state){
+            if(state.data === 0){
+                videoDone()
+            }
+        });
+    })
   /*jslint white: true */
 
   import axios from 'axios'
@@ -98,9 +115,10 @@
 
   function videoDone () {
       updateLocation(false).then(() => {
-          activateClosestExhibitDistanceMatrix()
           updateLocationrepeat()
-          store.commit('showMenu', true)
+          activateClosestExhibitDistanceMatrix().then(() => {
+              store.commit('showMenu', true)
+          })
       })
       document.getElementsByClassName("modal")[0].style.display = "none";
   }
@@ -258,61 +276,63 @@
   }
 
   function activateClosestExhibitDistanceMatrix (skipamount = 0) {
-    var locations = []
-    var distances = []
-    for (let exhibit of exhibits) {
-      locations.push(exhibit.formatted_address)
-    }
-    for (var i = 0; i < locations.length; i + 25) {
-      // console.log(currentLocation)
-      // Obtain all distances using the distance matrix in groups of 25 destinations max
-      distanceService.getDistanceMatrix(
-        {
-          origins: [currentLocation],
-          destinations: locations.splice(i, i + 25),
-          travelMode: 'WALKING'
-        }, function (response, status) {
-          if (response) {
-            distances = distances.concat(response.rows[0].elements)
-            for (var j = 0; j < response.destinationAddresses.length; j++) {
-              for (let exhibit of exhibits) {
-                if (response.destinationAddresses[j].indexOf(exhibit.formatted_address) !== -1) {
-                  exhibit['distance'] = response.rows[0].elements[j]
-                }
-              }
-            }
-            if (distances.length >= exhibits.length) {
-              // When distance array is filled up
-              // var closest_exhibit = vm.exhibits[0]
-              // for (exhibit of vm.exhibits) {
-              //   if (!exhibit.distance) {
-              //     // Not possible anymore due to length check
-              //     console.error('MISSING DIST: ')
-              //     console.log(exhibit)
-              //   } else if (exhibit.distance.duration.value < closest_exhibit.distance.duration.value) {
-              //     closest_exhibit = exhibit
-              //   }
-              // }
-              exhibits.sort(function (a, b) {
-                if (a.distance && b.distance) {
-                  return a.distance.duration.value - b.distance.duration.value
-                } else {
-                  return 999999999
-                }
-              })
-
-              store.commit('setExhibit', exhibits[skipamount])
-              // Vue.set(selectedExhibit, 'selectedExhibit', exhibits[skipamount])
-              // destinationExhibit = exhibits[skipamount].location
-              store.commit('setDestination', exhibits[skipamount])
-
-              calculateAndDisplayRoute(directionsService, directionsDisplay, exhibits[skipamount].location)
-            }
-          } else {
-            console.error(status)
+      return new Promise(function (resolve, reject) {
+          var locations = []
+          var distances = []
+          for (let exhibit of exhibits) {
+              locations.push(exhibit.formatted_address)
           }
-        })
-    }
+          for (var i = 0; i < locations.length; i + 25) {
+              // console.log(currentLocation)
+              // Obtain all distances using the distance matrix in groups of 25 destinations max
+              distanceService.getDistanceMatrix(
+              {
+                  origins: [currentLocation],
+                  destinations: locations.splice(i, i + 25),
+                  travelMode: 'WALKING'
+              }, function (response, status) {
+                  if (response) {
+                      distances = distances.concat(response.rows[0].elements)
+                      for (var j = 0; j < response.destinationAddresses.length; j++) {
+                          for (let exhibit of exhibits) {
+                              if (response.destinationAddresses[j].indexOf(exhibit.formatted_address) !== -1) {
+                                  exhibit['distance'] = response.rows[0].elements[j]
+                              }
+                          }
+                      }
+                      if (distances.length >= exhibits.length) {
+                          // When distance array is filled up
+                          // var closest_exhibit = vm.exhibits[0]
+                          // for (exhibit of vm.exhibits) {
+                          //   if (!exhibit.distance) {
+                          //     // Not possible anymore due to length check
+                          //     console.error('MISSING DIST: ')
+                          //     console.log(exhibit)
+                          //   } else if (exhibit.distance.duration.value < closest_exhibit.distance.duration.value) {
+                          //     closest_exhibit = exhibit
+                          //   }
+                          // }
+                          exhibits.sort(function (a, b) {
+                              if (a.distance && b.distance) {
+                                  return a.distance.duration.value - b.distance.duration.value
+                              } else {
+                                  return 999999999
+                              }
+                          })
+
+                          store.commit('setExhibit', exhibits[skipamount])
+                          store.commit('setDestination', exhibits[skipamount])
+
+                          calculateAndDisplayRoute(directionsService, directionsDisplay, exhibits[skipamount].location)
+                          resolve()
+                      }
+                  } else {
+                      reject(status)
+                      console.error(status)
+                  }
+              })
+          }
+      })
   }
 
   function reachedDestination (destination) {
@@ -403,16 +423,19 @@
         margin: auto
         padding: 20px
         border: 1px solid #888
-        width: 80%
+        //width: 80%
+
 
     .video
         position: absolute
-        width:  90vw
-        height: 90vh
+        width: 90vw
+        height: 50.625vw
+        max-height: 90vh
+        max-width: 160vh
         top: 5vh
         left: 5vw
 
-        iframe
+        #ytplayer
             width: 100%
             height: 100%
 

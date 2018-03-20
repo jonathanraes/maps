@@ -1,24 +1,20 @@
 <template>
     <section>
         <div>
-            <div class="expand-button"></div>
             <transition name="slide" >
-            <div id="menu" class="wrapper" v-if="getMenu">
+            <div id="menu" class="wrapper" v-if="showmenu">
+                <div class="expand-button" v-on:click="toggleDestinationImage"></div>
+
                 <template v-if="selectedExhibit && !atMainRoute">
-                    <div class="text-wrapper">
-                        <template v-if="atDestination">
-                            <div class="destination-reached-text">Bestemming bereikt!</div>
-                            <div class="row h-100 destination-reached">
-                                <div class="col-4">
-                                </div>
-                                <div class="streetview-image col-3">
-                                    <!--<img v-bind:src="imageURL" >-->
-                                </div>
-                                <div class="col-3">
-                                    <button class="btn btn-primary" v-on:click="nextDestination()">Volgende bestemming</button>
-                                </div>
+                    <transition name="expand" >
+                        <div class="destination-image-wrapper" v-if="showDestinationImage">
+                            <div class="destination-reached-text">{{ $t("message.destination_looks_like") }}</div>
+                            <div class="destination-image">
+                                <img src="../assets/img/destination.jpg" >
                             </div>
-                        </template>
+                        </div>
+                    </transition>
+                    <div class="text-wrapper">
                         <div class="exhibit-info">
                         <div>
                             <div class="exhibit-title">Naam object</div>
@@ -26,8 +22,14 @@
                             <br>
                             <div class="selected-location-body">
                                 <!--<details>-->
-                                Lorem ipsum hac malesuada facilisis volutpat posuere, felis erat inceptos fermentum morbi pellentesque, vehicula proin sodales sociosqu aptent nibh ac ornare nunc dapibus hendrerit congue dolor curabitur quisque, cras ultrices conubia massa ipsum varius nam commodo duis, donec varius primis imperdiet nisi lacus imperdiet nostra mi interdum dictumst fusce curabitur id habitasse id mi lacinia non netus dolor velit mattis, ad duis mattis posuere mi vehicula mattis justo tristique taciti eros sem urna cubilia pellentesque semper justo vehicula feugiat malesuada suscipit vel, mauris luctus pretium eleifend tempus velit pretium cras quisque accumsan, convallis fames nisi lacus nisl per velit blandit.
+                                <div v-if='language == "en"'>
+                                    EN Lorem ipsum hac malesuada facilisis volutpat posuere, felis erat inceptos fermentum morbi pellentesque, vehicula proin sodales sociosqu aptent nibh ac ornare nunc dapibus hendrerit congue dolor curabitur quisque, cras ultrices conubia massa ipsum varius nam commodo duis, donec varius primis imperdiet nisi lacus imperdiet nostra mi interdum dictumst fusce curabitur id habitasse id mi lacinia non netus dolor velit mattis, ad duis mattis posuere mi vehicula mattis justo tristique taciti eros sem urna cubilia pellentesque semper justo vehicula feugiat malesuada suscipit vel, mauris luctus pretium eleifend tempus velit pretium cras quisque accumsan, convallis fames nisi lacus nisl per velit blandit.
                                 <!--</details>-->
+                                </div>
+                                <div v-else-if='language == "nl"'>
+                                    NL Lorem ipsum hac malesuada facilisis volutpat posuere, felis erat inceptos fermentum morbi pellentesque, vehicula proin sodales sociosqu aptent nibh ac ornare nunc dapibus hendrerit congue dolor curabitur quisque, cras ultrices conubia massa ipsum varius nam commodo duis, donec varius primis imperdiet nisi lacus imperdiet nostra mi interdum dictumst fusce curabitur id habitasse id mi lacinia non netus dolor velit mattis, ad duis mattis posuere mi vehicula mattis justo tristique taciti eros sem urna cubilia pellentesque semper justo vehicula feugiat malesuada suscipit vel, mauris luctus pretium eleifend tempus velit pretium cras quisque accumsan, convallis fames nisi lacus nisl per velit blandit.
+                                    <!--</details>-->
+                                </div>
                             </div>
                         </div>
 
@@ -54,7 +56,7 @@
 </template>
 
 <script>
-    import store from '../store/index'
+    import i18n from "../lang/lang.js";
 
     export default {
         components: {},
@@ -66,9 +68,13 @@
         },
         data () {
             return {
+                showDestinationImage: false
             }
         },
         methods: {
+            toggleDestinationImage () {
+                this.showDestinationImage = !this.showDestinationImage
+            }
         },
         computed: {
             selectedExhibit() {
@@ -83,8 +89,11 @@
             atMainRoute() {
                 return this.$route.path.indexOf('map') === -1
             },
-            getMenu () {
+            showmenu () {
                 return this.$store.state.showMenu
+            },
+            language() {
+                return i18n.locale
             }
         },
         getters: {
@@ -100,6 +109,19 @@
 
 <style lang="sass" scoped>
     $menuheight: 10vh
+    $destinationreachedimageheight: 20vh
+
+    .destination-image-wrapper
+        text-align: center
+        align-content: center
+        padding: 10px
+        height: $destinationreachedimageheight
+
+        .destination-image
+            height: 100%
+
+            img
+                height: 100%
 
     .main-menu
         display: flex
@@ -145,14 +167,15 @@
             font-family: $family-primary
 
     .expand-button
-        left: 50%
+        bottom: 100%
         position: absolute
-        top: -25px
         background-color: green
-        width: 50px
-        height: 50px
+        width: 8em
+        height: 4em
         align-self: center
-        border-radius: 50%
+        border-top-left-radius: 110px /* 100px of height + 10px of border */
+        border-top-right-radius: 110px /* 100px of height + 10px of border */
+        border-bottom: 0
 
     .slide-enter-active,
     .slide-leave-active
@@ -162,5 +185,21 @@
     .slide-enter,
     .slide-leave-to
         transform: translateY(100%)
+
+
+    .expand-enter-active
+        transition: height 1s ease-in-out, opacity 1s cubic-bezier(.99, .01, .99, .01)
+        height: $destinationreachedimageheight
+        opacity: 1
+
+    .expand-leave-active
+        transition: height 1s ease-in-out, opacity 1s cubic-bezier(.01, 1, .01, 1)
+        height: $destinationreachedimageheight
+        opacity: 1
+
+    .expand-enter,
+    .expand-leave-to
+        height: 0px
+        opacity: 0
 
 </style>

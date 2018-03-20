@@ -11,14 +11,16 @@ const messages = {
         message: {
             hello: 'hello world',
             visit_store_info: 'Enter the store to get more information on this exhibit',
-            select_tour: 'Select a tour'
+            select_tour: 'Select a tour',
+            destination_looks_like: 'This  is whet the destination looks like:'
         }
     },
     nl: {
         message: {
             hello: 'hallo wereld',
             visit_store_info: 'Bezoek de winkel voor meer informatie over de tentoonstelling',
-            select_tour: 'Selecteer een tour'
+            select_tour: 'Selecteer een tour',
+            destination_looks_like: 'Zo ziet de bestemming er uit:'
         }
     }
 }
