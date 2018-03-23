@@ -15,8 +15,16 @@
   <!--</nav>-->
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
         <div class="container-fluid">
-            <div class="navbar-header">
+            <div class="navbar-header delftlogo">
                 <a class="navbar-brand" href="#"></a>
+            </div>
+
+            <div class="navbar-header tulogo">
+                <a class="navbar-brand" href="#"></a>
+            </div>
+
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Techniek Tour</a>
             </div>
 
             <ul class="nav navbar-nav navbar-right">
@@ -77,11 +85,16 @@ $navbarheight: 10vh
   transform: translateY(-50%)
 
 .navbar-brand
-    background: url(../assets/img/logo_delft.svg) center / contain no-repeat
     height: 100%
     width: 200px
     padding-top: 0
     padding-bottom: 0
+
+.delftlogo
+    background: url(../assets/img/logo_delft.svg) center / contain no-repeat
+
+.tulogo
+    background: url(../assets/img/logo-tudelft.svg) center / contain no-repeat
 
 .lang-setting
     position: relative

@@ -1,6 +1,6 @@
 <template>
     <section>
-        <div>
+        <div class="menu-wrapper">
             <transition name="slide" >
             <div id="menu" class="wrapper" v-if="showmenu">
                 <div class="expand-button" v-on:click="toggleDestinationImage"></div>
@@ -17,8 +17,15 @@
                     <div class="text-wrapper">
                         <div class="exhibit-info">
                         <div>
-                            <div class="exhibit-title">Naam object</div>
-                            <div class="selected-location-title">{{ selectedExhibit.formatted_address }} <em>  {{ selectedExhibit.storeName }}</em></div>
+                            <div class="exhibit-info-top">
+                                <div class="selected-location-title">
+                                    <div class="exhibit-title">Naam object</div>
+                                    <div class="selected-location-title">{{ selectedExhibit.formatted_address }} <em>  {{ selectedExhibit.storeName }}</em></div>
+                                </div>
+                                <div class="routebutton">
+                                    <button class="btn btn-primary" v-on:click="routeTo(selectedExhibit)" v-if="selectedExhibit != destinationExhibit">Routebeschrijving</button>
+                                </div>
+                            </div>
                             <br>
                             <div class="selected-location-body">
                                 <!--<details>-->
@@ -32,21 +39,7 @@
                                 </div>
                             </div>
                         </div>
-
-                        <div>
-                            <button class="btn btn-primary" v-on:click="routeTo(selectedExhibit)" v-if="selectedExhibit != destinationExhibit">Routebeschrijving</button>
-                        </div>
                     </div>
-                    </div>
-                </template>
-                <template v-else>
-                    <div class="main-menu">
-                        <a class="" href="#">
-                            <img src="../assets/img/logo_delft.svg">
-                        </a>
-                        <a href="#">
-                            <img src="../assets/img/logo-tudelft.svg">
-                        </a>
                     </div>
                 </template>
             </div>
@@ -57,6 +50,8 @@
 
 <script>
     import i18n from "../lang/lang.js";
+    //import routeTo from "MapsComponent";
+    import MapsComponent from "../components/MapsComponent"
 
     export default {
         components: {},
@@ -74,6 +69,10 @@
         methods: {
             toggleDestinationImage () {
                 this.showDestinationImage = !this.showDestinationImage
+            },
+            routeTo: function (exhibit) {
+                console.log("routeto");
+                MapsComponent.methods.routeTo(exhibit);
             }
         },
         computed: {
@@ -132,13 +131,23 @@
             padding-left: 1rem
             padding-right: 1rem
 
+    .exhibit-info-top
+        display: flex
+
+        .routebutton
+            display: flex
+            margin-left: 10px
+
     .text-wrapper
         padding: 10px 50px 20px 50px
 
+    .menu-wrapper
+        display: flex
+        justify-content: center
 
     .wrapper
         width: 80%
-        left: 10%
+        //left: 10%
         bottom: -10px
         //bottom: -$menuheight
         background-color: #E6E6E6

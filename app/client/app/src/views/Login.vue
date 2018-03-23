@@ -11,15 +11,16 @@
         <router-link tag="a" :to="{ path: 'map'}" class="button">Techniek Tour</router-link>
       </div>
     </div>
+
   </section>
 </template>
 
 <script>
 
-import BottomBar from "../components/BottomBar";
+import MainMenu from "../components/MainMenu";
 
 export default {
-    components: { BottomBar },
+    components: { MainMenu },
     name: 'Login',
   data () {
     return {

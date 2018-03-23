@@ -13,7 +13,7 @@
         <div id="map"></div>
         <transition name="slide-in-left">
             <div class="left-circles" v-if="selectedExhibit">
-                <div class="progress-display"></div>
+                <div class="progress-display">{{ totalExhibits }} {{ $t("message.total") }}</div>
                 <div class="distance-display">{{ selectedExhibit.distance.distance.text }}</div>
                 <div class="time-display">{{ selectedExhibit.distance.duration.text }}</div>
             </div>
@@ -30,19 +30,8 @@
 
     var YouTubeIframeLoader = require('youtube-iframe')
 
-    var player;
-    YouTubeIframeLoader.load(function(YT) {
-        player = new YT.Player('ytplayer', {
-            height: '100%',
-            width: '100%',
-            videoId: '668nUCeBHyY'
-        });
-        player.addEventListener("onStateChange", function(state){
-            if(state.data === 0){
-                videoDone()
-            }
-        });
-    })
+    var player; //Youtube player
+
   /*jslint white: true */
 
   import axios from 'axios'
@@ -100,11 +89,26 @@
       },
       atDestination () {
         return this.$store.state.atDestination
+      },
+      totalExhibits () {
+          return exhibits.length
       }
 
     },
     mounted () {
         this.$store.commit('showMenu', false)
+        YouTubeIframeLoader.load(function(YT) {
+            player = new YT.Player('ytplayer', {
+                height: '100%',
+                width: '100%',
+                videoId: '668nUCeBHyY'
+            })
+            player.addEventListener("onStateChange", function(state){
+                if(state.data === 0){
+                    videoDone()
+                }
+            });
+        })
         GoogleMapsLoader.load(function (googlemaps) {
             google = googlemaps
             initMap()
@@ -397,7 +401,7 @@
         background-color: red
         color: black
         right: 0px
-        max-width: 10vw
+        width: 10vw
         top: 30%
         padding: 10px
 
@@ -477,6 +481,8 @@
             padding: 10%
             width: 5vmax
             height: 5vmax
+            min-width: 10vmin
+            min-height: 10vmin
             align-items: center
             justify-content: center
             text-align: center

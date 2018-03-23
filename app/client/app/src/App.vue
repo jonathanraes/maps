@@ -17,7 +17,7 @@
     <section class="section">
       <transition name="fade">
         <div class="container">
-          <router-view name="menu"></router-view>
+            <router-view name="mainmenu"></router-view>
         </div>
       </transition>
     </section>
@@ -26,9 +26,13 @@
 </template>
 
 <script>
+// import MainMenu from 'components/MainMenu'
 
 export default {
   name: '',
+    components: {
+        // 'main-menu': MainMenu
+    },
   computed: {
     isLoading () {
       return this.$store.state.isLoading

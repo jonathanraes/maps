@@ -5,6 +5,7 @@
       <maps-component :data="'DataFromParent'"/>
     </div>
 
+    <menu-component></menu-component>
   </section>
 </template>
 <script>
@@ -14,9 +15,8 @@ import MenuComponent from '../components/MenuComponent'
 export default {
   name: 'Property',
   components: {
-      MenuComponent,
       'maps-component': MapsComponent,
-    'menu-component': MenuComponent
+      'menu-component': MenuComponent
   },
   data () {
     return {

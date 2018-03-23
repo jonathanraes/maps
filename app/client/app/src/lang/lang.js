@@ -12,7 +12,8 @@ const messages = {
             hello: 'hello world',
             visit_store_info: 'Enter the store to get more information on this exhibit',
             select_tour: 'Select a tour',
-            destination_looks_like: 'This  is whet the destination looks like:'
+            destination_looks_like: 'This is what the destination looks like:',
+            total: 'total'
         }
     },
     nl: {
@@ -20,7 +21,8 @@ const messages = {
             hello: 'hallo wereld',
             visit_store_info: 'Bezoek de winkel voor meer informatie over de tentoonstelling',
             select_tour: 'Selecteer een tour',
-            destination_looks_like: 'Zo ziet de bestemming er uit:'
+            destination_looks_like: 'Zo ziet de bestemming er uit:',
+            total: 'totaal'
         }
     }
 }
