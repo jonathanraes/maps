@@ -3,7 +3,6 @@
         <div class="menu-wrapper">
             <transition name="slide" >
             <div id="menu" class="wrapper" v-if="showmenu">
-                <div class="expand-button" v-on:click="toggleDestinationImage"></div>
 
                 <template v-if="selectedExhibit && !atMainRoute">
                     <transition name="expand" >
@@ -14,6 +13,7 @@
                             </div>
                         </div>
                     </transition>
+                    <div class="expand-button" v-on:click="toggleDestinationImage"></div>
                     <div class="text-wrapper">
                         <div class="exhibit-info">
                         <div>
@@ -23,7 +23,7 @@
                                     <div class="selected-location-title">{{ selectedExhibit.formatted_address }} <em>  {{ selectedExhibit.storeName }}</em></div>
                                 </div>
                                 <div class="routebutton">
-                                    <button class="btn btn-primary" v-on:click="routeTo(selectedExhibit)" v-if="selectedExhibit != destinationExhibit">Routebeschrijving</button>
+                                    <button class="btn btn-primary" v-on:click="routeTo(selectedExhibit)" v-if="selectedExhibit != destinationExhibit">{{ $t("message.route") }}</button>
                                 </div>
                             </div>
                             <br>

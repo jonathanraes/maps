@@ -1,7 +1,6 @@
 <template>
     <section>
         <div class="menu-wrapper">
-            MAINN
             <transition name="slide" >
                 <div id="menu" class="wrapper" v-if="showmenu">
                     <template v-if="atMainRoute">

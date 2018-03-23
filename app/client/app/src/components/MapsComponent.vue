@@ -108,6 +108,7 @@
                     videoDone()
                 }
             });
+            hideOnClickOutside(document.getElementById("ytplayer"))
         })
         GoogleMapsLoader.load(function (googlemaps) {
             google = googlemaps
@@ -379,6 +380,26 @@
       }
     })
   }
+
+
+    function hideOnClickOutside(element) {
+        const outsideClickListener = event => {
+            if (!element.contains(event.target)) { // or use: event.target.closest(selector) === null
+                if (isVisible(element)) {
+                    videoDone()
+                    removeClickListener()
+                }
+            }
+        }
+
+        const removeClickListener = () => {
+            document.removeEventListener('click', outsideClickListener)
+        }
+
+        document.addEventListener('click', outsideClickListener)
+    }
+
+    const isVisible = elem => !!elem && !!( elem.offsetWidth || elem.offsetHeight || elem.getClientRects().length ) // source (2018-03-11): https://github.com/jquery/jquery/blob/master/src/css/hiddenVisibleSelectors.js
 </script>
 
 <style lang="sass" scoped>
@@ -401,7 +422,7 @@
         background-color: red
         color: black
         right: 0px
-        width: 10vw
+        width: 10vmax
         top: 30%
         padding: 10px
 

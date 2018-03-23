@@ -13,7 +13,8 @@ const messages = {
             visit_store_info: 'Enter the store to get more information on this exhibit',
             select_tour: 'Select a tour',
             destination_looks_like: 'This is what the destination looks like:',
-            total: 'total'
+            total: 'total',
+            route: 'Route description'
         }
     },
     nl: {
@@ -22,7 +23,8 @@ const messages = {
             visit_store_info: 'Bezoek de winkel voor meer informatie over de tentoonstelling',
             select_tour: 'Selecteer een tour',
             destination_looks_like: 'Zo ziet de bestemming er uit:',
-            total: 'totaal'
+            total: 'totaal',
+            route: 'Routebeschrijving'
         }
     }
 }
