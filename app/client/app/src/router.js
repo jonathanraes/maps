@@ -7,7 +7,7 @@ import MainMenu from './components/MainMenu'
 
 import PageOne from './views/PageOne'
 import PageTwo from './views/PageTwo'
-import Login from './views/Login'
+import TourSelect from './views/TourSelect'
 
 Vue.use(Router)
 
@@ -17,9 +17,8 @@ export default new Router({
       path: '/',
       components: {
         navbar: Navbar,
-        main: Login,
-        mainmenu: MainMenu,
-        menu: MenuComponent
+        main: TourSelect,
+        mainmenu: MainMenu
       }
     },
     {
@@ -31,5 +30,6 @@ export default new Router({
         mainmenu: MainMenu
       }
     }
+
   ]
 })

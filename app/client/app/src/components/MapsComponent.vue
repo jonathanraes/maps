@@ -20,7 +20,7 @@
         </transition>
         <transition name="slide-in-right">
             <div class="right-panel" v-if="selectedExhibit">
-                <p >{{ $t("message.visit_store_info") }}</p>
+                <p>{{ $t("message.visit_store_info") }}</p>
             </div>
         </transition>
     </div>

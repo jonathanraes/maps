@@ -4,12 +4,14 @@
             <transition name="slide" >
             <div id="menu" class="wrapper" v-if="showmenu">
 
-                <template v-if="selectedExhibit && !atMainRoute">
+                <template v-if="selectedExhibit">
                     <transition name="expand" >
-                        <div class="destination-image-wrapper" v-if="showDestinationImage">
-                            <div class="destination-reached-text">{{ $t("message.destination_looks_like") }}</div>
-                            <div class="destination-image">
-                                <img src="../assets/img/destination.jpg" >
+                        <div v-if="showDestinationImage">
+                            <div class="destination-image-wrapper">
+                                <div class="destination-reached-text">{{ $t("message.destination_looks_like") }}</div>
+                                <div class="destination-image">
+                                    <img src="../assets/img/destination.jpg" >
+                                </div>
                             </div>
                         </div>
                     </transition>
@@ -71,7 +73,6 @@
                 this.showDestinationImage = !this.showDestinationImage
             },
             routeTo: function (exhibit) {
-                console.log("routeto");
                 MapsComponent.methods.routeTo(exhibit);
             }
         },
@@ -108,12 +109,12 @@
 
 <style lang="sass" scoped>
     $menuheight: 10vh
-    $destinationreachedimageheight: 20vh
+    $destinationreachedimageheight: 25vh
 
     .destination-image-wrapper
         text-align: center
         align-content: center
-        padding: 10px
+        padding: 10px 10px 20px 10px
         height: $destinationreachedimageheight
 
         .destination-image

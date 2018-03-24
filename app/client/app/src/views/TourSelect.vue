@@ -1,6 +1,8 @@
 <template>
   <section>
+    <div class="background-image">
     <img src="../assets/img/plattegrond_delft.png">
+    </div>
     <div class="level">
       <div class="level-item has-text-centered">
         <h1 class="title">{{ $t("message.select_tour") }}</h1>
@@ -21,7 +23,7 @@ import MainMenu from "../components/MainMenu";
 
 export default {
     components: { MainMenu },
-    name: 'Login',
+    name: 'TourSelect',
   data () {
     return {
 
@@ -44,7 +46,10 @@ export default {
   background-color: #A2D762
 
 img
-  width: 100%
+  min-width: 100%
+  min-height: 100%
+  max-width: unset
+  max-height: unset
   z-index: 0
   position: fixed
 
