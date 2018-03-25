@@ -78,19 +78,6 @@
 
 <style lang="sass" scoped>
     $menuheight: 10vh
-    $destinationreachedimageheight: 20vh
-
-    .destination-image-wrapper
-        text-align: center
-        align-content: center
-        padding: 10px
-        height: $destinationreachedimageheight
-
-        .destination-image
-            height: 100%
-
-            img
-                height: 100%
 
     .main-menu
         display: flex
@@ -124,30 +111,6 @@
         border-style: solid
         position: fixed
         font-size: 1.2vmax
-
-        .exhibit-title
-            font-size: 2vmax
-            font-weight: bold
-
-    .animation-enter
-        /*animation-fill-mode: forwards*/
-        /*animation-name: slidein*/
-        /*animation-duration: 4s*/
-
-        .selected-location-body
-            font-size: 2vh
-            font-family: $family-primary
-
-    .expand-button
-        bottom: 100%
-        position: absolute
-        background-color: green
-        width: 8em
-        height: 4em
-        align-self: center
-        border-top-left-radius: 110px /* 100px of height + 10px of border */
-        border-top-right-radius: 110px /* 100px of height + 10px of border */
-        border-bottom: 0
 
     .slide-enter-active,
     .slide-leave-active

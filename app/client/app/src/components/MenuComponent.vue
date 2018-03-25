@@ -161,10 +161,11 @@
         border-radius: 40px 40px 0px 0px
         border-style: solid
         position: fixed
-        font-size: 1.2vmax
+        /*font-size: 1.2vmax*/
+        font-size: 1rem
 
         .exhibit-title
-            font-size: 2vmax
+            font-size: 2rem
             font-weight: bold
 
     .animation-enter
@@ -180,8 +181,8 @@
         bottom: 100%
         position: absolute
         background-color: green
-        width: 8em
-        height: 4em
+        width: 18vmin
+        height: 9vmin
         align-self: center
         border-top-left-radius: 110px /* 100px of height + 10px of border */
         border-top-right-radius: 110px /* 100px of height + 10px of border */

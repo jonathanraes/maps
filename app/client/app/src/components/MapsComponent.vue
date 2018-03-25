@@ -2,10 +2,12 @@
     <div class="page-container">
         <div class="modal">
             <div v-on:click="skipVideo()" class="skip-video"><p>Skip</p></div>
-            <div class="video">
+            <div class="middle">
+                <div class="video">
                 <!--<iframe  src="https://www.youtube.com/embed/g6iDZspbRMg"-->
                         <!--frameborder="0" allowfullscreen></iframe>-->
-                <div id="ytplayer"></div>
+                    <div id="ytplayer"></div>
+                </div>
             </div>
         </div>
 
@@ -164,7 +166,6 @@
   }
 
   function getStraightDistance (point1, point2) {
-    // console.log('distance= ' + Math.sqrt(Math.pow(point1.lat - point2.lat, 2) + Math.pow(point1.lng - point2.lng, 2)))
     return Math.sqrt(Math.pow(point1.lat - point2.lat, 2) + Math.pow(point1.lng - point2.lng, 2))
   }
 
@@ -406,7 +407,7 @@
     $menuheight: 30vh
 
     .modal
-        display: block /* Hidden by default */
+        display: table /* Hidden by default */
         position: fixed /* Stay in place */
         z-index: 1 /* Sit on top */
         left: 0
@@ -417,6 +418,26 @@
         background-color: rgb(0,0,0) /* Fallback color */
         background-color: rgba(0,0,0,0.4) /* Black w/ opacity */
 
+        .middle
+            display: table-cell
+            vertical-align: middle
+
+            .video
+                margin-left: auto
+                margin-right: auto
+                width: 90vw
+                height: 50.625vw
+                max-height: 90vh
+                max-width: 160vh
+
+                /*top: 5vh*/
+                /*left: 5vw*/
+
+                #ytplayer
+                    width: 100%
+                    height: 100%
+
+
     .right-panel
         position: absolute
         background-color: red
@@ -425,10 +446,12 @@
         width: 10vmax
         top: 30%
         padding: 10px
+        font-size: 16px
 
     .skip-video
         width: 10%
         height: 5%
+        padding: 5px
         background-color: red
         position: absolute
         top: 30%
@@ -437,6 +460,7 @@
         z-index: 9
         color: #000
         text-align: center
+        font-size: 16px
 
         p
             position: relative
@@ -451,18 +475,6 @@
         //width: 80%
 
 
-    .video
-        position: absolute
-        width: 90vw
-        height: 50.625vw
-        max-height: 90vh
-        max-width: 160vh
-        top: 5vh
-        left: 5vw
-
-        #ytplayer
-            width: 100%
-            height: 100%
 
     .page-container
         display: flex
@@ -495,7 +507,8 @@
         pointer-events: none
 
         div
-            font-size: 1vmax
+            /*font-size: 1vmax*/
+            font-size: 1rem
             display: flex
             border-radius: 50%
             border-style: solid

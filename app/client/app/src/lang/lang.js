@@ -20,7 +20,7 @@ const messages = {
     nl: {
         message: {
             hello: 'hallo wereld',
-            visit_store_info: 'Bezoek de winkel voor meer informatie over de tentoonstelling',
+            visit_store_info: 'Bezoek de winkel voor meer informatie over de expositie',
             select_tour: 'Selecteer een tour',
             destination_looks_like: 'Zo ziet de bestemming er uit:',
             total: 'totaal',
