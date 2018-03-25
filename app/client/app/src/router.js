@@ -4,6 +4,7 @@ import Router from 'vue-router'
 import Navbar from './components/Navbar'
 import MenuComponent from './components/MenuComponent'
 import MainMenu from './components/MainMenu'
+import YoutubeModal from './components/YoutubeModal'
 
 import PageOne from './views/PageOne'
 import PageTwo from './views/PageTwo'
@@ -25,6 +26,7 @@ export default new Router({
       path: '/map',
       components: {
         navbar: Navbar,
+        youtubevid: YoutubeModal,
         main: PageOne,
         menu: MenuComponent,
         mainmenu: MainMenu

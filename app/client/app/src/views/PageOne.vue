@@ -1,5 +1,6 @@
 <template>
   <section>
+    <youtubevid></youtubevid>
 
     <div class="container">
       <maps-component :data="'DataFromParent'"/>
@@ -11,12 +12,14 @@
 <script>
 import MapsComponent from '../components/MapsComponent'
 import MenuComponent from '../components/MenuComponent'
+import YoutubeModal from '../components/YoutubeModal'
 
 export default {
   name: 'Property',
   components: {
       'maps-component': MapsComponent,
-      'menu-component': MenuComponent
+      'menu-component': MenuComponent,
+      'youtubevid': YoutubeModal
   },
   data () {
     return {

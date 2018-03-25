@@ -46,15 +46,6 @@
             }
         },
         computed: {
-            selectedExhibit() {
-                return this.$store.state.selectedExhibit
-            },
-            destinationExhibit() {
-                return this.$store.state.destinationExhibit
-            },
-            atDestination() {
-                return this.$store.state.atDestination
-            },
             atMainRoute() {
                 return this.$route.path.indexOf('map') === -1
             },
@@ -78,6 +69,7 @@
 
 <style lang="sass" scoped>
     $menuheight: 10vh
+    $destinationreachedimageheight: 20vh
 
     .main-menu
         display: flex

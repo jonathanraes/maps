@@ -1,15 +1,15 @@
 <template>
     <div class="page-container">
-        <div class="modal">
-            <div v-on:click="skipVideo()" class="skip-video"><p>Skip</p></div>
-            <div class="middle">
-                <div class="video">
-                <!--<iframe  src="https://www.youtube.com/embed/g6iDZspbRMg"-->
-                        <!--frameborder="0" allowfullscreen></iframe>-->
-                    <div id="ytplayer"></div>
-                </div>
-            </div>
-        </div>
+        <!--<div class="modal">-->
+            <!--<div v-on:click="skipVideo()" class="skip-video"><p>Skip</p></div>-->
+            <!--<div class="middle">-->
+                <!--<div class="video">-->
+                <!--&lt;!&ndash;<iframe  src="https://www.youtube.com/embed/g6iDZspbRMg"&ndash;&gt;-->
+                        <!--&lt;!&ndash;frameborder="0" allowfullscreen></iframe>&ndash;&gt;-->
+                    <!--<div id="ytplayer"></div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
 
 
         <div id="map"></div>
@@ -99,19 +99,19 @@
     },
     mounted () {
         this.$store.commit('showMenu', false)
-        YouTubeIframeLoader.load(function(YT) {
-            player = new YT.Player('ytplayer', {
-                height: '100%',
-                width: '100%',
-                videoId: '668nUCeBHyY'
-            })
-            player.addEventListener("onStateChange", function(state){
-                if(state.data === 0){
-                    videoDone()
-                }
-            });
-            hideOnClickOutside(document.getElementById("ytplayer"))
-        })
+        // YouTubeIframeLoader.load(function(YT) {
+        //     player = new YT.Player('ytplayer', {
+        //         height: '100%',
+        //         width: '100%',
+        //         videoId: '668nUCeBHyY'
+        //     })
+        //     player.addEventListener("onStateChange", function(state){
+        //         if(state.data === 0){
+        //             videoDone()
+        //         }
+        //     });
+        //     hideOnClickOutside(document.getElementById("ytplayer"))
+        // })
         GoogleMapsLoader.load(function (googlemaps) {
             google = googlemaps
             initMap()
@@ -383,60 +383,10 @@
   }
 
 
-    function hideOnClickOutside(element) {
-        const outsideClickListener = event => {
-            if (!element.contains(event.target)) { // or use: event.target.closest(selector) === null
-                if (isVisible(element)) {
-                    videoDone()
-                    removeClickListener()
-                }
-            }
-        }
-
-        const removeClickListener = () => {
-            document.removeEventListener('click', outsideClickListener)
-        }
-
-        document.addEventListener('click', outsideClickListener)
-    }
-
-    const isVisible = elem => !!elem && !!( elem.offsetWidth || elem.offsetHeight || elem.getClientRects().length ) // source (2018-03-11): https://github.com/jquery/jquery/blob/master/src/css/hiddenVisibleSelectors.js
-</script>
+   </script>
 
 <style lang="sass" scoped>
     $menuheight: 30vh
-
-    .modal
-        display: table /* Hidden by default */
-        position: fixed /* Stay in place */
-        z-index: 1 /* Sit on top */
-        left: 0
-        top: 0
-        width: 100% /* Full width */
-        height: 100% /* Full height */
-        overflow: auto /* Enable scroll if needed */
-        background-color: rgb(0,0,0) /* Fallback color */
-        background-color: rgba(0,0,0,0.4) /* Black w/ opacity */
-
-        .middle
-            display: table-cell
-            vertical-align: middle
-
-            .video
-                margin-left: auto
-                margin-right: auto
-                width: 90vw
-                height: 50.625vw
-                max-height: 90vh
-                max-width: 160vh
-
-                /*top: 5vh*/
-                /*left: 5vw*/
-
-                #ytplayer
-                    width: 100%
-                    height: 100%
-
 
     .right-panel
         position: absolute
@@ -447,34 +397,6 @@
         top: 30%
         padding: 10px
         font-size: 16px
-
-    .skip-video
-        width: 10%
-        height: 5%
-        padding: 5px
-        background-color: red
-        position: absolute
-        top: 30%
-        left: 90%
-        align-self: end
-        z-index: 9
-        color: #000
-        text-align: center
-        font-size: 16px
-
-        p
-            position: relative
-            top: 50%
-            transform: translateY(-50%)
-
-    .video-container
-        background-color: #fefefe
-        margin: auto
-        padding: 20px
-        border: 1px solid #888
-        //width: 80%
-
-
 
     .page-container
         display: flex
