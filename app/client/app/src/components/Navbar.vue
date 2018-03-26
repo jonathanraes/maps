@@ -73,7 +73,7 @@ $navbarheight: 10vh
 .navbar
   background-color: $nav-background
   border-bottom: solid 1px #dbdbdb
-  height: 100px
+  height: 80px
 
 .navbar-header
     height: 100%
@@ -100,13 +100,13 @@ $navbarheight: 10vh
     position: relative
     top: 50%
     transform: translateY(-50%)
-    font-size: 2vmax
+    font-size: 2rem
     padding: 10px
-    width: 2em
+    width: 50px
 
 
 .nav-item img
-  max-height: $navbarheight
+  max-height: 80px
   padding: 0
 
 .navbar

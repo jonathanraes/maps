@@ -6,8 +6,7 @@ import MenuComponent from './components/MenuComponent'
 import MainMenu from './components/MainMenu'
 import YoutubeModal from './components/YoutubeModal'
 
-import PageOne from './views/PageOne'
-import PageTwo from './views/PageTwo'
+import TechniekTour from './views/TechniekTour'
 import TourSelect from './views/TourSelect'
 
 Vue.use(Router)
@@ -25,9 +24,9 @@ export default new Router({
     {
       path: '/map',
       components: {
+        main: TechniekTour,
         navbar: Navbar,
         youtubevid: YoutubeModal,
-        main: PageOne,
         menu: MenuComponent,
         mainmenu: MainMenu
       }

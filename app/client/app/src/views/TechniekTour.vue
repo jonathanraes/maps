@@ -35,9 +35,10 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+
   .container
-      padding: 0
-      width: 100%
-      max-width: none
+    padding: 0
+    width: 100%
+    max-width: none
 
 </style>

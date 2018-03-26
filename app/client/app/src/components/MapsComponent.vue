@@ -1,17 +1,5 @@
 <template>
     <div class="page-container">
-        <!--<div class="modal">-->
-            <!--<div v-on:click="skipVideo()" class="skip-video"><p>Skip</p></div>-->
-            <!--<div class="middle">-->
-                <!--<div class="video">-->
-                <!--&lt;!&ndash;<iframe  src="https://www.youtube.com/embed/g6iDZspbRMg"&ndash;&gt;-->
-                        <!--&lt;!&ndash;frameborder="0" allowfullscreen></iframe>&ndash;&gt;-->
-                    <!--<div id="ytplayer"></div>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
-
-
         <div id="map"></div>
         <transition name="slide-in-left">
             <div class="left-circles" v-if="selectedExhibit">
@@ -29,11 +17,6 @@
 </template>
 
 <script>
-
-    var YouTubeIframeLoader = require('youtube-iframe')
-
-    var player; //Youtube player
-
   /*jslint white: true */
 
   import axios from 'axios'
@@ -62,9 +45,6 @@
       }
     },
     watch: {
-      viewToggleOther (bool) {
-        this.setToggle('other', bool)
-      }
     },
     methods: {
       nextDestination: function () {
@@ -79,10 +59,6 @@
 
     },
     computed: {
-      resource () {
-        // To display `resourceOne` value from the backend
-        return this.$store.state.resource
-      },
       selectedExhibit () {
         return this.$store.state.selectedExhibit
       },
@@ -381,9 +357,7 @@
       }
     })
   }
-
-
-   </script>
+</script>
 
 <style lang="sass" scoped>
     $menuheight: 30vh
@@ -411,7 +385,7 @@
             z-index: 0
             display: flex
             flex-flow: column
-            height: 90vh
+            height: calc(99vh - 80px) // 80px = navbar height
             width: 100%
             margin: 0
             padding: 0
@@ -435,15 +409,16 @@
             border-radius: 50%
             border-style: solid
             padding: 10%
-            width: 5vmax
-            height: 5vmax
-            min-width: 10vmin
-            min-height: 10vmin
+            width: 100px
+            height: 100px
+            /*width: 5vmax*/
+            /*height: 5vmax*/
+            /*min-width: 10vmin*/
+            /*min-height: 10vmin*/
             align-items: center
             justify-content: center
             text-align: center
             margin-bottom: 10px
-
 
     .left
         width: 80%
