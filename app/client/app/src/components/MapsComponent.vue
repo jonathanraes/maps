@@ -420,6 +420,11 @@
             text-align: center
             margin-bottom: 10px
 
+            @media only screen and (max-device-width: 480px)
+                width: 200px
+                height: 200px
+                font-size: 2rem
+
     .left
         width: 80%
         overflow: hidden

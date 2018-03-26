@@ -1,7 +1,7 @@
 <template>
   <section>
     <div class="background-image">
-    <img src="../assets/img/plattegrond_delft.png">
+      <img src="../assets/img/plattegrond_delft.png">
     </div>
     <div class="level">
       <div class="level-item has-text-centered">
@@ -41,8 +41,8 @@ export default {
 <style lang="sass" scoped>
 
 .button
-  height: 300px
-  width: 200px
+  height: 40vh
+  width: 40vw
   background-color: #A2D762
 
 img
@@ -56,4 +56,6 @@ img
 .title
   margin-top: 10vh
   z-index: 9
+  font-size: 3rem
+
 </style>

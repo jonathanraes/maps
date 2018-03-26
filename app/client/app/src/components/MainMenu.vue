@@ -74,11 +74,12 @@
     .main-menu
         display: flex
         flex-direction: row
+        height: $menuheight
 
         img
             max-height: $menuheight
-            padding-left: 1rem
-            padding-right: 1rem
+            padding-left: 10px
+            padding-right: 10px
 
     .text-wrapper
         padding: 10px 50px 20px 50px

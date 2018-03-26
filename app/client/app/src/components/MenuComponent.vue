@@ -164,6 +164,10 @@
         /*font-size: 1.2vmax*/
         font-size: 1rem
 
+        @media only screen and (max-device-width: 480px)
+            font-size: 2rem
+
+
         .exhibit-title
             font-size: 2rem
             font-weight: bold
@@ -212,5 +216,6 @@
     .expand-leave-to
         height: 0px
         opacity: 0
+
 
 </style>
