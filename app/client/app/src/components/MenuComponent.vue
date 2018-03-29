@@ -2,10 +2,9 @@
     <section>
         <div class="menu-wrapper">
             <transition name="slide" >
-            <div id="menu" class="wrapper" v-if="showmenu">
+                <div id="menu" class="wrapper" v-if="showmenu && selectedExhibit">
 
-                <template v-if="selectedExhibit">
-                    <transition name="expand" >
+                <transition name="expand" >
                         <div v-if="showDestinationImage">
                             <div class="destination-image-wrapper">
                                 <div class="destination-reached-text">{{ $t("message.destination_looks_like") }}</div>
@@ -16,7 +15,7 @@
                         </div>
                     </transition>
                     <div class="expand-button" v-on:click="toggleDestinationImage"></div>
-                    <div class="text-wrapper">
+                    <div class="text-wrapper"  v-on:click="toggleTextExpand">
                         <div class="exhibit-info">
                         <div>
                             <div class="exhibit-info-top">
@@ -42,17 +41,15 @@
                             </div>
                         </div>
                     </div>
-                    </div>
-                </template>
+                </div>
             </div>
-        </transition>
+            </transition>
         </div>
     </section>
 </template>
 
 <script>
     import i18n from "../lang/lang.js";
-    //import routeTo from "MapsComponent";
     import MapsComponent from "../components/MapsComponent"
 
     export default {
@@ -65,12 +62,21 @@
         },
         data () {
             return {
-                showDestinationImage: false
+                showDestinationImage: false,
+                textExpanded: false
             }
         },
         methods: {
             toggleDestinationImage () {
                 this.showDestinationImage = !this.showDestinationImage
+            },
+            toggleTextExpand () {
+                this.textExpanded = !this.textExpanded;
+                if (this.textExpanded) {
+                    document.getElementsByClassName("selected-location-body")[0].classList.remove("selected-location-body-expanded");
+                } else {
+                    document.getElementsByClassName("selected-location-body")[0].classList.add("selected-location-body-expanded");
+                }
             },
             routeTo: function (exhibit) {
                 MapsComponent.methods.routeTo(exhibit);
@@ -105,6 +111,8 @@
 
     }
 
+    function f() {
+    }
 </script>
 
 <style lang="sass" scoped>
@@ -134,10 +142,11 @@
 
     .exhibit-info-top
         display: flex
+        justify-content: space-between
 
         .routebutton
             display: flex
-            margin-left: 10px
+            margin: 10px
 
     .text-wrapper
         padding: 10px 50px 20px 50px
@@ -164,22 +173,28 @@
         /*font-size: 1.2vmax*/
         font-size: 1rem
 
-        @media only screen and (max-device-width: 480px)
+        @media only screen and (max-width: 1024px)
             font-size: 2rem
+
+        .selected-location-body
+            max-height: 5vh
+            /*-webkit-transition: all 1.5s ease-in-out*/
+            /*-moz-transition: all 1.5s ease-in-out*/
+            /*-ms-transition: all 1.5s ease-in-out*/
+            /*-o-transition: all 1.5s ease-in-out*/
+            transition: all 1.5s ease-in-out
+
+        .selected-location-body-expanded
+            max-height: 60vh !important
 
 
         .exhibit-title
             font-size: 2rem
             font-weight: bold
 
-    .animation-enter
-        /*animation-fill-mode: forwards*/
-        /*animation-name: slidein*/
-        /*animation-duration: 4s*/
+            @media only screen and (max-width: 1024px)
+                font-size: 3rem
 
-        .selected-location-body
-            font-size: 2vh
-            font-family: $family-primary
 
     .expand-button
         bottom: 100%
@@ -194,7 +209,7 @@
 
     .slide-enter-active,
     .slide-leave-active
-        transition: all 2s
+        transition: all 1.5s
         transform: translateY(0%)
 
     .slide-enter,
@@ -203,12 +218,20 @@
 
 
     .expand-enter-active
-        transition: height 1s ease-in-out, opacity 1s cubic-bezier(.99, .01, .99, .01)
+        transition: height 1.5s ease-in-out, opacity 1.5s cubic-bezier(.99, .01, .99, .01)
+        /*-webkit-transition: height 1.5s ease-in-out, opacity 1.5s cubic-bezier(.99, .01, .99, .01)*/
+        /*-moz-transition: height 1.5s ease-in-out, opacity 1.5s cubic-bezier(.99, .01, .99, .01)*/
+        /*-ms-transition: height 1.5s ease-in-out, opacity 1.5s cubic-bezier(.99, .01, .99, .01)*/
+        /*-o-transition: height 1.5s ease-in-out, opacity 1.5s cubic-bezier(.99, .01, .99, .01)*/
         height: $destinationreachedimageheight
         opacity: 1
 
     .expand-leave-active
-        transition: height 1s ease-in-out, opacity 1s cubic-bezier(.01, 1, .01, 1)
+        transition: height 1.5s ease-in-out, opacity 1.5s cubic-bezier(.99, .01, .99, .01)
+        /*-webkit-transition: height 1.5s ease-in-out, opacity 1.5s cubic-bezier(.99, .01, .99, .01)*/
+        /*-moz-transition: height 1.5s ease-in-out, opacity 1.5s cubic-bezier(.99, .01, .99, .01)*/
+        /*-ms-transition: height 1.5s ease-in-out, opacity 1.5s cubic-bezier(.99, .01, .99, .01)*/
+        /*-o-transition: height 1.5s ease-in-out, opacity 1.5s cubic-bezier(.99, .01, .99, .01)*/
         height: $destinationreachedimageheight
         opacity: 1
 
@@ -216,6 +239,5 @@
     .expand-leave-to
         height: 0px
         opacity: 0
-
 
 </style>

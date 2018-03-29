@@ -1,7 +1,7 @@
 <template>
   <section>
     <div class="background-image">
-      <img src="../assets/img/plattegrond_delft.png">
+
     </div>
     <div class="level">
       <div class="level-item has-text-centered">
@@ -45,13 +45,23 @@ export default {
   width: 40vw
   background-color: #A2D762
 
-img
+
+.background-image
   min-width: 100%
   min-height: 100%
   max-width: unset
   max-height: unset
   z-index: 0
   position: fixed
+  background-image: url(../assets/img/plattegrond_delft.png)
+  background-repeat: no-repeat
+  background-position: center
+  background-size: 100% auto
+
+  @media only screen and (orientation: portrait)
+    background-size: auto 100%
+
+
 
 .title
   margin-top: 10vh

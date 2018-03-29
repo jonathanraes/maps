@@ -23,13 +23,13 @@
                 <a class="navbar-brand" href="#"></a>
             </div>
 
-            <div class="navbar-header">
-                <a class="navbar-brand" href="#">Techniek Tour</a>
+            <div class="navbar-header page-title">
+                <div class="navbar-brand" href="#">Techniek Tour</div>
             </div>
 
-            <ul class="nav navbar-nav navbar-right">
-                <li><div v-on:click="changeLanguage" class="lang-setting">{{ language }}</div></li>
-            </ul>
+            <div class="navbar-nav navbar-right lang-setting">
+                <div v-on:click="changeLanguage">{{ language }}</div>
+            </div>
         </div>
     </nav>
 </template>

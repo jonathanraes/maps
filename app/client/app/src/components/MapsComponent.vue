@@ -102,6 +102,22 @@
           activateClosestExhibitDistanceMatrix().then(() => {
               store.commit('showMenu', true)
           })
+      }).catch(() => {
+          console.error('Error updating location');
+          currentLocation = {
+              lat: parseFloat(52.002618700000006),
+              lng: parseFloat(4.374768899999999),
+              accuracy: parseFloat(5)
+          }
+          exhibits[0]['distance'] = {}
+          exhibits[0]['distance']['distance'] = {}
+          exhibits[0]['distance']['duration'] = {}
+          exhibits[0]['distance']['distance']['text'] = '999 uur'
+          exhibits[0]['distance']['duration']['text'] = '999 km'
+
+          store.commit('showMenu', true)
+          store.commit('setDestination', exhibits[0])
+          store.commit('setExhibit', exhibits[0])
       })
       document.getElementsByClassName("modal")[0].style.display = "none";
   }
@@ -147,35 +163,42 @@
 
   function addMapMarkers () {
     return $backend.get('resource/one').then(response => {
-    exhibits = response.data
-    for (let exhibit of exhibits) {
-      (function (exhibit) {
-        var marker = new google.maps.Marker({
-          position: exhibit.location,
-          map: map,
-          title: exhibit.address
-        })
-        marker.addListener('click', function (event) {
-          if (!infoWindow) infoWindow = new google.maps.InfoWindow()
-          infoWindow.setOptions({
-            content: '<div class="infoWindow">' + exhibit.formatted_address + '<br><br>' +
-            exhibit.infoText + '<br>', // +
-            // routeButton + '</div>',
-            position: exhibit.location
-          })
-          store.commit('setExhibit', exhibit)
-          // Vue.set(selectedExhibit, selectedExhibit, exhibit)
-          infoWindow.open(map, this)
-          // var onChangeHandler = function() {
-          //   vm.destinationExhibit = exhibit
-          //   calculateAndDisplayRoute(directionsService, directionsDisplay, exhibit.location)
-          // }
-          // document.getElementById('navbutton').addEventListener('click', function () {
-          //   routeTo(exhibit)
-          // })
-        })
-      })(exhibit)
-    }
+        exhibits = response.data
+        for (let exhibit of exhibits) {
+          (function (exhibit) {
+            var marker = new google.maps.Marker({
+              position: exhibit.location,
+              icon: new google.maps.MarkerImage('http://mt.googleapis.com/vt/icon/name=icons/spotlight/spotlight-poi.png',
+                    null,//new google.maps.Size(64, 64),
+                    null,//new google.maps.Point(0, 18),
+                    null,// new google.maps.Point(15, 15),
+                    new google.maps.Size(42, 68)
+              ),
+              map: map,
+              title: exhibit.address
+            })
+            marker.addListener('click', function (event) {
+              if (!infoWindow) infoWindow = new google.maps.InfoWindow()
+              infoWindow.setOptions({
+                content: '<div class="infoWindow">' + exhibit.formatted_address + '<br><br>' +
+                exhibit.infoText + '<br>', // +
+                // routeButton + '</div>',
+                position: exhibit.location
+              })
+              if (!exhibit.distance) {
+                  // TODO PHONE TEST FIX
+                  exhibit['distance'] = {}
+                  exhibit['distance']['distance'] = {}
+                  exhibit['distance']['duration'] = {}
+                  exhibits[0]['distance']['distance']['text'] = 'laden...'
+                  exhibits[0]['distance']['duration']['text'] = 'laden...'
+              }
+              store.commit('setExhibit', exhibit)
+
+              infoWindow.open(map, this)
+            })
+          })(exhibit)
+        }
       }).catch(error => console.log('AddMapMarkers error: ' + error))
   }
 
@@ -195,9 +218,10 @@
                           locationMarker = new google.maps.Marker({
                               clickable: false,
                               icon: new google.maps.MarkerImage('//maps.gstatic.com/mapfiles/mobile/mobileimgs2.png',
-                                  new google.maps.Size(22, 22),
+                                  new google.maps.Size(30, 30),
                                   new google.maps.Point(0, 18),
-                                  new google.maps.Point(11, 11)),
+                                  new google.maps.Point(15, 15)
+                              ),
                               title: 'Huidige locatie',
                               zIndex: 999,
                               position: currentLocation,
@@ -372,6 +396,9 @@
         padding: 10px
         font-size: 16px
 
+        @media only screen and (max-width: 1024px)
+            top: 20%
+
     .page-container
         display: flex
         flex-direction: row
@@ -420,7 +447,7 @@
             text-align: center
             margin-bottom: 10px
 
-            @media only screen and (max-device-width: 480px)
+            @media only screen and (max-width: 1024px)
                 width: 200px
                 height: 200px
                 font-size: 2rem
