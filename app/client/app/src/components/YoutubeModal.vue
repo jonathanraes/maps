@@ -30,7 +30,7 @@
                 })
                 player.addEventListener("onStateChange", function(state){
                     if(state.data === 0){
-                        methods.skipVideo()
+                        MapsComponent.methods.skipVideo()
                     }
                 });
                 hideOnClickOutside(document.getElementById("ytplayer"))
