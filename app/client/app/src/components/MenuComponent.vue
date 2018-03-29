@@ -21,7 +21,7 @@
                             <div class="exhibit-info-top" v-if="selectedExhibit">
                                 <div class="selected-location-title">
                                     <div class="exhibit-title">Naam object</div>
-                                    <div class="selected-location-title">{{ selectedExhibit.formatted_address }} <em>  {{ selectedExhibit.storeName }}</em></div>
+                                    <div class="selected-location-title">{{ selectedExhibit.formatted_address }} <br><em>{{ selectedExhibit.storeName }}</em></div>
                                 </div>
                                 <div class="routebutton">
                                     <button class="btn btn-primary" v-on:click="routeTo(selectedExhibit)" v-if="selectedExhibit != destinationExhibit">{{ $t("message.route") }}</button>
@@ -207,7 +207,7 @@
             font-size: 2rem
             font-weight: bold
 
-            @media only screen and (max-width: 1024px)
+            @media only screen and (max-width: 1024px) and (orientation: portrait)
                 font-size: 3rem
 
 

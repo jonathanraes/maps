@@ -80,8 +80,8 @@ $navbarheight: 10vh
   display: flex
   justify-content: space-evenly
 
-  @media only screen and (max-width: 768px)
-      height: 160px
+  @media only screen and (max-width: 1024px) and (orientation: portrait)
+      height: 140px
 
   .container-fluid
       height: 100%
@@ -100,6 +100,9 @@ $navbarheight: 10vh
   align-items: center
   font-size: 2rem
 
+  @media only screen and (max-width: 1024px) and (orientation: portrait)
+      font-size: 3rem
+
 .navbar-brand
     height: 100%
     width: 300px
@@ -115,14 +118,14 @@ $navbarheight: 10vh
     align-items: center
     margin-right: 10px
 
-    @media only screen and (max-width: 768px)
+    @media only screen and (max-width: 1024px) and (orientation: portrait)
         font-size: 3rem
 
 .nav-item img
   max-height: 80px
   padding:
 
-  @media only screen and (max-width: 768px)
+  @media only screen and (max-width: 1024px) and (orientation: portrait)
     max-height: 160px
 
 .navbar
