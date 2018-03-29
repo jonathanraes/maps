@@ -9,7 +9,6 @@ const locale = 'nl'
 const messages = {
     en: {
         message: {
-            hello: 'hello world',
             visit_store_info: 'Enter the store to get more information on this exhibit',
             select_tour: 'Select a tour',
             destination_looks_like: 'This is what the destination looks like:',
@@ -19,7 +18,6 @@ const messages = {
     },
     nl: {
         message: {
-            hello: 'hallo wereld',
             visit_store_info: 'Bezoek de winkel voor meer informatie over de expositie',
             select_tour: 'Selecteer een tour',
             destination_looks_like: 'Zo ziet de bestemming er uit:',
@@ -29,7 +27,6 @@ const messages = {
     }
 }
 const i18n = new VueI18n({
-    /** 默认值 */
     locale,
     messages
 })

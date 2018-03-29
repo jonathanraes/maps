@@ -75,6 +75,7 @@
         display: flex
         flex-direction: row
         height: $menuheight
+        justify-content: space-evenly
 
         img
             max-height: $menuheight

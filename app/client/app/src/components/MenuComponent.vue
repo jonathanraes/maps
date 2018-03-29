@@ -200,7 +200,7 @@
                 max-height: 1vh
 
         .selected-location-body-expanded
-            max-height: 45vh
+            max-height: 75vh
 
 
         .exhibit-title
