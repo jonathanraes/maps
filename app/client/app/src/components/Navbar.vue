@@ -13,21 +13,24 @@
 
       <!--</div>-->
   <!--</nav>-->
-    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <nav class="navbar navbar-fixed-top" role="navigation">
         <div class="container-fluid">
-            <div class="navbar-header delftlogo">
-                <a class="navbar-brand" href="#"></a>
+            <div class="navbar-header">
+                <img src="../assets/img/logo_delft.svg" />
+
+                <!--<a class="navbar-brand" href="#"></a>-->
             </div>
 
-            <div class="navbar-header tulogo">
-                <a class="navbar-brand" href="#"></a>
+            <div class="navbar-header">
+                <img src="../assets/img/logo-tudelft.svg" />
+                <!--<a class="navbar-brand" href="#"></a>-->
             </div>
 
             <div class="navbar-header page-title">
-                <div class="navbar-brand" href="#">Techniek Tour</div>
+               Techniek Tour
             </div>
 
-            <div class="navbar-nav navbar-right lang-setting">
+            <div class="lang-setting">
                 <div v-on:click="changeLanguage">{{ language }}</div>
             </div>
         </div>
@@ -74,40 +77,53 @@ $navbarheight: 10vh
   background-color: $nav-background
   border-bottom: solid 1px #dbdbdb
   height: 80px
+  display: flex
+  justify-content: space-evenly
+
+  @media only screen and (max-width: 768px)
+      height: 160px
+
+  .container-fluid
+      height: 100%
 
 .navbar-header
     height: 100%
+    width: auto
+
+    img
+        height: 100%
 
 .page-title
   font-weight: normal
   position: relative
-  top: 50%
-  transform: translateY(-50%)
+  display: flex
+  align-items: center
+  font-size: 2rem
 
 .navbar-brand
     height: 100%
-    width: 200px
+    width: 300px
     padding-top: 0
     padding-bottom: 0
-
-.delftlogo
-    background: url(../assets/img/logo_delft.svg) center / contain no-repeat
-
-.tulogo
-    background: url(../assets/img/logo-tudelft.svg) center / contain no-repeat
+    max-height: 100%
 
 .lang-setting
     position: relative
-    top: 50%
-    transform: translateY(-50%)
     font-size: 2rem
-    padding: 10px
     width: 50px
+    display: flex
+    align-items: center
+    margin-right: 10px
 
+    @media only screen and (max-width: 768px)
+        font-size: 3rem
 
 .nav-item img
   max-height: 80px
-  padding: 0
+  padding:
+
+  @media only screen and (max-width: 768px)
+    max-height: 160px
 
 .navbar
   padding: 0
