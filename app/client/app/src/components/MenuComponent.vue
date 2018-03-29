@@ -2,7 +2,7 @@
     <section>
         <div class="menu-wrapper">
             <transition name="slide" >
-                <div id="menu" class="wrapper" v-if="showmenu && selectedExhibit">
+                <div id="menu" class="wrapper" v-show="showmenu && selectedExhibit">
 
                 <transition name="expand" >
                         <div v-if="showDestinationImage">
@@ -18,7 +18,7 @@
                     <div class="text-wrapper"  v-on:click="toggleTextExpand">
                         <div class="exhibit-info">
                         <div>
-                            <div class="exhibit-info-top">
+                            <div class="exhibit-info-top" v-if="selectedExhibit">
                                 <div class="selected-location-title">
                                     <div class="exhibit-title">Naam object</div>
                                     <div class="selected-location-title">{{ selectedExhibit.formatted_address }} <em>  {{ selectedExhibit.storeName }}</em></div>
@@ -56,9 +56,16 @@
         components: {},
         name: "MenuComponent",
         mounted () {
-        },
-        created () {
+            let element = document.getElementsByClassName("selected-location-body")[0];
 
+            function setMaxSize() {
+                // if (document.getElementsByClassName("selected-location-body-expanded").length > 0)
+                document.getElementsByClassName("selected-location-body-expanded")[0].style.maxHeight = document.getElementsByClassName("selected-location-body")[0].clientHeight + "px";
+            }
+
+            element.addEventListener("webkitTransitionEnd", setMaxSize, false);
+            element.addEventListener("transitionend", setMaxSize, false);
+            element.addEventListener("otransotionend", setMaxSize, false);
         },
         data () {
             return {
@@ -73,9 +80,11 @@
             toggleTextExpand () {
                 this.textExpanded = !this.textExpanded;
                 if (this.textExpanded) {
-                    document.getElementsByClassName("selected-location-body")[0].classList.remove("selected-location-body-expanded");
-                } else {
                     document.getElementsByClassName("selected-location-body")[0].classList.add("selected-location-body-expanded");
+                } else {
+                    document.getElementsByClassName("selected-location-body")[0].style.removeProperty("max-height")
+                    document.getElementsByClassName("selected-location-body")[0].classList.remove("selected-location-body-expanded");
+
                 }
             },
             routeTo: function (exhibit) {
@@ -176,16 +185,22 @@
         @media only screen and (max-width: 1024px)
             font-size: 2rem
 
+        @media only screen and (max-height: 1024px) and (orientation: landscape)
+            font-size: 1rem
+
         .selected-location-body
             max-height: 5vh
             /*-webkit-transition: all 1.5s ease-in-out*/
             /*-moz-transition: all 1.5s ease-in-out*/
             /*-ms-transition: all 1.5s ease-in-out*/
             /*-o-transition: all 1.5s ease-in-out*/
-            transition: all 1.5s ease-in-out
+            transition: all 1.5s ease-in
+
+            @media only screen and (max-height: 768px) and (orientation: landscape)
+                max-height: 1vh
 
         .selected-location-body-expanded
-            max-height: 60vh !important
+            max-height: 45vh
 
 
         .exhibit-title
@@ -227,7 +242,7 @@
         opacity: 1
 
     .expand-leave-active
-        transition: height 1.5s ease-in-out, opacity 1.5s cubic-bezier(.99, .01, .99, .01)
+        transition: height 1.5s ease-in-out, opacity 1.5s cubic-bezier(.01, .99, .01, .99)
         /*-webkit-transition: height 1.5s ease-in-out, opacity 1.5s cubic-bezier(.99, .01, .99, .01)*/
         /*-moz-transition: height 1.5s ease-in-out, opacity 1.5s cubic-bezier(.99, .01, .99, .01)*/
         /*-ms-transition: height 1.5s ease-in-out, opacity 1.5s cubic-bezier(.99, .01, .99, .01)*/

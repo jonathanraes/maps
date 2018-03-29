@@ -30,7 +30,7 @@
 
 
   let $backend = axios.create({
-    baseURL: 'http://127.0.0.1:5000/api/',
+    baseURL: 'http://145.94.175.220:5000/api/',
     timeout: 5000,
     headers: {'Content-Type': 'application/json'}
   })
@@ -168,7 +168,7 @@
           (function (exhibit) {
             var marker = new google.maps.Marker({
               position: exhibit.location,
-              icon: new google.maps.MarkerImage('http://mt.googleapis.com/vt/icon/name=icons/spotlight/spotlight-poi.png',
+              icon: new google.maps.MarkerImage('https://mt.googleapis.com/vt/icon/name=icons/spotlight/spotlight-poi.png',
                     null,//new google.maps.Size(64, 64),
                     null,//new google.maps.Point(0, 18),
                     null,// new google.maps.Point(15, 15),
@@ -396,28 +396,35 @@
         padding: 10px
         font-size: 16px
 
-        @media only screen and (max-width: 1024px)
+        @media only screen and (max-width: 768px)
             top: 20%
+            font-size: 2rem
+            width: 15vmax
 
     .page-container
         display: flex
         flex-direction: row
+        width: 100%
 
     section
-        padding: 0px
         margin: 0px
         width: 100%
+        min-width: 100%
 
         #map
             z-index: 0
             display: flex
             flex-flow: column
-            height: calc(99vh - 80px) // 80px = navbar height
+            height: calc(100vh - 80px) // 80px = navbar height
             width: 100%
             margin: 0
             padding: 0
             max-width: none
             overflow: hidden
+
+            @media only screen and (max-width: 768px)
+                height: calc(100vh - 160px)
+
 
     .left-circles
         color: black
@@ -428,6 +435,12 @@
         top: 30%
         margin-left: 50px
         pointer-events: none
+
+        @media only screen and (max-width: 1024px)
+            top: 25%
+
+        @media only screen and (max-width: 1024px) and  (orientation: landscape)
+            top: 20%
 
         div
             /*font-size: 1vmax*/
@@ -451,6 +464,12 @@
                 width: 200px
                 height: 200px
                 font-size: 2rem
+
+            @media only screen and (max-width: 1024px) and  (orientation: landscape)
+                width: 100px
+                height: 100px
+                font-size: 1rem
+
 
     .left
         width: 80%
