@@ -387,7 +387,7 @@
     $menuheight: 30vh
 
     .right-panel
-        position: absolute
+        position: fixed
         background-color: red
         color: black
         right: 0px
@@ -396,7 +396,7 @@
         padding: 10px
         font-size: 16px
 
-        @media only screen and (max-width: 768px)
+        @media only screen and (max-width: 1024px) and (orientation: portrait)
             top: 20%
             font-size: 2rem
             width: 15vmax
