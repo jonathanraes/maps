@@ -27,7 +27,7 @@
             </div>
 
             <div class="navbar-header page-title">
-               Techniek Tour
+               Techniek Tours
             </div>
 
             <div class="lang-setting">

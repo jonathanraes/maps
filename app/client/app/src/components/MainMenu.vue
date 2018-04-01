@@ -78,6 +78,7 @@
 
         img
             max-height: $menuheight
+            height: 100%
             padding-left: 10px
             padding-right: 10px
 

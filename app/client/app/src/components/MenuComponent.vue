@@ -191,10 +191,10 @@
         .selected-location-body
             max-height: 5vh
             font-size: 1rem
-            /*-webkit-transition: all 1.5s ease-in-out*/
-            /*-moz-transition: all 1.5s ease-in-out*/
-            /*-ms-transition: all 1.5s ease-in-out*/
-            /*-o-transition: all 1.5s ease-in-out*/
+            -webkit-transition: all 1.5s ease-in
+            -moz-transition: all 1.5s ease-in
+            -ms-transition: all 1.5s ease-in
+            -o-transition: all 1.5s ease-in
             transition: all 1.5s ease-in
 
             @media only screen and (max-width: 1024px)
@@ -204,8 +204,8 @@
             @media only screen and (max-height: 1024px) and (orientation: landscape)
                 max-height: 1vh
 
-            .selected-location-body-expanded
-                max-height: 75vh
+        .selected-location-body-expanded
+            max-height: 75vh
 
 
         .exhibit-title
@@ -226,37 +226,37 @@
             border-top-right-radius: 110px /* 100px of height + 10px of border */
             border-bottom: 0
 
-        .slide-enter-active,
-        .slide-leave-active
-            transition: all 1.5s
-            transform: translateY(0%)
+    .slide-enter-active,
+    .slide-leave-active
+        transition: all 1.5s
+        transform: translateY(0%)
 
-        .slide-enter,
-        .slide-leave-to
-            transform: translateY(100%)
+    .slide-enter,
+    .slide-leave-to
+        transform: translateY(100%)
 
 
-        .expand-enter-active
-            transition: height 1.5s ease-in-out, opacity 1.5s cubic-bezier(.99, .01, .99, .01)
-            /*-webkit-transition: height 1.5s ease-in-out, opacity 1.5s cubic-bezier(.99, .01, .99, .01)*/
-            /*-moz-transition: height 1.5s ease-in-out, opacity 1.5s cubic-bezier(.99, .01, .99, .01)*/
-            /*-ms-transition: height 1.5s ease-in-out, opacity 1.5s cubic-bezier(.99, .01, .99, .01)*/
-            /*-o-transition: height 1.5s ease-in-out, opacity 1.5s cubic-bezier(.99, .01, .99, .01)*/
-            height: $destinationreachedimageheight
-            opacity: 1
+    .expand-enter-active
+        transition: height 1.5s ease-in-out, opacity 1.5s cubic-bezier(.99, .01, .99, .01)
+        -webkit-transition: height 1.5s ease-in-out, opacity 1.5s cubic-bezier(.99, .01, .99, .01)
+        -moz-transition: height 1.5s ease-in-out, opacity 1.5s cubic-bezier(.99, .01, .99, .01)
+        -ms-transition: height 1.5s ease-in-out, opacity 1.5s cubic-bezier(.99, .01, .99, .01)
+        -o-transition: height 1.5s ease-in-out, opacity 1.5s cubic-bezier(.99, .01, .99, .01)
+        height: $destinationreachedimageheight
+        opacity: 1
 
-        .expand-leave-active
-            transition: height 1.5s ease-in-out, opacity 1.5s cubic-bezier(.01, .99, .01, .99)
-            /*-webkit-transition: height 1.5s ease-in-out, opacity 1.5s cubic-bezier(.99, .01, .99, .01)*/
-            /*-moz-transition: height 1.5s ease-in-out, opacity 1.5s cubic-bezier(.99, .01, .99, .01)*/
-            /*-ms-transition: height 1.5s ease-in-out, opacity 1.5s cubic-bezier(.99, .01, .99, .01)*/
-            /*-o-transition: height 1.5s ease-in-out, opacity 1.5s cubic-bezier(.99, .01, .99, .01)*/
-            height: $destinationreachedimageheight
-            opacity: 1
+    .expand-leave-active
+        transition: height 1.5s ease-in-out, opacity 1.5s cubic-bezier(.01, .99, .01, .99)
+        -webkit-transition: height 1.5s ease-in-out, opacity 1.5s cubic-bezier(.99, .01, .99, .01)
+        -moz-transition: height 1.5s ease-in-out, opacity 1.5s cubic-bezier(.99, .01, .99, .01)
+        -ms-transition: height 1.5s ease-in-out, opacity 1.5s cubic-bezier(.99, .01, .99, .01)
+        -o-transition: height 1.5s ease-in-out, opacity 1.5s cubic-bezier(.99, .01, .99, .01)
+        height: $destinationreachedimageheight
+        opacity: 1
 
-        .expand-enter,
-        .expand-leave-to
-            height: 0px
-            opacity: 0
+    .expand-enter,
+    .expand-leave-to
+        height: 0px
+        opacity: 0
 
 </style>
