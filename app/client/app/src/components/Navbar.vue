@@ -89,6 +89,7 @@ $navbarheight: 10vh
 .navbar-header
     height: 100%
     width: auto
+    max-width: 25vw
 
     img
         height: 100%
@@ -126,7 +127,7 @@ $navbarheight: 10vh
   padding:
 
   @media only screen and (max-width: 1024px) and (orientation: portrait)
-    max-height: 160px
+    max-height: 161px
 
 .navbar
   padding: 0

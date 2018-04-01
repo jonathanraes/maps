@@ -17,8 +17,6 @@
 </template>
 
 <script>
-  /*jslint white: true */
-
   import axios from 'axios'
   import store from '../store/index'
 
@@ -30,7 +28,7 @@
 
 
   let $backend = axios.create({
-    baseURL: 'http://145.94.175.220:5000/api/',
+    baseURL: 'http://127.0.0.1:5000/api/',
     timeout: 5000,
     headers: {'Content-Type': 'application/json'}
   })
@@ -56,7 +54,6 @@
       skipVideo: function () {
         videoDone()
       },
-
     },
     computed: {
       selectedExhibit () {
@@ -71,23 +68,9 @@
       totalExhibits () {
           return exhibits.length
       }
-
     },
     mounted () {
         this.$store.commit('showMenu', false)
-        // YouTubeIframeLoader.load(function(YT) {
-        //     player = new YT.Player('ytplayer', {
-        //         height: '100%',
-        //         width: '100%',
-        //         videoId: '668nUCeBHyY'
-        //     })
-        //     player.addEventListener("onStateChange", function(state){
-        //         if(state.data === 0){
-        //             videoDone()
-        //         }
-        //     });
-        //     hideOnClickOutside(document.getElementById("ytplayer"))
-        // })
         GoogleMapsLoader.load(function (googlemaps) {
             google = googlemaps
             initMap()
@@ -151,7 +134,9 @@
     distanceService = new google.maps.DistanceMatrixService()
     map = new google.maps.Map(document.getElementById('map'), {
       center: mapCenter,
-      zoom: 16
+      zoom: 16,
+      scaleControl: false,
+      zoomControl: false,
     })
     directionsDisplay.setMap(map)
     directionsDisplay.setOptions({suppressMarkers: true})
@@ -162,6 +147,7 @@
   }
 
   function addMapMarkers () {
+
     return $backend.get('resource/one').then(response => {
         exhibits = response.data
         for (let exhibit of exhibits) {
@@ -177,26 +163,19 @@
               map: map,
               title: exhibit.address
             })
-            marker.addListener('click', function (event) {
-              if (!infoWindow) infoWindow = new google.maps.InfoWindow()
-              infoWindow.setOptions({
-                content: '<div class="infoWindow">' + exhibit.formatted_address + '<br><br>' +
-                exhibit.infoText + '<br>', // +
-                // routeButton + '</div>',
-                position: exhibit.location
-              })
-              if (!exhibit.distance) {
-                  // TODO PHONE TEST FIX
-                  exhibit['distance'] = {}
-                  exhibit['distance']['distance'] = {}
-                  exhibit['distance']['duration'] = {}
-                  exhibits[0]['distance']['distance']['text'] = 'laden...'
-                  exhibits[0]['distance']['duration']['text'] = 'laden...'
-              }
-              store.commit('setExhibit', exhibit)
-
-              infoWindow.open(map, this)
-            })
+            // marker.addListener('click', function (event) {
+            //   if (!infoWindow) infoWindow = new google.maps.InfoWindow()
+            //   infoWindow.setOptions({
+            //     content: '<div class="infoWindow">' + exhibit.formatted_address + '<br><br>' +
+            //     exhibit.infoText + '<br>', // +
+            //     // routeButton + '</div>',
+            //     position: exhibit.location
+            //   })
+            //
+            //   store.commit('setExhibit', exhibit)
+            //
+            //   infoWindow.open(map, this)
+            // })
           })(exhibit)
         }
       }).catch(error => console.log('AddMapMarkers error: ' + error))
@@ -239,20 +218,10 @@
                           accuracyCircle.bindTo('center', locationMarker, 'position')
                       }
 
-                      locationMarker.setPosition(currentLocation)
-                      accuracyCircle.setRadius(currentLocation.accuracy)
-                      if (!store.state.atDestination /* && selectedExhibit */ && destinationExhibit && getStraightDistance(store.state.destinationExhibit.location, currentLocation) < DestinationReachedDistance) {
-                          // Destination Reached
-                          console.log('reached destination ' + exhibits.length)
-                          if (exhibits.indexOf(store.state.selectedExhibit) > -1) {
-                              exhibits.splice(exhibits.indexOf(store.state.selectedExhibit), 1)
-                          }
-                          console.log('reached destination ' + exhibits.length)
-                          // activateClosestExhibitDistanceMatrix()
-                          store.commit('setAtDestination', true)
+                      locationMarker.setPosition(currentLocation);
+                      accuracyCircle.setRadius(currentLocation.accuracy);
 
-                          reachedDestination(store.state.selectedExhibit.location)
-                      }
+                      checkLocationReached();
                       // if (vm.selectedExhibit)
                       //   calculateRoute(directionsService, vm.selectedExhibit.location)
                       if (centre) {
@@ -264,21 +233,38 @@
                   function () {
                       // Location retrieval error
                       if (!infoWindow) {
-                          infoWindow = new google.maps.InfoWindow()
-                          handleLocationError(true, infoWindow, map.getCenter())
+                          // infoWindow = new google.maps.InfoWindow()
+                          // handleLocationError(true, infoWindow, map.getCenter())
                           reject()
                       }
                   })
           } else {
               // Browser doesn't support Geolocation
               if (!infoWindow) {
-                  infoWindow = new google.maps.InfoWindow()
-                  handleLocationError(false, infoWindow, map.getCenter())
+                  // infoWindow = new google.maps.InfoWindow()
+                  // handleLocationError(false, infoWindow, map.getCenter())
                   reject()
               }
           }
       })
 
+  }
+
+  function checkLocationReached () {
+      if (!store.state.atDestination /* && selectedExhibit */ &&
+          destinationExhibit &&
+          getStraightDistance(store.state.destinationExhibit.location, currentLocation) < DestinationReachedDistance) {
+          // Destination Reached
+          console.log('reached destination ' + exhibits.length)
+          if (exhibits.indexOf(store.state.selectedExhibit) > -1) {
+              exhibits.splice(exhibits.indexOf(store.state.selectedExhibit), 1)
+          }
+          console.log('reached destination ' + exhibits.length)
+          // activateClosestExhibitDistanceMatrix()
+          store.commit('setAtDestination', true)
+
+          reachedDestination(store.state.selectedExhibit.location)
+      }
   }
 
   function activateClosestExhibitDistanceMatrix (skipamount = 0) {
@@ -308,16 +294,6 @@
                       }
                       if (distances.length >= exhibits.length) {
                           // When distance array is filled up
-                          // var closest_exhibit = vm.exhibits[0]
-                          // for (exhibit of vm.exhibits) {
-                          //   if (!exhibit.distance) {
-                          //     // Not possible anymore due to length check
-                          //     console.error('MISSING DIST: ')
-                          //     console.log(exhibit)
-                          //   } else if (exhibit.distance.duration.value < closest_exhibit.distance.duration.value) {
-                          //     closest_exhibit = exhibit
-                          //   }
-                          // }
                           exhibits.sort(function (a, b) {
                               if (a.distance && b.distance) {
                                   return a.distance.duration.value - b.distance.duration.value

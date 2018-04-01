@@ -69,7 +69,6 @@
 
 <style lang="sass" scoped>
     $menuheight: 10vh
-    $destinationreachedimageheight: 20vh
 
     .main-menu
         display: flex
@@ -90,14 +89,10 @@
         justify-content: center
 
     .wrapper
-        width: 40%
-        //left: 10%
+        min-width: 40%
         bottom: -10px
-        //bottom: -$menuheight
         background-color: #E6E6E6
-        /*background-color: #0d54ca*/
         color: black
-        //height: $menuheight
         display: flex
         text-align: justify
         flex-flow: column
@@ -114,21 +109,5 @@
     .slide-enter,
     .slide-leave-to
         transform: translateY(100%)
-
-
-    .expand-enter-active
-        transition: height 1s ease-in-out, opacity 1s cubic-bezier(.99, .01, .99, .01)
-        height: $destinationreachedimageheight
-        opacity: 1
-
-    .expand-leave-active
-        transition: height 1s ease-in-out, opacity 1s cubic-bezier(.01, 1, .01, 1)
-        height: $destinationreachedimageheight
-        opacity: 1
-
-    .expand-enter,
-    .expand-leave-to
-        height: 0px
-        opacity: 0
 
 </style>

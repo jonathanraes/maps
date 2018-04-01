@@ -157,6 +157,11 @@
             display: flex
             margin: 10px
 
+            .btn
+                @media only screen and (max-width: 1024px)
+                    font-size: 2rem
+
+
     .text-wrapper
         padding: 10px 50px 20px 50px
 
@@ -166,20 +171,15 @@
 
     .wrapper
         width: 80%
-        //left: 10%
         bottom: -10px
-        //bottom: -$menuheight
         background-color: #E6E6E6
-        /*background-color: #0d54ca*/
         color: black
-        //height: $menuheight
         display: flex
         text-align: justify
         flex-flow: column
         border-radius: 40px 40px 0px 0px
         border-style: solid
         position: fixed
-        /*font-size: 1.2vmax*/
         font-size: 1rem
 
         @media only screen and (max-width: 1024px)
@@ -190,17 +190,22 @@
 
         .selected-location-body
             max-height: 5vh
+            font-size: 1rem
             /*-webkit-transition: all 1.5s ease-in-out*/
             /*-moz-transition: all 1.5s ease-in-out*/
             /*-ms-transition: all 1.5s ease-in-out*/
             /*-o-transition: all 1.5s ease-in-out*/
             transition: all 1.5s ease-in
 
-            @media only screen and (max-height: 768px) and (orientation: landscape)
+            @media only screen and (max-width: 1024px)
+                font-size: 2rem
+
+
+            @media only screen and (max-height: 1024px) and (orientation: landscape)
                 max-height: 1vh
 
-        .selected-location-body-expanded
-            max-height: 75vh
+            .selected-location-body-expanded
+                max-height: 75vh
 
 
         .exhibit-title
@@ -210,49 +215,48 @@
             @media only screen and (max-width: 1024px) and (orientation: portrait)
                 font-size: 3rem
 
+        .expand-button
+            bottom: 100%
+            position: absolute
+            background-color: green
+            width: 18vmin
+            height: 9vmin
+            align-self: center
+            border-top-left-radius: 110px /* 100px of height + 10px of border */
+            border-top-right-radius: 110px /* 100px of height + 10px of border */
+            border-bottom: 0
 
-    .expand-button
-        bottom: 100%
-        position: absolute
-        background-color: green
-        width: 18vmin
-        height: 9vmin
-        align-self: center
-        border-top-left-radius: 110px /* 100px of height + 10px of border */
-        border-top-right-radius: 110px /* 100px of height + 10px of border */
-        border-bottom: 0
+        .slide-enter-active,
+        .slide-leave-active
+            transition: all 1.5s
+            transform: translateY(0%)
 
-    .slide-enter-active,
-    .slide-leave-active
-        transition: all 1.5s
-        transform: translateY(0%)
-
-    .slide-enter,
-    .slide-leave-to
-        transform: translateY(100%)
+        .slide-enter,
+        .slide-leave-to
+            transform: translateY(100%)
 
 
-    .expand-enter-active
-        transition: height 1.5s ease-in-out, opacity 1.5s cubic-bezier(.99, .01, .99, .01)
-        /*-webkit-transition: height 1.5s ease-in-out, opacity 1.5s cubic-bezier(.99, .01, .99, .01)*/
-        /*-moz-transition: height 1.5s ease-in-out, opacity 1.5s cubic-bezier(.99, .01, .99, .01)*/
-        /*-ms-transition: height 1.5s ease-in-out, opacity 1.5s cubic-bezier(.99, .01, .99, .01)*/
-        /*-o-transition: height 1.5s ease-in-out, opacity 1.5s cubic-bezier(.99, .01, .99, .01)*/
-        height: $destinationreachedimageheight
-        opacity: 1
+        .expand-enter-active
+            transition: height 1.5s ease-in-out, opacity 1.5s cubic-bezier(.99, .01, .99, .01)
+            /*-webkit-transition: height 1.5s ease-in-out, opacity 1.5s cubic-bezier(.99, .01, .99, .01)*/
+            /*-moz-transition: height 1.5s ease-in-out, opacity 1.5s cubic-bezier(.99, .01, .99, .01)*/
+            /*-ms-transition: height 1.5s ease-in-out, opacity 1.5s cubic-bezier(.99, .01, .99, .01)*/
+            /*-o-transition: height 1.5s ease-in-out, opacity 1.5s cubic-bezier(.99, .01, .99, .01)*/
+            height: $destinationreachedimageheight
+            opacity: 1
 
-    .expand-leave-active
-        transition: height 1.5s ease-in-out, opacity 1.5s cubic-bezier(.01, .99, .01, .99)
-        /*-webkit-transition: height 1.5s ease-in-out, opacity 1.5s cubic-bezier(.99, .01, .99, .01)*/
-        /*-moz-transition: height 1.5s ease-in-out, opacity 1.5s cubic-bezier(.99, .01, .99, .01)*/
-        /*-ms-transition: height 1.5s ease-in-out, opacity 1.5s cubic-bezier(.99, .01, .99, .01)*/
-        /*-o-transition: height 1.5s ease-in-out, opacity 1.5s cubic-bezier(.99, .01, .99, .01)*/
-        height: $destinationreachedimageheight
-        opacity: 1
+        .expand-leave-active
+            transition: height 1.5s ease-in-out, opacity 1.5s cubic-bezier(.01, .99, .01, .99)
+            /*-webkit-transition: height 1.5s ease-in-out, opacity 1.5s cubic-bezier(.99, .01, .99, .01)*/
+            /*-moz-transition: height 1.5s ease-in-out, opacity 1.5s cubic-bezier(.99, .01, .99, .01)*/
+            /*-ms-transition: height 1.5s ease-in-out, opacity 1.5s cubic-bezier(.99, .01, .99, .01)*/
+            /*-o-transition: height 1.5s ease-in-out, opacity 1.5s cubic-bezier(.99, .01, .99, .01)*/
+            height: $destinationreachedimageheight
+            opacity: 1
 
-    .expand-enter,
-    .expand-leave-to
-        height: 0px
-        opacity: 0
+        .expand-enter,
+        .expand-leave-to
+            height: 0px
+            opacity: 0
 
 </style>

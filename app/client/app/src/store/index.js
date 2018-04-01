@@ -7,6 +7,8 @@ import actions from './actions'
 import getters from './getters'
 import mutations from './mutations'
 
+import backend from './backend'
+
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -22,8 +24,9 @@ export default new Vuex.Store({
     atDestination: false,
     selectedExhibit: null,
     destinationExhibit: null,
-    showMenu: true
-  }
+    showMenu: true,
+    locationError: false
+  },
 })
 
 export const strict = false
