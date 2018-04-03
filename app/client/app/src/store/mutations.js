@@ -19,6 +19,9 @@ export default {
   setAtDestination: function (state, atDestination) {
     state.atDestination = atDestination
   },
+  locationError: function (state, locationError) {
+    state.locationError = locationError
+  },
   showMenu: function (state, showMenu) {
     state.showMenu = showMenu
   },

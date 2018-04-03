@@ -1,21 +1,27 @@
 <template>
     <section>
-        <div class="menu-wrapper">
-            <transition name="slide" >
-                <div id="menu" class="wrapper" v-show="showmenu && selectedExhibit">
+        <div class="outside-menu-wrapper">
 
-                <transition name="expand" >
-                        <div v-if="showDestinationImage">
-                            <div class="destination-image-wrapper">
-                                <div class="destination-reached-text">{{ $t("message.destination_looks_like") }}</div>
-                                <div class="destination-image">
-                                    <img src="../assets/img/destination.jpg" >
+            <transition name="slide" >
+                <div id="menu" class="wrapper" v-show="showmenu">
+
+                <div class="location-error" v-show="locationError">
+                    {{ $t("message.locationError") }}
+                </div>
+                <div class="inner-menu-wrapper" v-show="selectedExhibit">
+                    <transition name="expand" >
+                            <div v-if="showDestinationImage">
+                                <div class="destination-image-wrapper">
+                                    <div class="destination-reached-text">{{ $t("message.destination_looks_like") }}</div>
+                                    <div class="destination-image">
+                                        <img src="../assets/img/destination.jpg" >
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </transition>
-                    <div class="expand-button" v-on:click="toggleDestinationImage"></div>
-                    <div class="text-wrapper"  v-on:click="toggleTextExpand">
+                        </transition>
+                        <div class="expand-button" v-on:click="toggleDestinationImage"></div>
+                        <div class="text-wrapper"  v-on:click="toggleTextExpand">
+
                         <div class="exhibit-info">
                         <div>
                             <div class="exhibit-info-top" v-if="selectedExhibit">
@@ -23,7 +29,7 @@
                                     <div class="exhibit-title">Naam object</div>
                                     <div class="selected-location-title">{{ selectedExhibit.formatted_address }} <br><em>{{ selectedExhibit.storeName }}</em></div>
                                 </div>
-                                <div class="routebutton">
+                                <div class="routebutton" v-if="!locationError">
                                     <button class="btn btn-primary" v-on:click="routeTo(selectedExhibit)" v-if="selectedExhibit != destinationExhibit">{{ $t("message.route") }}</button>
                                 </div>
                             </div>
@@ -41,6 +47,7 @@
                             </div>
                         </div>
                     </div>
+                </div>
                 </div>
             </div>
             </transition>
@@ -107,6 +114,9 @@
             showmenu () {
                 return this.$store.state.showMenu
             },
+            locationError() {
+                return this.$store.state.locationError
+            },
             language() {
                 return i18n.locale
             }
@@ -165,9 +175,24 @@
     .text-wrapper
         padding: 10px 50px 20px 50px
 
-    .menu-wrapper
+    .outside-menu-wrapper
         display: flex
         justify-content: center
+
+    .location-error
+        text-align: center
+        align-self: center
+        font-size: 2rem
+
+        @media only screen and (max-width: 1024px)
+            font-size: 3rem
+
+        @media only screen and (max-height: 1024px) and (orientation: landscape)
+            font-size: 2rem
+
+    .inner-menu-wrapper
+        display: flex
+        flex-direction: column
 
     .wrapper
         width: 80%
@@ -181,6 +206,7 @@
         border-style: solid
         position: fixed
         font-size: 1rem
+        align-self: center
 
         @media only screen and (max-width: 1024px)
             font-size: 2rem

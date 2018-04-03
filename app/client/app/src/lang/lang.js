@@ -13,7 +13,8 @@ const messages = {
             select_tour: 'Select a tour',
             destination_looks_like: 'This is what the destination looks like:',
             total: 'total',
-            route: 'Route description'
+            route: 'Route description',
+            locationError: 'Your location could not be retrieved'
         }
     },
     nl: {
@@ -22,7 +23,8 @@ const messages = {
             select_tour: 'Selecteer een tour',
             destination_looks_like: 'Zo ziet de bestemming er uit:',
             total: 'totaal',
-            route: 'Routebeschrijving'
+            route: 'Routebeschrijving',
+            locationError: 'Uw locatie kon niet worden opgehaald'
         }
     }
 }

@@ -86,15 +86,18 @@
               store.commit('showMenu', true)
           })
       }).catch(() => {
-          console.error('Error updating location');
-          currentLocation = {
-              lat: parseFloat(52.002618700000006),
-              lng: parseFloat(4.374768899999999),
-              accuracy: parseFloat(5)
-          }
-          store.commit('showMenu', true)
-          store.commit('setDestination', exhibits[0])
-          setActiveExhibit(exhibits[0]);
+          // console.error('Error updating location');
+          // currentLocation = {
+          //     lat: parseFloat(52.002618700000006),
+          //     lng: parseFloat(4.374768899999999),
+          //     accuracy: parseFloat(5)
+          // }
+          // store.commit('showMenu', true)
+          // store.commit('setDestination', exhibits[0])
+          // setActiveExhibit(exhibits[0]);
+          store.commit('locationError', true);
+          store.commit('showMenu', true);
+
       })
       document.getElementsByClassName("modal")[0].style.display = "none";
   }
