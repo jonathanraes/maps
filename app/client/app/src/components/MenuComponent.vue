@@ -60,7 +60,7 @@
 
             function setMaxSize() {
                 // if (document.getElementsByClassName("selected-location-body-expanded").length > 0)
-                document.getElementsByClassName("selected-location-body-expanded")[0].style.maxHeight = document.getElementsByClassName("selected-location-body")[0].clientHeight + "px";
+                document.getElementsByClassName("selected-location-body")[0].style.maxHeight = document.getElementsByClassName("selected-location-body")[0].clientHeight + "px";
             }
 
             element.addEventListener("webkitTransitionEnd", setMaxSize, false);
@@ -80,6 +80,7 @@
             toggleTextExpand () {
                 this.textExpanded = !this.textExpanded;
                 if (this.textExpanded) {
+                    document.getElementsByClassName("selected-location-body")[0].style.removeProperty("max-height");
                     document.getElementsByClassName("selected-location-body")[0].classList.add("selected-location-body-expanded");
                 } else {
                     document.getElementsByClassName("selected-location-body")[0].style.removeProperty("max-height");
@@ -190,11 +191,11 @@
         .selected-location-body
             max-height: 5vh
             font-size: 1rem
-            -webkit-transition: all 1.5s ease-in
-            -moz-transition: all 1.5s ease-in
-            -ms-transition: all 1.5s ease-in
-            -o-transition: all 1.5s ease-in
-            transition: all 1.5s ease-in
+            -webkit-transition: all 1.5s
+            -moz-transition: all 1.5s
+            -ms-transition: all 1.5s
+            -o-transition: all 1.5s
+            transition: all 1.5s
 
             @media only screen and (max-width: 1024px)
                 font-size: 2rem

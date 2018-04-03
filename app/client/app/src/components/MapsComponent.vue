@@ -92,15 +92,9 @@
               lng: parseFloat(4.374768899999999),
               accuracy: parseFloat(5)
           }
-          exhibits[0]['distance'] = {}
-          exhibits[0]['distance']['distance'] = {}
-          exhibits[0]['distance']['duration'] = {}
-          exhibits[0]['distance']['distance']['text'] = '999 uur'
-          exhibits[0]['distance']['duration']['text'] = '999 km'
-
           store.commit('showMenu', true)
           store.commit('setDestination', exhibits[0])
-          store.commit('setExhibit', exhibits[0])
+          setActiveExhibit(exhibits[0]);
       })
       document.getElementsByClassName("modal")[0].style.display = "none";
   }
@@ -137,6 +131,14 @@
       zoom: 16,
       scaleControl: false,
       zoomControl: false,
+      clickableIcons: true, // Non clickable POI markers
+      styles: [ // Disable POI markers
+        {
+            "featureType": "poi",
+            "stylers": [
+                { "visibility": "off" }
+            ]
+        }]
     })
     directionsDisplay.setMap(map)
     directionsDisplay.setOptions({suppressMarkers: true})
@@ -163,22 +165,32 @@
               map: map,
               title: exhibit.address
             })
-            // marker.addListener('click', function (event) {
-            //   if (!infoWindow) infoWindow = new google.maps.InfoWindow()
-            //   infoWindow.setOptions({
-            //     content: '<div class="infoWindow">' + exhibit.formatted_address + '<br><br>' +
-            //     exhibit.infoText + '<br>', // +
-            //     // routeButton + '</div>',
-            //     position: exhibit.location
-            //   })
-            //
-            //   store.commit('setExhibit', exhibit)
-            //
-            //   infoWindow.open(map, this)
-            // })
+            marker.addListener('click', function (event) {
+              // if (!infoWindow) infoWindow = new google.maps.InfoWindow()
+              // infoWindow.setOptions({
+              //   content: '<div class="infoWindow">' + exhibit.formatted_address + '<br><br>' +
+              //   exhibit.infoText + '<br>', // +
+              //   // routeButton + '</div>',
+              //   position: exhibit.location
+              // })
+              setActiveExhibit(exhibit);
+              // infoWindow.open(map, this)
+            })
           })(exhibit)
         }
       }).catch(error => console.log('AddMapMarkers error: ' + error))
+  }
+
+  function setActiveExhibit (exhibit) {
+      if (!exhibit['distance']) {
+          exhibit['distance'] = {}
+          exhibit['distance']['distance'] = {}
+          exhibit['distance']['duration'] = {}
+          exhibit['distance']['distance']['text'] = 'error'
+          exhibit['distance']['duration']['text'] = 'error'
+      }
+
+      store.commit('setExhibit', exhibit)
   }
 
   function updateLocation (centre) {
@@ -302,8 +314,8 @@
                               }
                           })
 
-                          store.commit('setExhibit', exhibits[skipamount])
-                          store.commit('setDestination', exhibits[skipamount])
+                          setActiveExhibit(exhibits[skipamount]);
+                          store.commit('setDestination', exhibits[skipamount]);
 
                           calculateAndDisplayRoute(directionsService, directionsDisplay, exhibits[skipamount].location)
                           resolve()
