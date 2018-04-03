@@ -361,10 +361,13 @@
 
 <style lang="sass" scoped>
     $menuheight: 30vh
+    $delftblauw: #0d54ca
+    $delftroze: #f782c1
+
 
     .right-panel
         position: fixed
-        background-color: red
+        background-color: $delftblauw
         color: black
         right: 0px
         width: 10vmax

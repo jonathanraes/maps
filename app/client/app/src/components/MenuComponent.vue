@@ -82,9 +82,8 @@
                 if (this.textExpanded) {
                     document.getElementsByClassName("selected-location-body")[0].classList.add("selected-location-body-expanded");
                 } else {
-                    document.getElementsByClassName("selected-location-body")[0].style.removeProperty("max-height")
+                    document.getElementsByClassName("selected-location-body")[0].style.removeProperty("max-height");
                     document.getElementsByClassName("selected-location-body")[0].classList.remove("selected-location-body-expanded");
-
                 }
             },
             routeTo: function (exhibit) {
@@ -247,10 +246,10 @@
 
     .expand-leave-active
         transition: height 1.5s ease-in-out, opacity 1.5s cubic-bezier(.01, .99, .01, .99)
-        -webkit-transition: height 1.5s ease-in-out, opacity 1.5s cubic-bezier(.99, .01, .99, .01)
-        -moz-transition: height 1.5s ease-in-out, opacity 1.5s cubic-bezier(.99, .01, .99, .01)
-        -ms-transition: height 1.5s ease-in-out, opacity 1.5s cubic-bezier(.99, .01, .99, .01)
-        -o-transition: height 1.5s ease-in-out, opacity 1.5s cubic-bezier(.99, .01, .99, .01)
+        -webkit-transition: height 1.5s ease-in-out, opacity 1.5s cubic-bezier(.01, .99, .01, .99)
+        -moz-transition: height 1.5s ease-in-out, opacity 1.5s cubic-bezier(.01, .99, .01, .99)
+        -ms-transition: height 1.5s ease-in-out, opacity 1.5s cubic-bezier(.01, .99, .01, .99)
+        -o-transition: height 1.5s ease-in-out, opacity 1.5s cubic-bezier(.01, .99, .01, .99)
         height: $destinationreachedimageheight
         opacity: 1
 
