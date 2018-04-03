@@ -16,18 +16,18 @@
     <nav class="navbar navbar-fixed-top" role="navigation">
         <div class="container-fluid">
             <div class="navbar-header">
-                <img src="../assets/img/logo_delft.svg" />
+                <a href="https://delft.com"><img src="../assets/img/logo_delft.svg" /></a>
 
                 <!--<a class="navbar-brand" href="#"></a>-->
             </div>
 
             <div class="navbar-header">
-                <img src="../assets/img/logo-tudelft.svg" />
+                <a href="https://tudelft.nl"><img src="../assets/img/logo-tudelft.svg" /></a>
                 <!--<a class="navbar-brand" href="#"></a>-->
             </div>
 
             <div class="navbar-header page-title">
-               Techniek Tours
+                <a href="/">Techniek Tours</a>
             </div>
 
             <div class="lang-setting">
@@ -90,6 +90,7 @@ $navbarheight: 10vh
     height: 100%
     width: auto
     max-width: 25vw
+    cursor: pointer
 
     img
         height: 100%
@@ -118,6 +119,7 @@ $navbarheight: 10vh
     display: flex
     align-items: center
     margin-right: 10px
+    cursor: pointer
 
     @media only screen and (max-width: 1024px) and (orientation: portrait)
         font-size: 3rem
