@@ -1,7 +1,6 @@
 <template>
     <section>
         <div class="outside-menu-wrapper">
-
             <transition name="slide" >
                 <div id="menu" class="wrapper" v-show="showmenu">
 
@@ -19,7 +18,8 @@
                                 </div>
                             </div>
                         </transition>
-                        <div class="expand-button" v-on:click="toggleDestinationImage"></div>
+                    <div class="expand-button" id="expand-drag" v-on:click="toggleDestinationImage" draggable="true">
+                    </div>
                         <div class="text-wrapper"  v-on:click="toggleTextExpand">
 
                         <div class="exhibit-info">
@@ -60,24 +60,31 @@
     import MapsComponent from "../components/MapsComponent"
 
     export default {
+
         components: {},
         name: "MenuComponent",
         mounted () {
-            let element = document.getElementsByClassName("selected-location-body")[0];
+            document.getElementById("expand-drag").addEventListener('drag', function (event) {
+                if (event.clientY !== 0) {
+                    document.getElementsByClassName("text-wrapper")[0].style.maxHeight = document.getElementsByClassName("selected-location-body")[0].style.maxHeight = (window.innerHeight - event.clientY) + "px";
+                }
+            }, false);
 
-            function setMaxSize() {
-                // if (document.getElementsByClassName("selected-location-body-expanded").length > 0)
-                document.getElementsByClassName("selected-location-body")[0].style.maxHeight = document.getElementsByClassName("selected-location-body")[0].clientHeight + "px";
-            }
-
-            element.addEventListener("webkitTransitionEnd", setMaxSize, false);
-            element.addEventListener("transitionend", setMaxSize, false);
-            element.addEventListener("otransotionend", setMaxSize, false);
+            // let element = document.getElementsByClassName("selected-location-body")[0];
+            // function setMaxSize() {
+            //     // if (document.getElementsByClassName("selected-location-body-expanded").length > 0)
+            //     document.getElementsByClassName("selected-location-body")[0].style.maxHeight = document.getElementsByClassName("selected-location-body")[0].clientHeight + "px";
+            //     console.log("anim done set to " + document.getElementsByClassName("selected-location-body")[0].clientHeight + "px");
+            // }
+            //
+            // element.addEventListener("webkitTransitionEnd", setMaxSize, false);
+            // element.addEventListener("transitionend", setMaxSize, false);
+            // element.addEventListener("otransotionend", setMaxSize, false);
         },
         data () {
             return {
                 showDestinationImage: false,
-                textExpanded: false
+                textExpanded: false,
             }
         },
         methods: {
@@ -130,13 +137,15 @@
 
     }
 
-    function f() {
-    }
 </script>
 
 <style lang="sass" scoped>
     $menuheight: 10vh
     $destinationreachedimageheight: 25vh
+
+    .draggable-area
+        height: 100vh
+        width: 18vmin
 
     .destination-image-wrapper
         text-align: center
@@ -174,6 +183,7 @@
 
     .text-wrapper
         padding: 10px 50px 20px 50px
+        max-height: 1vh
 
     .outside-menu-wrapper
         display: flex
@@ -215,7 +225,6 @@
             font-size: 1rem
 
         .selected-location-body
-            max-height: 5vh
             font-size: 1rem
             -webkit-transition: all 1.5s
             -moz-transition: all 1.5s
