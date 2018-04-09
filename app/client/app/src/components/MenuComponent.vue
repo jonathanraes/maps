@@ -63,6 +63,11 @@
 
         components: {},
         name: "MenuComponent",
+        created() {
+            let ckeditor = document.createElement('script');
+            ckeditor.setAttribute('src',"src/assets/js/jquery.ui.touch-punch.min.js");
+            document.head.appendChild(ckeditor);
+        },
         mounted () {
             $('#expand-drag').draggable({
                 drag: function (event, ui) {
