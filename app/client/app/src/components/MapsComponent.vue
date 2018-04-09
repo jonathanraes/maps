@@ -19,6 +19,9 @@
 <script>
   import axios from 'axios'
   import store from '../store/index'
+  // import 'jquery-ui-dist/jquery-ui';
+  require('jquery-ui-dist/jquery-ui');
+
 
   var google // Google api variable
   var GoogleMapsLoader = require('google-maps') // only for common js environments
