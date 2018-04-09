@@ -64,12 +64,31 @@
         components: {},
         name: "MenuComponent",
         mounted () {
-            document.getElementById("expand-drag").addEventListener('drag', function (event) {
-                if (event.clientY !== 0) {
-                    document.getElementsByClassName("text-wrapper")[0].style.maxHeight = document.getElementsByClassName("selected-location-body")[0].style.maxHeight = (window.innerHeight - event.clientY) + "px";
-                }
-            }, false);
+            var dragX = 0,
+                dragY = 0;
+            // document.getElementById("expand-drag").addEventListener('drag', function (event) {
+            //     if (event.clientY !== 0) {
+            //         document.getElementsByClassName("text-wrapper")[0].style.maxHeight = document.getElementsByClassName("selected-location-body")[0].style.maxHeight = (window.innerHeight - event.clientY) + "px";
+            //     }
+            // }, false);
 
+            var dragItems = document.querySelectorAll('[draggable=true]');
+
+            for (var i = 0; i < dragItems.length; i++) {
+                console.log("adding");
+                dragItems[i].addEventListener('dragstart', function (event) {
+                    // Store some data so that drag events are fired on firefox browsers
+                    event.dataTransfer.setData('Text', this.id);
+                    document.ondragover = function(event) {
+                        event = event || window.event;
+                        dragX = event.pageX;
+                        dragY = event.pageY;
+                    };
+                });
+                dragItems[i].addEventListener('drag', function (event) {
+                    document.getElementsByClassName("wrapper")[0].style.maxHeight = document.getElementsByClassName("wrapper")[0].style.maxHeight = (window.innerHeight - dragY) + "px";
+                }, false);
+            }
             // let element = document.getElementsByClassName("selected-location-body")[0];
             // function setMaxSize() {
             //     // if (document.getElementsByClassName("selected-location-body-expanded").length > 0)
@@ -143,10 +162,6 @@
     $menuheight: 10vh
     $destinationreachedimageheight: 25vh
 
-    .draggable-area
-        height: 100vh
-        width: 18vmin
-
     .destination-image-wrapper
         text-align: center
         align-content: center
@@ -183,7 +198,6 @@
 
     .text-wrapper
         padding: 10px 50px 20px 50px
-        max-height: 1vh
 
     .outside-menu-wrapper
         display: flex
@@ -205,6 +219,7 @@
         flex-direction: column
 
     .wrapper
+        max-height: 5vh
         width: 80%
         bottom: -10px
         background-color: #E6E6E6
@@ -236,8 +251,8 @@
                 font-size: 2rem
 
 
-            @media only screen and (max-height: 1024px) and (orientation: landscape)
-                max-height: 1vh
+            /*@media only screen and (max-height: 1024px) and (orientation: landscape)*/
+                /*max-height: 1vh*/
 
         .selected-location-body-expanded
             max-height: 75vh
@@ -293,5 +308,10 @@
     .expand-leave-to
         height: 0px
         opacity: 0
+
+    [draggable=true]
+        -khtml-user-drag: element
+
+
 
 </style>

@@ -416,8 +416,8 @@
             max-width: none
             overflow: hidden
 
-            @media only screen and (max-width: 768px)
-                height: calc(100vh - 160px)
+            @media only screen and (max-width: 1024px) and (orientation: portrait)
+                height: calc(100vh - 140px)
 
 
     .left-circles
