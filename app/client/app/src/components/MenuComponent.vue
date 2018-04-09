@@ -64,31 +64,12 @@
         components: {},
         name: "MenuComponent",
         mounted () {
-            var dragX = 0,
-                dragY = 0;
-            // document.getElementById("expand-drag").addEventListener('drag', function (event) {
-            //     if (event.clientY !== 0) {
-            //         document.getElementsByClassName("text-wrapper")[0].style.maxHeight = document.getElementsByClassName("selected-location-body")[0].style.maxHeight = (window.innerHeight - event.clientY) + "px";
-            //     }
-            // }, false);
-
-            var dragItems = document.querySelectorAll('[draggable=true]');
-
-            for (var i = 0; i < dragItems.length; i++) {
-                console.log("adding");
-                dragItems[i].addEventListener('dragstart', function (event) {
-                    // Store some data so that drag events are fired on firefox browsers
-                    event.dataTransfer.setData('Text', this.id);
-                    document.ondragover = function(event) {
-                        event = event || window.event;
-                        dragX = event.pageX;
-                        dragY = event.pageY;
-                    };
-                });
-                dragItems[i].addEventListener('drag', function (event) {
-                    document.getElementsByClassName("wrapper")[0].style.maxHeight = document.getElementsByClassName("wrapper")[0].style.maxHeight = (window.innerHeight - dragY) + "px";
-                }, false);
-            }
+            $('#expand-drag').draggable({
+                drag: function (event, ui) {
+                    ui.position = ui.originalPosition;
+                    document.getElementsByClassName("wrapper")[0].style.maxHeight = document.getElementsByClassName("wrapper")[0].style.maxHeight = (window.innerHeight - event.clientY) + "px";
+                }
+            });
             // let element = document.getElementsByClassName("selected-location-body")[0];
             // function setMaxSize() {
             //     // if (document.getElementsByClassName("selected-location-body-expanded").length > 0)
