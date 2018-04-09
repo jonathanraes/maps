@@ -58,16 +58,17 @@
 <script>
     import i18n from "../lang/lang.js";
     import MapsComponent from "../components/MapsComponent"
+    require('jquery-ui-dist/jquery-ui');
+    require('jquery-ui-touch-punch');
 
     export default {
-
         components: {},
         name: "MenuComponent",
-        created() {
-            let ckeditor = document.createElement('script');
-            ckeditor.setAttribute('src',"src/assets/js/jquery.ui.touch-punch.min.js");
-            document.head.appendChild(ckeditor);
-        },
+        // created() {
+        //     let touchpunch = document.createElement('script');
+        //     touchpunch.setAttribute('src',"jquery.ui.touch-punch.min.js");
+        //     document.head.appendChild(touchpunch);
+        // },
         mounted () {
             $('#expand-drag').draggable({
                 drag: function (event, ui) {
