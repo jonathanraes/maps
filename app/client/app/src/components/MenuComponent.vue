@@ -22,11 +22,11 @@
                     </div>
                         <div class="text-wrapper"  v-on:click="toggleTextExpand">
 
-                        <div class="exhibit-info">
+                        <div class="exhibit-info" v-if="selectedExhibit">
                         <div>
                             <div class="exhibit-info-top" v-if="selectedExhibit">
                                 <div class="selected-location-title">
-                                    <div class="exhibit-title">Naam object</div>
+                                    <div class="exhibit-title">{{ selectedExhibit.objectName }}</div>
                                     <div class="selected-location-title">{{ selectedExhibit.formatted_address }} <br><em>{{ selectedExhibit.storeName }}</em></div>
                                 </div>
                                 <div class="routebutton" v-if="!locationError">
@@ -35,14 +35,11 @@
                             </div>
                             <br>
                             <div class="selected-location-body">
-                                <!--<details>-->
                                 <div v-if='language == "en"'>
-                                    EN Lorem ipsum hac malesuada facilisis volutpat posuere, felis erat inceptos fermentum morbi pellentesque, vehicula proin sodales sociosqu aptent nibh ac ornare nunc dapibus hendrerit congue dolor curabitur quisque, cras ultrices conubia massa ipsum varius nam commodo duis, donec varius primis imperdiet nisi lacus imperdiet nostra mi interdum dictumst fusce curabitur id habitasse id mi lacinia non netus dolor velit mattis, ad duis mattis posuere mi vehicula mattis justo tristique taciti eros sem urna cubilia pellentesque semper justo vehicula feugiat malesuada suscipit vel, mauris luctus pretium eleifend tempus velit pretium cras quisque accumsan, convallis fames nisi lacus nisl per velit blandit.
-                                <!--</details>-->
+                                    <pre>{{ selectedExhibit.infoText }}</pre>
                                 </div>
                                 <div v-else-if='language == "nl"'>
-                                    NL Lorem ipsum hac malesuada facilisis volutpat posuere, felis erat inceptos fermentum morbi pellentesque, vehicula proin sodales sociosqu aptent nibh ac ornare nunc dapibus hendrerit congue dolor curabitur quisque, cras ultrices conubia massa ipsum varius nam commodo duis, donec varius primis imperdiet nisi lacus imperdiet nostra mi interdum dictumst fusce curabitur id habitasse id mi lacinia non netus dolor velit mattis, ad duis mattis posuere mi vehicula mattis justo tristique taciti eros sem urna cubilia pellentesque semper justo vehicula feugiat malesuada suscipit vel, mauris luctus pretium eleifend tempus velit pretium cras quisque accumsan, convallis fames nisi lacus nisl per velit blandit.
-                                    <!--</details>-->
+                                    <pre>{{ selectedExhibit.infoText }}</pre>
                                 </div>
                             </div>
                         </div>
@@ -148,6 +145,9 @@
     $menuheight: 10vh
     $destinationreachedimageheight: 25vh
 
+    /*.selected-location-body div pre*/
+
+
     .destination-image-wrapper
         text-align: center
         align-content: center
@@ -233,12 +233,17 @@
             -o-transition: all 1.5s
             transition: all 1.5s
 
-            @media only screen and (max-width: 1024px)
+            pre
+                color: black
+                background: transparent
+                padding: 0
+                white-space: pre-wrap
+                word-wrap: break-word
+                font-family: inherit
+
+            @media only screen and (max-width: 1024px) and (orientation: portrait)
                 font-size: 2rem
 
-
-            /*@media only screen and (max-height: 1024px) and (orientation: landscape)*/
-                /*max-height: 1vh*/
 
         .selected-location-body-expanded
             max-height: 75vh
@@ -297,7 +302,5 @@
 
     [draggable=true]
         -khtml-user-drag: element
-
-
 
 </style>

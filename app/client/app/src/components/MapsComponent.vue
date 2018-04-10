@@ -68,7 +68,7 @@
         return this.$store.state.atDestination
       },
       totalExhibits () {
-          return exhibits.length
+        return exhibits.length
       }
     },
     mounted () {
@@ -171,15 +171,7 @@
               title: exhibit.address
             })
             marker.addListener('click', function (event) {
-              // if (!infoWindow) infoWindow = new google.maps.InfoWindow()
-              // infoWindow.setOptions({
-              //   content: '<div class="infoWindow">' + exhibit.formatted_address + '<br><br>' +
-              //   exhibit.infoText + '<br>', // +
-              //   // routeButton + '</div>',
-              //   position: exhibit.location
-              // })
               setActiveExhibit(exhibit);
-              // infoWindow.open(map, this)
             })
           })(exhibit)
         }

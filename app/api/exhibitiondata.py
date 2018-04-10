@@ -4,9 +4,10 @@ import json
 
 locations = {
     'file': 'locaties.csv',
-    'addressColumn': 6,
-    'infoTextColumn': 5,
-    'storeNameColumn': 1
+    'storeNameColumn': 0,
+    'addressColumn': 1,
+    'objectNameColumn': 2,
+    'infoTextColumn': 3
 }
 exhibitions = []
 
@@ -19,7 +20,8 @@ def read_locationdata():
         for row in reader:
             exhibitions.append({ 'address': row[locations['addressColumn']],
                                 'infoText': row[locations['infoTextColumn']],
-                                'storeName': row[locations['storeNameColumn']]
+                                'storeName': row[locations['storeNameColumn']],
+                                'objectName': row[locations['objectNameColumn']]
                                 })
     print("Read " + str(len(exhibitions)) + " exhibitions")
 
