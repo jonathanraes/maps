@@ -31,7 +31,7 @@
             </div>
 
             <div class="lang-setting">
-                <div v-on:click="changeLanguage">{{ language }}</div>
+                <div v-on:click="changeLanguage" class="disable-selection">{{ language }}</div>
             </div>
         </div>
     </nav>
@@ -133,5 +133,15 @@ $navbarheight: 10vh
 
 .navbar
   padding: 0
+
+
+
+.disable-selection
+    -moz-user-select: none /* Firefox */
+    -ms-user-select: none /* Internet Explorer */
+    -khtml-user-select: none /* KHTML browsers (e.g. Konqueror) */
+    -webkit-user-select: none /* Chrome, Safari, and Opera */
+    -webkit-touch-callout: none /* Disable Android and iOS callouts*/
+    /* https://www.webpagefx.com/blog/web-design/disable-text-selection/ */
 
 </style>
