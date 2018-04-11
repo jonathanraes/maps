@@ -22,11 +22,11 @@
                     </div>
                         <div class="text-wrapper"  v-on:click="toggleTextExpand">
 
-                        <div class="exhibit-info">
+                        <div class="exhibit-info" v-if="selectedExhibit">
                         <div>
                             <div class="exhibit-info-top" v-if="selectedExhibit">
                                 <div class="selected-location-title">
-                                    <div class="exhibit-title">Naam object</div>
+                                    <div class="exhibit-title">{{ selectedExhibit.objectName }}</div>
                                     <div class="selected-location-title">{{ selectedExhibit.formatted_address }} <br><em>{{ selectedExhibit.storeName }}</em></div>
                                 </div>
                                 <div class="routebutton" v-if="!locationError">
@@ -35,14 +35,11 @@
                             </div>
                             <br>
                             <div class="selected-location-body">
-                                <!--<details>-->
                                 <div v-if='language == "en"'>
-                                    EN Lorem ipsum hac malesuada facilisis volutpat posuere, felis erat inceptos fermentum morbi pellentesque, vehicula proin sodales sociosqu aptent nibh ac ornare nunc dapibus hendrerit congue dolor curabitur quisque, cras ultrices conubia massa ipsum varius nam commodo duis, donec varius primis imperdiet nisi lacus imperdiet nostra mi interdum dictumst fusce curabitur id habitasse id mi lacinia non netus dolor velit mattis, ad duis mattis posuere mi vehicula mattis justo tristique taciti eros sem urna cubilia pellentesque semper justo vehicula feugiat malesuada suscipit vel, mauris luctus pretium eleifend tempus velit pretium cras quisque accumsan, convallis fames nisi lacus nisl per velit blandit.
-                                <!--</details>-->
+                                    <pre>{{ selectedExhibit.infoText }}</pre>
                                 </div>
                                 <div v-else-if='language == "nl"'>
-                                    NL Lorem ipsum hac malesuada facilisis volutpat posuere, felis erat inceptos fermentum morbi pellentesque, vehicula proin sodales sociosqu aptent nibh ac ornare nunc dapibus hendrerit congue dolor curabitur quisque, cras ultrices conubia massa ipsum varius nam commodo duis, donec varius primis imperdiet nisi lacus imperdiet nostra mi interdum dictumst fusce curabitur id habitasse id mi lacinia non netus dolor velit mattis, ad duis mattis posuere mi vehicula mattis justo tristique taciti eros sem urna cubilia pellentesque semper justo vehicula feugiat malesuada suscipit vel, mauris luctus pretium eleifend tempus velit pretium cras quisque accumsan, convallis fames nisi lacus nisl per velit blandit.
-                                    <!--</details>-->
+                                    <pre>{{ selectedExhibit.infoText }}</pre>
                                 </div>
                             </div>
                         </div>
@@ -58,7 +55,7 @@
 <script>
     import i18n from "../lang/lang.js";
     import MapsComponent from "../components/MapsComponent"
-    // require('jquery-ui-dist/jquery-ui');
+    require('jquery-ui-dist/jquery-ui');
     // var tp = require('jquery-ui-touch-punch');
 
 
@@ -66,16 +63,14 @@
         components: {},
         name: "MenuComponent",
         created() {
-            let touchpunch = document.createElement('script');
-            touchpunch.setAttribute('src',"jquery.ui.touch-punch.min.js");
-            touchpunch.setAttribute('type',"application/javascript");
-            document.head.appendChild(touchpunch);
+            !function(a){function f(a,b){if(!(a.originalEvent.touches.length>1)){a.preventDefault();var c=a.originalEvent.changedTouches[0],d=document.createEvent("MouseEvents");d.initMouseEvent(b,!0,!0,window,1,c.screenX,c.screenY,c.clientX,c.clientY,!1,!1,!1,!1,0,null),a.target.dispatchEvent(d)}}if(a.support.touch="ontouchend"in document,a.support.touch){var e,b=a.ui.mouse.prototype,c=b._mouseInit,d=b._mouseDestroy;b._touchStart=function(a){var b=this;!e&&b._mouseCapture(a.originalEvent.changedTouches[0])&&(e=!0,b._touchMoved=!1,f(a,"mouseover"),f(a,"mousemove"),f(a,"mousedown"))},b._touchMove=function(a){e&&(this._touchMoved=!0,f(a,"mousemove"))},b._touchEnd=function(a){e&&(f(a,"mouseup"),f(a,"mouseout"),this._touchMoved||f(a,"click"),e=!1)},b._mouseInit=function(){var b=this;b.element.bind({touchstart:a.proxy(b,"_touchStart"),touchmove:a.proxy(b,"_touchMove"),touchend:a.proxy(b,"_touchEnd")}),c.call(b)},b._mouseDestroy=function(){var b=this;b.element.unbind({touchstart:a.proxy(b,"_touchStart"),touchmove:a.proxy(b,"_touchMove"),touchend:a.proxy(b,"_touchEnd")}),d.call(b)}}}(jQuery);
         },
         mounted () {
+            var wrapper = document.getElementsByClassName("wrapper")[0];
             $('#expand-drag').draggable({
                 drag: function (event, ui) {
                     ui.position = ui.originalPosition;
-                    document.getElementsByClassName("wrapper")[0].style.maxHeight = document.getElementsByClassName("wrapper")[0].style.maxHeight = (window.innerHeight - event.clientY) + "px";
+                    wrapper.style.maxHeight = wrapper.style.maxHeight = (window.innerHeight - event.clientY) + "px";
                 }
             });
             // let element = document.getElementsByClassName("selected-location-body")[0];
@@ -151,6 +146,9 @@
     $menuheight: 10vh
     $destinationreachedimageheight: 25vh
 
+    /*.selected-location-body div pre*/
+
+
     .destination-image-wrapper
         text-align: center
         align-content: center
@@ -186,7 +184,7 @@
 
 
     .text-wrapper
-        padding: 10px 50px 20px 50px
+        padding: 20px 30px 20px 30px
 
     .outside-menu-wrapper
         display: flex
@@ -236,12 +234,17 @@
             -o-transition: all 1.5s
             transition: all 1.5s
 
-            @media only screen and (max-width: 1024px)
+            pre
+                color: black
+                background: transparent
+                padding: 0
+                white-space: pre-wrap
+                word-wrap: break-word
+                font-family: inherit
+
+            @media only screen and (max-width: 1024px) and (orientation: portrait)
                 font-size: 2rem
 
-
-            /*@media only screen and (max-height: 1024px) and (orientation: landscape)*/
-                /*max-height: 1vh*/
 
         .selected-location-body-expanded
             max-height: 75vh
@@ -250,6 +253,7 @@
         .exhibit-title
             font-size: 2rem
             font-weight: bold
+            text-align: left
 
             @media only screen and (max-width: 1024px) and (orientation: portrait)
                 font-size: 3rem
@@ -300,7 +304,5 @@
 
     [draggable=true]
         -khtml-user-drag: element
-
-
 
 </style>
