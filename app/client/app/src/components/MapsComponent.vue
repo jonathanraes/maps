@@ -154,21 +154,13 @@
   }
 
   function unicodeToChar(text) {
-      return text.replace(/\\u[\dA-F]{4}/gi,
-          function (match) {
+      text = text.replace(/\\u[\dA-F]{4}/gi, function (match) {
               return String.fromCharCode(parseInt(match.replace(/\\u/g, ''), 16));
           });
-  }
-
-  String.prototype.hexDecode = function(){
-      var j;
-      var hexes = this.match(/.{1,4}/g) || [];
-      var back = "";
-      for(j = 0; j<hexes.length; j++) {
-          back += String.fromCharCode(parseInt(hexes[j], 16));
-      }
-
-      return back;
+      text = text.replace(/\\x[\dA-f]{2}/gi, function (match) {
+              return String.fromCharCode(parseInt(match.replace(/\\x/g, ''), 16));
+          });
+      return text;
   }
 
   function addMapMarkers () {
@@ -177,12 +169,8 @@
         exhibits = response.data
         for (let exhibit of exhibits) {
           (function (exhibit) {
-              exhibit.infoText = exhibit.infoText.replace(/(?:\\r\\n|\\r|\\n)/g, "\n");
-              exhibit.infoText = unicodeToChar(exhibit.infoText);
-              exhibit.infoText = exhibit.infoText.replace(/\\xe9/g, "\u00E9");
-              exhibit.infoText = exhibit.infoText.replace(/\\xe8/g, "\u00E8");
-              exhibit.infoText = exhibit.infoText.replace(/\\xeb/g, "\u00EB");
-              exhibit.infoText = exhibit.infoText.replace(/\\xef/g, "\u00EF");
+              exhibit.infoText = exhibit.infoText.replace(/(?:\\r\\n|\\r|\\n)/g, "\n"); // Place newlines in infotext
+              exhibit.infoText = unicodeToChar(exhibit.infoText); // Parse unicode sequences
 
               var marker = new google.maps.Marker({
               position: exhibit.location,
