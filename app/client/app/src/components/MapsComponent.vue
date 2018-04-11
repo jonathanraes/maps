@@ -153,13 +153,41 @@
     return Math.sqrt(Math.pow(point1.lat - point2.lat, 2) + Math.pow(point1.lng - point2.lng, 2))
   }
 
+  function unicodeToChar(text) {
+      return text.replace(/\\u[\dA-F]{4}/gi,
+          function (match) {
+              return String.fromCharCode(parseInt(match.replace(/\\u/g, ''), 16));
+          });
+  }
+
+  String.prototype.hexDecode = function(){
+      var j;
+      var hexes = this.match(/.{1,4}/g) || [];
+      var back = "";
+      for(j = 0; j<hexes.length; j++) {
+          back += String.fromCharCode(parseInt(hexes[j], 16));
+      }
+
+      return back;
+  }
+
   function addMapMarkers () {
 
     return $backend.get('resource/one').then(response => {
         exhibits = response.data
         for (let exhibit of exhibits) {
           (function (exhibit) {
-            var marker = new google.maps.Marker({
+              console.log(exhibit.infoText);
+              exhibit.infoText = exhibit.infoText.replace(/(?:\\r\\n|\\r|\\n)/g, "\n");
+              exhibit.infoText = unicodeToChar(exhibit.infoText);
+              exhibit.infoText = exhibit.infoText.replace(/\\xe9/g, "\u00E9");
+              exhibit.infoText = exhibit.infoText.replace(/\\xe8/g, "\u00E8");
+              exhibit.infoText = exhibit.infoText.replace(/\\xeb/g, "\u00EB");
+              exhibit.infoText = exhibit.infoText.replace(/\\xef/g, "\u00EF");
+
+              console.log(exhibit.infoText);
+
+              var marker = new google.maps.Marker({
               position: exhibit.location,
               icon: new google.maps.MarkerImage('https://mt.googleapis.com/vt/icon/name=icons/spotlight/spotlight-poi.png',
                     null,//new google.maps.Size(64, 64),

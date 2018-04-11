@@ -66,10 +66,11 @@
             !function(a){function f(a,b){if(!(a.originalEvent.touches.length>1)){a.preventDefault();var c=a.originalEvent.changedTouches[0],d=document.createEvent("MouseEvents");d.initMouseEvent(b,!0,!0,window,1,c.screenX,c.screenY,c.clientX,c.clientY,!1,!1,!1,!1,0,null),a.target.dispatchEvent(d)}}if(a.support.touch="ontouchend"in document,a.support.touch){var e,b=a.ui.mouse.prototype,c=b._mouseInit,d=b._mouseDestroy;b._touchStart=function(a){var b=this;!e&&b._mouseCapture(a.originalEvent.changedTouches[0])&&(e=!0,b._touchMoved=!1,f(a,"mouseover"),f(a,"mousemove"),f(a,"mousedown"))},b._touchMove=function(a){e&&(this._touchMoved=!0,f(a,"mousemove"))},b._touchEnd=function(a){e&&(f(a,"mouseup"),f(a,"mouseout"),this._touchMoved||f(a,"click"),e=!1)},b._mouseInit=function(){var b=this;b.element.bind({touchstart:a.proxy(b,"_touchStart"),touchmove:a.proxy(b,"_touchMove"),touchend:a.proxy(b,"_touchEnd")}),c.call(b)},b._mouseDestroy=function(){var b=this;b.element.unbind({touchstart:a.proxy(b,"_touchStart"),touchmove:a.proxy(b,"_touchMove"),touchend:a.proxy(b,"_touchEnd")}),d.call(b)}}}(jQuery);
         },
         mounted () {
+            var wrapper = document.getElementsByClassName("wrapper")[0];
             $('#expand-drag').draggable({
                 drag: function (event, ui) {
                     ui.position = ui.originalPosition;
-                    document.getElementsByClassName("wrapper")[0].style.maxHeight = document.getElementsByClassName("wrapper")[0].style.maxHeight = (window.innerHeight - event.clientY) + "px";
+                    wrapper.style.maxHeight = wrapper.style.maxHeight = (window.innerHeight - event.clientY) + "px";
                 }
             });
             // let element = document.getElementsByClassName("selected-location-body")[0];
@@ -183,7 +184,7 @@
 
 
     .text-wrapper
-        padding: 10px 50px 20px 50px
+        padding: 20px 30px 20px 30px
 
     .outside-menu-wrapper
         display: flex
@@ -252,6 +253,7 @@
         .exhibit-title
             font-size: 2rem
             font-weight: bold
+            text-align: left
 
             @media only screen and (max-width: 1024px) and (orientation: portrait)
                 font-size: 3rem
