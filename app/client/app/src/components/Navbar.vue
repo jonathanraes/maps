@@ -31,7 +31,7 @@
             </div>
 
             <div class="lang-setting">
-                <div v-on:click="changeLanguage" class="disable-selection">{{ language }}</div>
+                <a v-on:click="changeLanguage" class="disable-selection">{{ language }}</a>
             </div>
         </div>
     </nav>
