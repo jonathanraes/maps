@@ -99,7 +99,7 @@
           // setActiveExhibit(exhibits[0]);
           store.commit('locationError', true);
           store.commit('showMenu', true);
-
+          document.getElementsByClassName("wrapper")[0].style.maxHeight = "unset";
       })
       document.getElementsByClassName("modal")[0].style.display = "none";
   }
@@ -177,15 +177,12 @@
         exhibits = response.data
         for (let exhibit of exhibits) {
           (function (exhibit) {
-              console.log(exhibit.infoText);
               exhibit.infoText = exhibit.infoText.replace(/(?:\\r\\n|\\r|\\n)/g, "\n");
               exhibit.infoText = unicodeToChar(exhibit.infoText);
               exhibit.infoText = exhibit.infoText.replace(/\\xe9/g, "\u00E9");
               exhibit.infoText = exhibit.infoText.replace(/\\xe8/g, "\u00E8");
               exhibit.infoText = exhibit.infoText.replace(/\\xeb/g, "\u00EB");
               exhibit.infoText = exhibit.infoText.replace(/\\xef/g, "\u00EF");
-
-              console.log(exhibit.infoText);
 
               var marker = new google.maps.Marker({
               position: exhibit.location,

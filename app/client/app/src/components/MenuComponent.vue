@@ -95,14 +95,14 @@
                 this.showDestinationImage = !this.showDestinationImage
             },
             toggleTextExpand () {
-                this.textExpanded = !this.textExpanded;
-                if (this.textExpanded) {
-                    document.getElementsByClassName("selected-location-body")[0].style.removeProperty("max-height");
-                    document.getElementsByClassName("selected-location-body")[0].classList.add("selected-location-body-expanded");
-                } else {
-                    document.getElementsByClassName("selected-location-body")[0].style.removeProperty("max-height");
-                    document.getElementsByClassName("selected-location-body")[0].classList.remove("selected-location-body-expanded");
-                }
+                // this.textExpanded = !this.textExpanded;
+                // if (this.textExpanded) {
+                //     document.getElementsByClassName("selected-location-body")[0].style.removeProperty("max-height");
+                //     document.getElementsByClassName("selected-location-body")[0].classList.add("selected-location-body-expanded");
+                // } else {
+                //     document.getElementsByClassName("selected-location-body")[0].style.removeProperty("max-height");
+                //     document.getElementsByClassName("selected-location-body")[0].classList.remove("selected-location-body-expanded");
+                // }
             },
             routeTo: function (exhibit) {
                 MapsComponent.methods.routeTo(exhibit);
@@ -125,7 +125,7 @@
                 return this.$store.state.showMenu
             },
             locationError() {
-                return this.$store.state.locationError
+                return this.$store.state.locationError;
             },
             language() {
                 return i18n.locale
@@ -268,6 +268,9 @@
             border-top-left-radius: 110px /* 100px of height + 10px of border */
             border-top-right-radius: 110px /* 100px of height + 10px of border */
             border-bottom: 0
+            background-image: url("../assets/img/dragbutton.png")
+            background-repeat: no-repeat
+            background-size: 100%
 
     .slide-enter-active,
     .slide-leave-active
