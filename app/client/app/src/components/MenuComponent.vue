@@ -67,11 +67,26 @@
         },
         mounted () {
             var wrapper = document.getElementsByClassName("wrapper")[0];
-            $('#expand-drag').draggable({
+
+            var prevPosition = 0;
+            $('.wrapper').draggable({
+                start: function (event, ui) {
+                    prevPosition = window.innerHeight - ui.offset.top;
+                    wrapper.style.maxHeight = wrapper.offsetHeight + 'px';
+                },
                 drag: function (event, ui) {
-                    ui.position = ui.originalPosition;
-                    wrapper.style.maxHeight = wrapper.style.maxHeight = (window.innerHeight - event.clientY) + "px";
-                }
+                    wrapper.style.removeProperty('top');
+                    wrapper.style.removeProperty('left');
+
+                    ui.position.top = "unset";
+                    ui.position.left = "unset";
+
+                    var change = -(prevPosition - (window.innerHeight - ui.offset.top));
+                    wrapper.style.maxHeight = (wrapper.offsetHeight + change) + "px";
+                    prevPosition = window.innerHeight - ui.offset.top;
+                },
+                stop: function (event, ui) {
+                },
             });
             // let element = document.getElementsByClassName("selected-location-body")[0];
             // function setMaxSize() {
