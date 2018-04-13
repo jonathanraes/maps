@@ -384,18 +384,18 @@
 <style lang="sass" scoped>
     $menuheight: 30vh
     $delftblauw: #0d54ca
-    $delftroze: #f782c1
-
 
     .right-panel
         position: fixed
         background-color: $delftblauw
-        color: black
         right: 0px
         width: 10vmax
         top: 30%
         padding: 10px
         font-size: 16px
+        color: white
+        border-bottom-left-radius: 5px
+        border-top-left-radius: 5px
 
         @media only screen and (max-width: 1024px) and (orientation: portrait)
             top: 20%

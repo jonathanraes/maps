@@ -60,6 +60,7 @@
 </script>
 
 <style lang="sass" scoped>
+
     .skip-video
         width: 10%
         height: 5%
@@ -70,9 +71,12 @@
         left: 90%
         align-self: end
         z-index: 9
-        color: #000
         text-align: center
         font-size: 16px
+        color: white
+        border-bottom-left-radius: 5px
+        border-top-left-radius: 5px
+        min-height: 10vh
 
         p
             position: relative
