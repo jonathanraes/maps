@@ -1,7 +1,9 @@
 <template>
     <section>
         <div class="outside-menu-wrapper">
+
             <transition name="slide" >
+
                 <div id="menu" class="wrapper" v-show="showmenu">
 
                 <div class="location-error" v-show="locationError">
@@ -20,7 +22,8 @@
                         </transition>
                     <div class="expand-button" id="expand-drag" v-on:click="toggleDestinationImage" draggable="true">
                     </div>
-                        <div class="text-wrapper"  v-on:click="toggleTextExpand">
+
+                    <div class="text-wrapper"  v-on:click="toggleTextExpand">
 
                         <div class="exhibit-info" v-if="selectedExhibit">
                         <div>
@@ -29,8 +32,8 @@
                                     <div class="exhibit-title">{{ selectedExhibit.objectName }}</div>
                                     <div class="selected-location-title">{{ selectedExhibit.formatted_address }} <br><em>{{ selectedExhibit.storeName }}</em></div>
                                 </div>
-                                <div class="routebutton" v-if="!locationError">
-                                    <button class="btn btn-primary" v-on:click="routeTo(selectedExhibit)" v-if="selectedExhibit != destinationExhibit">{{ $t("message.route") }}</button>
+                                <div class="routebutton-wrapper" v-if="!locationError">
+                                    <button class="routebutton" v-on:click="routeTo(selectedExhibit)" v-if="selectedExhibit != destinationExhibit">{{ $t("message.route") }}</button>
                                 </div>
                             </div>
                             <br>
@@ -66,10 +69,11 @@
             !function(a){function f(a,b){if(!(a.originalEvent.touches.length>1)){a.preventDefault();var c=a.originalEvent.changedTouches[0],d=document.createEvent("MouseEvents");d.initMouseEvent(b,!0,!0,window,1,c.screenX,c.screenY,c.clientX,c.clientY,!1,!1,!1,!1,0,null),a.target.dispatchEvent(d)}}if(a.support.touch="ontouchend"in document,a.support.touch){var e,b=a.ui.mouse.prototype,c=b._mouseInit,d=b._mouseDestroy;b._touchStart=function(a){var b=this;!e&&b._mouseCapture(a.originalEvent.changedTouches[0])&&(e=!0,b._touchMoved=!1,f(a,"mouseover"),f(a,"mousemove"),f(a,"mousedown"))},b._touchMove=function(a){e&&(this._touchMoved=!0,f(a,"mousemove"))},b._touchEnd=function(a){e&&(f(a,"mouseup"),f(a,"mouseout"),this._touchMoved||f(a,"click"),e=!1)},b._mouseInit=function(){var b=this;b.element.bind({touchstart:a.proxy(b,"_touchStart"),touchmove:a.proxy(b,"_touchMove"),touchend:a.proxy(b,"_touchEnd")}),c.call(b)},b._mouseDestroy=function(){var b=this;b.element.unbind({touchstart:a.proxy(b,"_touchStart"),touchmove:a.proxy(b,"_touchMove"),touchend:a.proxy(b,"_touchEnd")}),d.call(b)}}}(jQuery);
         },
         mounted () {
-            var wrapper = document.getElementsByClassName("wrapper")[0];
+            const wrapper = document.getElementsByClassName("wrapper")[0];
 
             var prevPosition = 0;
             $('.wrapper').draggable({
+                cancel : '.expand-button',
                 start: function (event, ui) {
                     prevPosition = window.innerHeight - ui.offset.top;
                     wrapper.style.maxHeight = wrapper.offsetHeight + 'px';
@@ -108,6 +112,9 @@
         methods: {
             toggleDestinationImage () {
                 this.showDestinationImage = !this.showDestinationImage
+                // if (this.showDestinationImage) {
+                //     document.getElementsByClassName("wrapper")[0].style.maxHeight = (document.getElementsByClassName("wrapper")[0].offsetHeight + 0.25 * window.innerHeight) + 'px';
+                // }
             },
             toggleTextExpand () {
                 // this.textExpanded = !this.textExpanded;
@@ -189,14 +196,35 @@
         display: flex
         justify-content: space-between
 
-        .routebutton
+        .routebutton-wrapper
             display: flex
             margin: 10px
 
-            .btn
+            .routebutton
+                -moz-box-shadow: inset 0px 1px 0px 0px #54a3f7
+                -webkit-box-shadow: inset 0px 1px 0px 0px #54a3f7
+                box-shadow: inset 0px 1px 0px 0px #54a3f7
+                background-color: #007dc1
+                -moz-border-radius: 3px
+                -webkit-border-radius: 3px
+                border-radius: 3px
+                border: 1px solid #124d77
+                display: inline-block
+                cursor: pointer
+                color: #ffffff
+                padding: 6px 24px
+                text-decoration: none
+                text-shadow: 0px 1px 0px #154682
+
                 @media only screen and (max-width: 1024px)
                     font-size: 2rem
 
+            .routebutton:hover
+                background-color: #0061a7
+
+            .routebutton:active
+                position: relative
+                top: 1px
 
     .text-wrapper
         padding: 20px 30px 20px 30px
@@ -260,11 +288,6 @@
             @media only screen and (max-width: 1024px) and (orientation: portrait)
                 font-size: 2rem
 
-
-        .selected-location-body-expanded
-            max-height: 75vh
-
-
         .exhibit-title
             font-size: 2rem
             font-weight: bold
@@ -276,12 +299,12 @@
         .expand-button
             bottom: 100%
             position: absolute
-            background-color: green
+            background-color: #CDEFF7
             width: 18vmin
             height: 9vmin
             align-self: center
-            border-top-left-radius: 110px /* 100px of height + 10px of border */
-            border-top-right-radius: 110px /* 100px of height + 10px of border */
+            border-top-left-radius: 9vmin
+            border-top-right-radius: 9vmin
             border-bottom: 0
             background-image: url("../assets/img/dragbutton.png")
             background-repeat: no-repeat
