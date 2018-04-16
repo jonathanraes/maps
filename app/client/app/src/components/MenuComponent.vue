@@ -300,8 +300,8 @@
             bottom: 100%
             position: absolute
             background-color: #CDEFF7
-            width: 18vmin
-            height: 9vmin
+            width: 15vmin
+            height: 13vmin
             align-self: center
             border-top-left-radius: 9vmin
             border-top-right-radius: 9vmin
@@ -309,6 +309,10 @@
             background-image: url("../assets/img/dragbutton.png")
             background-repeat: no-repeat
             background-size: 100%
+
+            @media only screen and (max-width: 1024px)
+                width: 22vmin
+                height: 20vmin
 
     .slide-enter-active,
     .slide-leave-active
