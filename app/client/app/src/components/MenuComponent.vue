@@ -32,9 +32,9 @@
                                     <div class="exhibit-title">{{ selectedExhibit.objectName }}</div>
                                     <div class="selected-location-title">{{ selectedExhibit.formatted_address }} <br><em>{{ selectedExhibit.storeName }}</em></div>
                                 </div>
-                                <div class="routebutton-wrapper" v-if="!locationError">
-                                    <button class="routebutton" v-on:click="routeTo(selectedExhibit)" v-if="selectedExhibit != destinationExhibit">{{ $t("message.route") }}</button>
-                                </div>
+                                <!--<div class="routebutton-wrapper" v-if="!locationError">-->
+                                    <!--<button class="routebutton" v-on:click="routeTo(selectedExhibit)" v-if="selectedExhibit != destinationExhibit">{{ $t("message.route") }}</button>-->
+                                <!--</div>-->
                             </div>
                             <br>
                             <div class="selected-location-body">
@@ -249,7 +249,7 @@
         flex-direction: column
 
     .wrapper
-        max-height: 5vh
+        max-height: 10vh
         width: 80%
         bottom: -10px
         background-color: #E6E6E6
