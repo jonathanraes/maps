@@ -260,6 +260,9 @@
                           // handleLocationError(true, infoWindow, map.getCenter())
                           reject()
                       }
+                  },
+                  { timeout: 2000,
+                    enableHighAccuracy: true
                   })
           } else {
               // Browser doesn't support Geolocation
