@@ -1,6 +1,6 @@
 <template>
     <div class="modal">
-        <div v-on:click="skipVideo()" class="skip-video"><p>Skip</p></div>
+        <div v-on:click="skipVideo()" class="skip-video"><p>{{ $t("message.skip") }}</p></div>
         <div class="middle">
             <div class="video">
                 <div id="ytplayer"></div>

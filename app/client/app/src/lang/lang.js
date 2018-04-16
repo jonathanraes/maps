@@ -14,7 +14,8 @@ const messages = {
             destination_looks_like: 'This is what the destination looks like:',
             total: 'total',
             route: 'Route description',
-            locationError: 'Your location could not be retrieved'
+            locationError: 'Your location could not be retrieved',
+            skip: 'Skip'
         }
     },
     nl: {
@@ -24,7 +25,8 @@ const messages = {
             destination_looks_like: 'Zo ziet de bestemming er uit:',
             total: 'totaal',
             route: 'Routebeschrijving',
-            locationError: 'Uw locatie kon niet worden opgehaald'
+            locationError: 'Uw locatie kon niet worden opgehaald',
+            skip: 'Overslaan'
         }
     }
 }
