@@ -83,7 +83,7 @@
 
   function videoDone () {
       updateLocation(false).then(() => {
-          updateLocationrepeat()
+          // updateLocationrepeat()
           activateClosestExhibitDistanceMatrix().then(() => {
               store.commit('showMenu', true)
           })
@@ -164,7 +164,6 @@
   }
 
   function addMapMarkers () {
-
     return $backend.get('resource/one').then(response => {
         exhibits = response.data
         for (let exhibit of exhibits) {
@@ -199,7 +198,6 @@
           exhibit['distance']['distance']['text'] = 'error'
           exhibit['distance']['duration']['text'] = 'error'
       }
-
       store.commit('setExhibit', exhibit)
   }
 
@@ -207,7 +205,7 @@
       return new Promise(function(resolve, reject) {
           // do a thing, possibly async, then…
           if (navigator.geolocation) {
-              navigator.geolocation.getCurrentPosition(function (position) {
+              navigator.geolocation.watchPosition(function (position) {
                       currentLocation = {
                           lat: parseFloat(position.coords.latitude),
                           lng: parseFloat(position.coords.longitude),
@@ -250,6 +248,9 @@
                           map.setCenter(currentLocation)
                       }
 
+                      if (store.state.locationError)
+                          store.commit('locationError', false);
+
                       resolve()
                   },
                   function () {
@@ -269,7 +270,6 @@
               }
           }
       })
-
   }
 
   function checkLocationReached () {
@@ -296,7 +296,7 @@
           for (let exhibit of exhibits) {
               locations.push(exhibit.formatted_address)
           }
-          for (var i = 0; i < locations.length; i + 25) {
+          for (let i = 0; i < locations.length; i + 25) {
               // console.log(currentLocation)
               // Obtain all distances using the distance matrix in groups of 25 destinations max
               distanceService.getDistanceMatrix(
@@ -307,7 +307,7 @@
               }, function (response, status) {
                   if (response) {
                       distances = distances.concat(response.rows[0].elements)
-                      for (var j = 0; j < response.destinationAddresses.length; j++) {
+                      for (let j = 0; j < response.destinationAddresses.length; j++) {
                           for (let exhibit of exhibits) {
                               if (response.destinationAddresses[j].indexOf(exhibit.formatted_address) !== -1) {
                                   exhibit['distance'] = response.rows[0].elements[j]
@@ -328,6 +328,7 @@
                           store.commit('setDestination', exhibits[skipamount]);
 
                           calculateAndDisplayRoute(directionsService, directionsDisplay, exhibits[skipamount].location)
+
                           resolve()
                       }
                   } else {
