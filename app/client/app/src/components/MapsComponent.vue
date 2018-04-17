@@ -28,6 +28,7 @@
   GoogleMapsLoader.LANGUAGE = 'nl';
   GoogleMapsLoader.REGION = 'NL';
 
+  let showingRoute = false;
 
   let $backend = axios.create({
     baseURL: 'http://127.0.0.1:5000/api/',
@@ -99,7 +100,7 @@
           // setActiveExhibit(exhibits[0]);
           store.commit('locationError', true);
           store.commit('showMenu', true);
-          document.getElementsByClassName("wrapper")[0].style.maxHeight = "unset";
+          document.getElementsByClassName("wrapper")[0].style.maxHeight = "10vh";
       })
       document.getElementsByClassName("modal")[0].style.display = "none";
   }
@@ -203,7 +204,6 @@
 
   function updateLocation (centre) {
       return new Promise(function(resolve, reject) {
-          // do a thing, possibly async, then…
           if (navigator.geolocation) {
               navigator.geolocation.watchPosition(function (position) {
                       currentLocation = {
@@ -248,8 +248,10 @@
                           map.setCenter(currentLocation)
                       }
 
-                      if (store.state.locationError)
+                      if (store.state.locationError) {
                           store.commit('locationError', false);
+                          activateClosestExhibitDistanceMatrix();
+                      }
 
                       resolve()
                   },
@@ -261,7 +263,7 @@
                           reject()
                       }
                   },
-                  { timeout: 2000,
+                  { timeout: 3000,
                     enableHighAccuracy: true
                   })
           } else {
@@ -371,6 +373,7 @@
       travelMode: 'WALKING'
     }, function (response, status) {
       if (status === 'OK') {
+        showingRoute = true;
         store.commit('setAtDestination', false)
 
         directionsDisplay.setDirections(response)
