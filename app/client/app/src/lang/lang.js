@@ -15,7 +15,8 @@ const messages = {
             total: 'total',
             route: 'Route description',
             locationError: 'Your location could not be retrieved',
-            skip: 'Skip'
+            skip: 'Skip',
+            next_destination: 'Continue tour'
         }
     },
     nl: {
@@ -26,7 +27,8 @@ const messages = {
             total: 'totaal',
             route: 'Routebeschrijving',
             locationError: 'Uw locatie kon niet worden opgehaald',
-            skip: 'Overslaan'
+            skip: 'Overslaan',
+            next_destination: 'Volgende bestemming'
         }
     }
 }

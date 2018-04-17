@@ -32,9 +32,9 @@
                                     <div class="exhibit-title">{{ selectedExhibit.objectName }}</div>
                                     <div class="selected-location-title">{{ selectedExhibit.formatted_address }} <br><em>{{ selectedExhibit.storeName }}</em></div>
                                 </div>
-                                <!--<div class="routebutton-wrapper" v-if="!locationError">-->
-                                    <!--<button class="routebutton" v-on:click="routeTo(selectedExhibit)" v-if="selectedExhibit != destinationExhibit">{{ $t("message.route") }}</button>-->
-                                <!--</div>-->
+                                <div class="routebutton-wrapper" v-if="atDestination">
+                                    <button class="routebutton" v-on:click="nextDestination">{{ $t("message.next_destination") }}</button>
+                                </div>
                             </div>
                             <br>
                             <div class="selected-location-body">
@@ -99,16 +99,6 @@
                 stop: function (event, ui) {
                 },
             });
-            // let element = document.getElementsByClassName("selected-location-body")[0];
-            // function setMaxSize() {
-            //     // if (document.getElementsByClassName("selected-location-body-expanded").length > 0)
-            //     document.getElementsByClassName("selected-location-body")[0].style.maxHeight = document.getElementsByClassName("selected-location-body")[0].clientHeight + "px";
-            //     console.log("anim done set to " + document.getElementsByClassName("selected-location-body")[0].clientHeight + "px");
-            // }
-            //
-            // element.addEventListener("webkitTransitionEnd", setMaxSize, false);
-            // element.addEventListener("transitionend", setMaxSize, false);
-            // element.addEventListener("otransotionend", setMaxSize, false);
         },
         data () {
             return {
@@ -125,6 +115,9 @@
             },
             routeTo: function (exhibit) {
                 MapsComponent.methods.routeTo(exhibit);
+            },
+            nextDestination: function () {
+                MapsComponent.methods.nextDestination();
             }
         },
         computed: {
@@ -260,7 +253,7 @@
         flex-flow: column
         border-radius: 40px 40px 0px 0px
         border-style: solid
-        position: absolute
+        position: fixed
         font-size: 1rem
         align-self: center
 
