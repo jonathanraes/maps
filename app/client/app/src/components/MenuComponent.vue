@@ -23,7 +23,7 @@
                     <div class="expand-button" id="expand-drag" v-on:click="toggleDestinationImage" draggable="true">
                     </div>
 
-                    <div class="text-wrapper"  v-on:click="toggleTextExpand">
+                    <div class="text-wrapper">
 
                         <div class="exhibit-info" v-if="selectedExhibit">
                         <div>
@@ -43,6 +43,13 @@
                                 </div>
                                 <div v-else-if='language == "nl"'>
                                     <pre>{{ selectedExhibit.infoText }}</pre>
+                                </div>
+                            </div>
+
+                            <div class="destination-image-wrapper">
+                                <div class="destination-reached-text">{{ $t("message.destination_looks_like") }}</div>
+                                <div class="destination-image">
+                                    <img src="../assets/img/storefront.png" >
                                 </div>
                             </div>
                         </div>
@@ -116,16 +123,6 @@
                 //     document.getElementsByClassName("wrapper")[0].style.maxHeight = (document.getElementsByClassName("wrapper")[0].offsetHeight + 0.25 * window.innerHeight) + 'px';
                 // }
             },
-            toggleTextExpand () {
-                // this.textExpanded = !this.textExpanded;
-                // if (this.textExpanded) {
-                //     document.getElementsByClassName("selected-location-body")[0].style.removeProperty("max-height");
-                //     document.getElementsByClassName("selected-location-body")[0].classList.add("selected-location-body-expanded");
-                // } else {
-                //     document.getElementsByClassName("selected-location-body")[0].style.removeProperty("max-height");
-                //     document.getElementsByClassName("selected-location-body")[0].classList.remove("selected-location-body-expanded");
-                // }
-            },
             routeTo: function (exhibit) {
                 MapsComponent.methods.routeTo(exhibit);
             }
@@ -174,14 +171,18 @@
     .destination-image-wrapper
         text-align: center
         align-content: center
-        padding: 10px 10px 20px 10px
-        height: $destinationreachedimageheight
+        /*padding: 10px 10px 20px 10px*/
+        margin-bottom: 20px
+        margin-top: 10px
+        width: 100%
 
         .destination-image
-            height: 100%
+            /*max-height: 25vh*/
 
             img
-                height: 100%
+                max-height: 50vh
+                max-width: 70vw
+                /*padding-bottom: 20px*/
 
     .main-menu
         display: flex
@@ -249,7 +250,7 @@
         flex-direction: column
 
     .wrapper
-        max-height: 10vh
+        max-height: 5vh
         width: 80%
         bottom: -10px
         background-color: #E6E6E6
@@ -311,6 +312,10 @@
             background-size: 100%
 
             @media only screen and (max-width: 1024px)
+                width: 22vmin
+                height: 20vmin
+
+            @media only screen and (max-width: 1024px) and (orientation: landscape)
                 width: 22vmin
                 height: 20vmin
 
