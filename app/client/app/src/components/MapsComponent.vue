@@ -47,7 +47,8 @@
     },
     methods: {
       nextDestination: function () {
-        activateClosestExhibitDistanceMatrix()
+          document.getElementsByClassName("wrapper")[0].style.maxHeight = "10vh";
+          activateClosestExhibitDistanceMatrix()
       },
       routeTo: function (exhibit) {
         routeTo(exhibit)
@@ -109,22 +110,22 @@
       }, 1000)
   }
 
-  var mapCenter = {lat: 52.011, lng: 4.3593}
-  var infoWindow
-  var map
+  let mapCenter = {lat: 52.011, lng: 4.3593}
+  let infoWindow
+  let map
 
-  var directionsDisplay
-  var directionsService
-  var distanceService
+  let directionsDisplay
+  let directionsService
+  let distanceService
 
-  var currentLocation
-  var locationMarker
-  var accuracyCircle
+  let currentLocation
+  let locationMarker
+  let accuracyCircle
 
-  var DestinationReachedDistance = 0.00006
+  let DestinationReachedDistance = 0.0001
   let exhibits = []
 
-  var destinationExhibit
+  let destinationExhibit
 
   function initMap () {
     directionsService = new google.maps.DirectionsService()
@@ -276,9 +277,12 @@
   }
 
   function checkLocationReached () {
+      // if (store.state.destinationExhibit)
+      //   console.log("distance is " +  getStraightDistance(store.state.destinationExhibit.location, currentLocation));
       if (!store.state.atDestination /* && selectedExhibit */ &&
           destinationExhibit &&
           getStraightDistance(store.state.destinationExhibit.location, currentLocation) < DestinationReachedDistance) {
+
           // Destination Reached
           console.log('reached destination ' + exhibits.length)
           if (exhibits.indexOf(store.state.selectedExhibit) > -1) {
@@ -287,7 +291,6 @@
           console.log('reached destination ' + exhibits.length)
           // activateClosestExhibitDistanceMatrix()
           store.commit('setAtDestination', true)
-
           reachedDestination(store.state.selectedExhibit.location)
       }
   }
@@ -344,10 +347,12 @@
   }
 
   function reachedDestination (destination) {
-    var sub = {lat: destination.lat - currentLocation.lat, lng: destination.lng - currentLocation.lng}
-    // var sub = { lat: destination.location.lat - vm.destination.lat, lng: destination.location.lng - vm.destination.lng }
-    var angle = Math.atan2(sub.lng, sub.lat) * 180 / Math.PI
-    console.log('angle: ' + angle)
+      document.getElementsByClassName("wrapper")[0].style.maxHeight = "unset";
+
+    //   var sub = {lat: destination.lat - currentLocation.lat, lng: destination.lng - currentLocation.lng}
+    // // var sub = { lat: destination.location.lat - vm.destination.lat, lng: destination.location.lng - vm.destination.lng }
+    // var angle = Math.atan2(sub.lng, sub.lat) * 180 / Math.PI
+    // console.log('angle: ' + angle)
     // vm.imageURL = sprintf(streetViewURL, destination.location.lat, destination.location.lng, angle)
   }
 
