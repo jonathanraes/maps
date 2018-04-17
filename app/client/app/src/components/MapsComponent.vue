@@ -28,8 +28,6 @@
   GoogleMapsLoader.LANGUAGE = 'nl';
   GoogleMapsLoader.REGION = 'NL';
 
-  let showingRoute = false;
-
   let $backend = axios.create({
     baseURL: 'http://127.0.0.1:5000/api/',
     timeout: 5000,
@@ -373,7 +371,6 @@
       travelMode: 'WALKING'
     }, function (response, status) {
       if (status === 'OK') {
-        showingRoute = true;
         store.commit('setAtDestination', false)
 
         directionsDisplay.setDirections(response)
