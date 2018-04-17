@@ -250,7 +250,7 @@
         flex-direction: column
 
     .wrapper
-        max-height: 5vh
+        max-height: 10vh
         width: 80%
         bottom: -10px
         background-color: #E6E6E6
@@ -260,7 +260,7 @@
         flex-flow: column
         border-radius: 40px 40px 0px 0px
         border-style: solid
-        position: fixed
+        position: absolute
         font-size: 1rem
         align-self: center
 
