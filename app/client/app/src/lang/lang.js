@@ -9,7 +9,7 @@ const locale = 'nl'
 const messages = {
     en: {
         message: {
-            visit_store_info: 'Enter the store to get more information on this exhibit',
+            visit_store_info: 'Enter the store for more information',
             select_tour: 'Select a tour',
             destination_looks_like: 'This is what the destination looks like:',
             total: 'total',
@@ -20,7 +20,7 @@ const messages = {
     },
     nl: {
         message: {
-            visit_store_info: 'Bezoek de winkel voor meer informatie over de expositie',
+            visit_store_info: 'Bezoek de winkel voor informatie',
             select_tour: 'Selecteer een tour',
             destination_looks_like: 'Zo ziet de bestemming er uit:',
             total: 'totaal',
