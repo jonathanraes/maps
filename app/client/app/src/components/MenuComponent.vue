@@ -6,9 +6,6 @@
 
                 <div id="menu" class="wrapper" v-show="showmenu">
 
-                <div class="location-error" v-show="locationError">
-                    {{ $t("message.locationError") }}
-                </div>
                 <div class="inner-menu-wrapper" v-show="selectedExhibit">
                     <transition name="expand" >
                             <div v-if="showDestinationImage">
@@ -24,6 +21,9 @@
                     </div>
 
                     <div class="text-wrapper">
+                        <div class="location-error" v-show="locationError">
+                            {{ $t("message.locationError") }}
+                        </div>
 
                         <div class="exhibit-info" v-if="selectedExhibit">
                         <div>
