@@ -7,16 +7,6 @@
                 <div id="menu" class="wrapper" v-show="showmenu">
 
                 <div class="inner-menu-wrapper" v-show="selectedExhibit">
-                    <transition name="expand" >
-                            <div v-if="showDestinationImage">
-                                <div class="destination-image-wrapper">
-                                    <div class="destination-reached-text">{{ $t("message.destination_looks_like") }}</div>
-                                    <div class="destination-image">
-                                        <img src="../assets/img/storefront.png" >
-                                    </div>
-                                </div>
-                            </div>
-                        </transition>
                     <div class="expand-button" id="expand-drag" v-on:click="toggleDestinationImage" draggable="true">
                     </div>
 
@@ -80,7 +70,6 @@
 
             var prevPosition = 0;
             $('.wrapper').draggable({
-                cancel : '.expand-button',
                 start: function (event, ui) {
                     prevPosition = window.innerHeight - ui.offset.top;
                     wrapper.style.maxHeight = wrapper.offsetHeight + 'px';
