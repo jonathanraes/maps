@@ -43,7 +43,14 @@ export default {
 .button
   height: 40vh
   width: 40vw
-  background-color: #A2D762
+  border-radius: 30px
+  background-color: #E6E6E6
+  color: black
+  display: flex
+  text-align: justify
+  flex-flow: column
+  border: 3px solid black
+  font-size: 4rem
 
 
 .background-image
@@ -67,5 +74,6 @@ export default {
   margin-top: 10vh
   z-index: 9
   font-size: 3rem
+  text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white
 
 </style>
