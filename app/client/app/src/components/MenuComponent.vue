@@ -39,7 +39,7 @@
                             <div class="destination-image-wrapper">
                                 <div class="destination-reached-text">{{ $t("message.destination_looks_like") }}</div>
                                 <div class="destination-image">
-                                    <img src="../assets/img/storefront.png" >
+                                    <img v-bind:src ="getImageSrc(selectedExhibit.storeName)" >
                                 </div>
                             </div>
                         </div>
@@ -107,6 +107,10 @@
             },
             nextDestination: function () {
                 MapsComponent.methods.nextDestination();
+            },
+           getImageSrc(name) {
+                var images = require.context('../assets/img/stores/', false, /\.jpg$/);
+                return images('./' + name + ".jpg")
             }
         },
         computed: {
@@ -130,6 +134,9 @@
             },
             language() {
                 return i18n.locale
+            },
+            getImageURL: function () {
+                return 
             }
         },
         getters: {
