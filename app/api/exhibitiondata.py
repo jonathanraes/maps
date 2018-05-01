@@ -7,7 +7,8 @@ locations = {
     'storeNameColumn': 0,
     'addressColumn': 1,
     'objectNameColumn': 2,
-    'infoTextColumn': 3
+    'infoTextColumnNL': 3,
+    'infoTextColumnEN': 4
 }
 exhibitions = []
 
@@ -30,9 +31,18 @@ def read_locationdata():
         next(csvfile) # skip first row
         reader = csv.reader(csvfile, delimiter=',', quotechar='"')
         for row in reader:
-            if row:
+            if row and row[locations['infoTextColumnEN']] != "":
                 exhibitions.append({ 'address': row[locations['addressColumn']],
-                                'infoText': row[locations['infoTextColumn']],
+                                'infoTextNL': row[locations['infoTextColumnNL']],
+                                'infoTextEN': row[locations['infoTextColumnEN']],
+                                'storeName': row[locations['storeNameColumn']],
+                                'objectName': row[locations['objectNameColumn']]
+                                })
+            elif row:
+                # If there is no EN text just use the NL one
+                exhibitions.append({ 'address': row[locations['addressColumn']],
+                                'infoTextNL': row[locations['infoTextColumnNL']],
+                                'infoTextEN': row[locations['infoTextColumnNL']],
                                 'storeName': row[locations['storeNameColumn']],
                                 'objectName': row[locations['objectNameColumn']]
                                 })
