@@ -168,8 +168,10 @@
         exhibits = response.data
         for (let exhibit of exhibits) {
           (function (exhibit) {
-              exhibit.infoText = exhibit.infoText.replace(/(?:\\r\\n|\\r|\\n)/g, "\n"); // Place newlines in infotext
-              exhibit.infoText = unicodeToChar(exhibit.infoText); // Parse unicode sequences
+              exhibit.infoTextNL = exhibit.infoTextNL.replace(/(?:\\r\\n|\\r|\\n)/g, "\n"); // Place newlines in infotext
+              exhibit.infoTextEN = exhibit.infoTextEN.replace(/(?:\\r\\n|\\r|\\n)/g, "\n"); // Place newlines in infotext
+              exhibit.infoTextNL = unicodeToChar(exhibit.infoTextNL); // Parse unicode sequences
+              exhibit.infoTextEN = unicodeToChar(exhibit.infoTextEN); // Parse unicode sequences
 
               var marker = new google.maps.Marker({
               position: exhibit.location,
