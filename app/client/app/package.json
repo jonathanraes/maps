@@ -17,6 +17,7 @@
     "jquery": "^3.3.1",
     "jquery-ui-dist": "^1.12.1",
     "jquery-ui-touch-punch": "^0.2.3",
+    "universal-analytics": "^0.4.16",
     "vue": "^2.4.4",
     "vue-i18n": "^7.6.0",
     "vue-router": "^2.7.0",

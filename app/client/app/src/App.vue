@@ -28,6 +28,11 @@
 <script>
 // import MainMenu from 'components/MainMenu'
 
+// Google analytics
+var ua = require('universal-analytics');
+var visitor = ua('UA-118879648-1');
+visitor.pageview("/").send()
+
 export default {
   name: '',
     components: {
