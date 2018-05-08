@@ -18,3 +18,20 @@ export const app = new Vue({
   mixins: [Mixins],
   components: { App }
 })
+
+// Google Analytics
+var google_analytics = require('./google_analytics.js')
+
+router.onReady(function(){
+	google_analytics.init()
+})
+
+router.beforeEach((to, from, next) => {
+	ga('send', {
+	  hitType: 'pageview',
+	  page: to.path,
+	  location: window.location.origin + to.path,
+	  title: to.name
+	});
+	next();
+})
